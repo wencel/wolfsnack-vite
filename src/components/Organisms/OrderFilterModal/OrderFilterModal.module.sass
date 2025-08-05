@@ -1,0 +1,28 @@
+@use '@/styles/styles.global.sass' as *
+.OrderFilterModal
+  background: #00000096
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  z-index: 100
+.fullWidth
+  width: 100%
+.dateRangePicker
+  width: 100%
+  &> div
+    height: 2em
+    border: none
+    border-bottom: 2px solid $primaryColor
+    background-color: $cardBackground
+    color: $primaryColor
+    width: calc(100% - 0.4em)
+    transition: 0.2s
+    font-size: 1em
+    margin-top: 1em
+    padding: 0 0.2em
+  input
+    color: $primaryColor
+  svg
+    stroke: $primaryColor

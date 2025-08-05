@@ -1,0 +1,11 @@
+body {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+#root {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  font-family: 'Roboto', sans-serif;
+} 

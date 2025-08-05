@@ -1,0 +1,26 @@
+@use '@/styles/styles.global.sass' as *
+.ProductCard
+  margin: 0.5em 0
+  padding-bottom: 3em
+  a
+    color: $primaryColor
+    text-decoration: none
+  .weight, .basePrice, .sellingPrice, .stock
+    display: flex
+    align-items: center
+    margin-bottom: 0.3em
+    font-size: 0.8em
+  .stock
+    color: $primaryColor
+    font-size: 1em
+    span
+      font-size: 0.75em
+  .icon
+    color: $primaryColor
+    margin-right: 7px
+  .buttonContainer
+    position: absolute
+    display: flex
+    grid-gap: 0.5em
+    right: 1em
+    bottom: 1em

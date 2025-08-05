@@ -1,0 +1,38 @@
+@use '@/styles/styles.global.sass' as *
+.Calendar
+  .dateRangePicker
+    width: 100%
+    &> div
+      height: 2em
+      border: none
+      border-bottom: 2px solid $primaryColor
+      background-color: $cardBackground
+      color: $primaryColor
+      width: calc(100% - 0.4em)
+      transition: 0.2s
+      font-size: 1em
+      
+      padding: 0 0.2em
+    input
+      color: $primaryColor
+    svg
+      stroke: $primaryColor
+  .dateRangePickerCalendar
+    background-color: $pageBackground
+    button
+      color: $primaryColor
+    button:disabled 
+      color: $secondaryColor
+      background-color: $cardBackground
+      border-color: $secondaryColor
+    .react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus
+      background: $primaryColor
+      color: $buttonTextColor
+    .react-calendar__month-view__days__day--weekend
+      background: $primaryColor
+    .react-calendar__tile--active
+      background: $primaryColorHover
+      color: $textColor
+    .react-calendar__tile--now
+      background: $buttonTextColor
+      color: $primaryColor 

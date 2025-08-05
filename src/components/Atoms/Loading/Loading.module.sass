@@ -1,0 +1,27 @@
+.Loading
+  background: #00000078
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 100
+  justify-content: center
+  align-items: center
+  visibility: hidden
+  opacity: 0
+  display: flex
+  transition: visibility 0s, opacity 0.2s linear
+  &.visible
+    visibility: visible
+    opacity: 1
+
+@keyframes loadingVisible
+  0%
+    opacity: 0
+    display: none
+  1%
+    display: flex
+    opacity: 0.01
+  100%
+    opacity: 1

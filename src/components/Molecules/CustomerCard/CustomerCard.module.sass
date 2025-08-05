@@ -1,0 +1,26 @@
+@use '@/styles/styles.global.sass' as *
+.CustomerCard
+  margin: 0.5em 0
+  padding-bottom: 3em
+  a
+    color: $primaryColor
+    text-decoration: none
+  .name, .address, .email, .phoneNumber, .idNumber
+    display: flex
+    align-items: center
+    margin-bottom: 0.3em
+  .name
+    font-size: 1em
+  .address
+    font-size: 0.9em
+  .email, .phoneNumber, .idNumber
+    font-size: 0.8em
+  .icon
+    color: $primaryColor
+    margin-right: 7px
+  .buttonContainer
+    position: absolute
+    display: flex
+    grid-gap: 0.5em
+    right: 1em
+    bottom: 1em

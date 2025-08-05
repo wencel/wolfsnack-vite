@@ -1,0 +1,22 @@
+@use '@/styles/styles.global.sass' as *
+.NavigationBar
+  left: 0
+  right: 0
+  padding: 0
+  position: fixed
+  z-index: 11
+  display: flex
+  align-items: center
+  text-align: center
+  grid-gap: 1px
+  overflow: scroll
+  background-color: $primaryColor
+  border-top: 1px solid $primaryColor
+  & > div, > a, > button
+    flex: 1
+  &.bottom
+    bottom: 0
+    border-top: 1px solid $primaryColor
+  &.top
+    top: 3em
+    border-bottom: 1px solid $primaryColor

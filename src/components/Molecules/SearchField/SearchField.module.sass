@@ -1,0 +1,30 @@
+@use '@/styles/styles.global.sass' as *
+.SearchField
+  position: relative
+  .listContainer
+    position: absolute
+    text-align: center
+    z-index: 10
+    left: 0
+    right: 0
+    background-color: $pageBackground
+    margin: 0 1em
+    border-radius: 5px
+    padding: 0
+    max-height: 0px
+    overflow: auto
+    transition: 0.2s
+    &.visible
+      max-height: 200px
+      padding: 1em
+.cancelButton
+  position: absolute;
+  right: 0
+  top: 0.8em
+  background: none
+  border: none
+  font-size: 1.5em
+      color: $primaryColor
+
+.relative
+  position: relative

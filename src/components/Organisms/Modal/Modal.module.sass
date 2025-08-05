@@ -1,0 +1,26 @@
+.Modal
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  z-index: 0
+  opacity: 0
+  visibility: hidden
+  transition: visibility 0.1s step-end, opacity 0.1s ease-in, z-index 0.1s step-end
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 1em
+  .background
+    background: #00000096
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+  &.visible
+    visibility: visible
+    opacity: 1
+    z-index: 100
+    transition: visibility 0.1s step-start, opacity 0.1s linear, z-index 0.1s step-start

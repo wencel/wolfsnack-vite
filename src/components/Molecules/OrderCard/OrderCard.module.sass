@@ -1,0 +1,33 @@
+@use '@/styles/styles.global.sass' as *
+.OrderCard
+  margin: 0.5em 0
+  padding-bottom: 3em
+  a
+    color: $primaryColor
+    text-decoration: none
+  .totalPrice, .products, .date
+    display: flex
+    align-items: center
+    margin-bottom: 0.3em
+    font-size: 1em
+    color: $primaryColor
+    .span
+      color: white
+  .products
+    .span
+      font-size: 0.8em
+  .totalPrice
+    .span
+      font-size: 0.8em
+  .date
+    color: $primaryColor
+    text-transform: capitalize
+  .icon
+    color: $primaryColor
+    margin-right: 7px
+  .buttonContainer
+    position: absolute
+    display: flex
+    grid-gap: 0.5em
+    right: 1em
+    bottom: 1em
