@@ -1,38 +1,37 @@
-@use '@/styles/styles.global.sass' as *
 .Calendar
   .dateRangePicker
     width: 100%
     &> div
       height: 2em
       border: none
-      border-bottom: 2px solid $primaryColor
-      background-color: $cardBackground
-      color: $primaryColor
+      border-bottom: 2px solid var(--primary-color)
+      background-color: var(--card-background)
+      color: var(--primary-color)
       width: calc(100% - 0.4em)
       transition: 0.2s
       font-size: 1em
       
       padding: 0 0.2em
     input
-      color: $primaryColor
+      color: var(--primary-color)
     svg
-      stroke: $primaryColor
+      stroke: var(--primary-color)
   .dateRangePickerCalendar
-    background-color: $pageBackground
+    background-color: var(--page-background)
     button
-      color: $primaryColor
+      color: var(--primary-color)
     button:disabled 
-      color: $secondaryColor
-      background-color: $cardBackground
-      border-color: $secondaryColor
+      color: var(--text-secondary)
+      background-color: var(--card-background)
+      border-color: var(--text-secondary)
     .react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus
-      background: $primaryColor
-      color: $buttonTextColor
+      background: var(--primary-color)
+      color: var(--button-text-color)
     .react-calendar__month-view__days__day--weekend
-      background: $primaryColor
+      background: var(--primary-color)
     .react-calendar__tile--active
-      background: $primaryColorHover
-      color: $textColor
+      background: var(--primary-color-hover)
+      color: var(--text-color)
     .react-calendar__tile--now
-      background: $buttonTextColor
-      color: $primaryColor 
+      background: var(--button-text-color)
+      color: var(--primary-color) 

@@ -15,7 +15,7 @@ const Loading: React.FC<LoadingProps> = ({ className, visible = true }) => {
     [styles.visible]: visible,
   });
   return (
-    <div className={loadingClasses}>
+    <div className={loadingClasses} role='status' aria-label='Loading overlay'>
       <InlineLoading />
     </div>
   );

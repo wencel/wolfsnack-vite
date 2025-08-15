@@ -5,8 +5,6 @@ import styles from './SubCard.module.sass';
 interface SubCardProps {
   children?: React.ReactNode;
   className?: string;
-  description?: string;
-  title?: string | React.ReactNode;
 }
 
 const SubCard: React.FC<SubCardProps> = ({ children, className }) => {

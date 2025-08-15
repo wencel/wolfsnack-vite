@@ -1,13 +1,7 @@
-@use '@/styles/styles.global.sass' as *
-
 .Button
   display: flex
   align-items: center
   cursor: pointer
-  label
-    color: $primaryColor
-    margin-right: 1em
-    cursor: pointer
   button, a
     height: 2.5em
     cursor: pointer
@@ -20,88 +14,105 @@
     padding: 0 2em
     font-weight: 500
     font-size: 0.9em
-    color: $buttonTextColor
-    background-color: $primaryColor
+    color: var(--button-text-color)
+    background-color: var(--primary-color)
     transition: background-color 0.2s ease
     &:hover
-      background-color: $primaryColorHover
+      background-color: var(--primary-color-hover)
       outline: none
     &:focus
-      background-color: $primaryColorHover
+      background-color: var(--primary-color-hover)
       outline: none
     &:active
-      background-color: $primaryColorActive
-      color: $buttonTextColor
+      background-color: var(--primary-color-active)
+      color: var(--button-text-color)
       outline: none
     &.Primary
-      background-color: $primaryColor
+      background-color: var(--primary-color)
       &:hover
-        background-color: $primaryColorHover
+        background-color: var(--primary-color-hover)
       &:focus
-        background-color: $primaryColorHover
+        background-color: var(--primary-color-hover)
       &:active
-        background-color: $primaryColorActive
-        color: $buttonTextColor
+        background-color: var(--primary-color-active)
+        color: var(--button-text-color)
     &.WolfGreen
-      background-color: $primaryColor
-      color: $buttonTextColor
+      background-color: var(--primary-color)
+      color: var(--button-text-color)
       &:hover
-        background-color: $primaryColorHover
+        background-color: var(--primary-color-hover)
       &:focus
-        background-color: $primaryColorHover
+        background-color: var(--primary-color-hover)
       &:active
-        background-color: $primaryColorActive
-        color: $buttonTextColor
+        background-color: var(--primary-color-active)
+        color: var(--button-text-color)
     &.RoundWithLabel
-      background-color: $primaryColor
+      background-color: var(--primary-color)
       height: 2.5em
       width: 2.5em
       border-radius: 50%
       padding: 0 0
-      color: $buttonTextColor
+      color: var(--button-text-color)
       &:hover
-        background-color: $primaryColorHover
+        background-color: var(--primary-color-hover)
       &:active
-        background-color: $primaryColorActive
-        color: $buttonTextColor
+        background-color: var(--primary-color-active)
+        color: var(--button-text-color)
     &.Outline
       width: 100%
       padding: 0.5em
-      border: 1px solid $primaryColor
+      border: 1px solid var(--primary-color)
       background: transparent
-      color: $primaryColor
+      color: var(--primary-color)
       margin: 0.4em 0
       border-radius: 5px
       &:hover
-        background-color: $transparentPrimary
+        background-color: var(--transparent-primary)
     &.BottomNavigation
       height: 4em
       border-radius: 0
       padding: 0
       width: 100%
-      background-color: $primaryColor
-      color: $buttonTextColor
+      background-color: var(--primary-color)
+      color: var(--button-text-color)
       display: flex
       flex-direction: column
       grid-gap: 0.1em
       font-size: 0.7em
-      transition: 0.2s
+      border: 1px solid transparent
+      transition: background-color 0.2s ease, border-color 0.2s ease
       & svg 
         font-size: 1.8em
       &.active
-        background-color: $buttonTextColor
-        color: $primaryColor
-        border: 2px solid $primaryColor
+        background-color: var(--primary-color-active)
+        border-color: var(--primary-color)
       &:active, &:focus, &:hover
-        background-color: $primaryColorActive
-        color: $buttonTextColor
+        background-color: var(--primary-color-hover)
+        border-color: var(--primary-color);
 
 // Loading state styles
 .loading
   cursor: not-allowed
   opacity: 0.7
   pointer-events: none
-
 .loadingText
   margin-left: 0.5em
   font-size: 0.9em
+
+// Tooltip styles
+.tooltip
+  background-color: var(--primary-color)
+  color: var(--button-text-color)
+  padding: 0.5em 0.75em
+  border-radius: 6px
+  font-size: 0.85em
+  font-weight: 500
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
+  animation-duration: 400ms
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1)
+  will-change: transform, opacity
+  z-index: 1000
+
+.tooltipArrow
+  fill: var(--primary-color)
+

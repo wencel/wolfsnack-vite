@@ -47,6 +47,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       defaultValue || ''
     );
 
+    // Generate a unique ID if one isn't provided
+    const generatedId = React.useId();
+    const inputId = id || `input-${generatedId}`;
+
     // Use controlled value if provided, otherwise use internal state
     const value =
       controlledValue !== undefined ? controlledValue : internalValue;
@@ -57,9 +61,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
       >
     ) => {
-      if (isControlled && controlledOnChange) {
+      // Always call the onChange prop if provided
+      if (controlledOnChange) {
         controlledOnChange(e);
-      } else {
+      }
+
+      // Update internal state for uncontrolled inputs
+      if (!isControlled) {
         setInternalValue(e.target.value);
       }
     };
@@ -108,7 +116,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               }
             }}
             className={labelClasses}
-            htmlFor={id}
+            htmlFor={inputId}
           >
             {label}
           </label>
@@ -121,7 +129,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={onChange}
-            id={id}
+            id={inputId}
             value={String(value)}
           >
             {options.map(option => (
@@ -144,7 +152,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={onChange}
-            id={id}
+            id={inputId}
             value={String(value)}
           />
         )}
@@ -154,7 +162,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={onChange}
-            id={id}
+            id={inputId}
             value={String(value)}
             type={type}
             {...restProps}

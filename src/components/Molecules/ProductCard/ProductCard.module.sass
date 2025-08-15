@@ -1,9 +1,8 @@
-@use '@/styles/styles.global.sass' as *
 .ProductCard
   margin: 0.5em 0
   padding-bottom: 3em
   a
-    color: $primaryColor
+    color: var(--primary-color)
     text-decoration: none
   .weight, .basePrice, .sellingPrice, .stock
     display: flex
@@ -11,12 +10,12 @@
     margin-bottom: 0.3em
     font-size: 0.8em
   .stock
-    color: $primaryColor
+    color: var(--primary-color)
     font-size: 1em
     span
       font-size: 0.75em
   .icon
-    color: $primaryColor
+    color: var(--primary-color)
     margin-right: 7px
   .buttonContainer
     position: absolute

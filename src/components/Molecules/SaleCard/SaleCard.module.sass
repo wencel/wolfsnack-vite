@@ -1,16 +1,15 @@
-@use '@/styles/styles.global.sass' as *
 .SaleCard
   margin: 0.5em 0
   padding-bottom: 3em
   a
-    color: $primaryColor
+    color: var(--primary-color)
     text-decoration: none
   .totalPrice, .products, .date
     display: flex
     align-items: center
     margin-bottom: 0.3em
     font-size: 1em
-    color: $primaryColor
+    color: var(--primary-color)
     .span
       color: white
   .products
@@ -20,10 +19,10 @@
     .span
       font-size: 0.8em
   .date
-    color: $primaryColor
+    color: var(--primary-color)
     text-transform: capitalize
   .icon
-    color: $primaryColor
+    color: var(--primary-color)
     margin-right: 7px
   .buttonContainer
     position: absolute

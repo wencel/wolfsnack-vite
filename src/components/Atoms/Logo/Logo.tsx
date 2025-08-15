@@ -16,7 +16,7 @@ const Logo: React.FC<LogoProps> = ({ className, isRound }) => {
 
   return (
     <div className={logoClasses}>
-      <img src='/wolf.jpg' alt='Logo' />
+      <img src='/wolf.svg' alt='Logo' />
     </div>
   );
 };

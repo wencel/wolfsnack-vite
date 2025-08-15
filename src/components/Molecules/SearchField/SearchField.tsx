@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
-import { idGenerator } from '@/utils/utils';
+import { idGenerator } from '@/lib/utils';
 import classnames from 'classnames';
 import styles from './SearchField.module.sass';
 import Input from '@/components/Atoms/Input';

@@ -6,11 +6,18 @@ import type { AxiosError } from 'axios';
 import { apiToast } from '@/lib/toastService';
 import { textConstants } from '@/lib/appConstants';
 import { setLoading, setSubmitting } from '@/store/slices/loadingSlice';
+import { setSubmitError, clearSubmitError } from '@/store/slices/errorSlice';
+import { extractErrorMessage } from '@/lib/errorUtils';
 
 interface LoginCredentials {
   email: string;
   password: string;
   rememberUser: boolean;
+}
+
+interface LoginThunkArg {
+  credentials: LoginCredentials;
+  navigate?: (path: string) => void;
 }
 
 interface AuthState {
@@ -50,18 +57,6 @@ const initialState: AuthState = {
   initialized: false,
 };
 
-// Helper function to extract error message
-const getErrorMessage = (error: AxiosError): string => {
-  if (
-    error.response?.data &&
-    typeof error.response.data === 'object' &&
-    'message' in error.response.data
-  ) {
-    return error.response.data.message as string;
-  }
-  return error.message || 'Request failed';
-};
-
 // Async thunk to check authentication with server
 export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
@@ -82,7 +77,7 @@ export const checkAuth = createAsyncThunk(
       clearStoredToken();
 
       const axiosError = error as AxiosError;
-      return rejectWithValue(getErrorMessage(axiosError));
+      return rejectWithValue(extractErrorMessage(axiosError));
     }
   }
 );
@@ -90,15 +85,19 @@ export const checkAuth = createAsyncThunk(
 // Async thunk for login
 export const loginRequest = createAsyncThunk(
   'auth/loginRequest',
-  async (credentials: LoginCredentials, { dispatch, rejectWithValue }) => {
+  async (
+    { credentials, navigate }: LoginThunkArg,
+    { dispatch, rejectWithValue }
+  ) => {
     try {
       dispatch(setSubmitting(true));
-
+      dispatch(clearSubmitError()); // Clear any previous submit errors
+      console.log('beforeloginRequest', credentials);
       const response = await api.auth.login({
         email: credentials.email,
         password: credentials.password,
       });
-
+      console.log('response', response);
       const data = response.data;
 
       // Store token in storage (source of truth)
@@ -107,10 +106,20 @@ export const loginRequest = createAsyncThunk(
       // Show success toast
       apiToast.success(textConstants.login.LOGIN_SUCCESS);
 
+      // Navigate to customers page after successful login
+      if (navigate) {
+        navigate('/customers');
+      }
+
       return data;
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(getErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for form to display
+      dispatch(setSubmitError(errorMessage));
+
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setSubmitting(false));
     }
@@ -133,7 +142,7 @@ export const logoutRequest = createAsyncThunk(
       return true;
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(getErrorMessage(axiosError));
+      return rejectWithValue(extractErrorMessage(axiosError));
     } finally {
       dispatch(setLoading(false));
     }

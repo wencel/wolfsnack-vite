@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '@/components/Atoms/Card';
 import Input from '@/components/Atoms/Input';
 import Checkbox from '@/components/Atoms/Checkbox';
@@ -7,10 +8,11 @@ import { textConstants } from '@/lib/appConstants';
 import Form from '@/components/Atoms/Form';
 import { useAppDispatch } from '@/store/hooks';
 import { loginRequest, clearError } from '@/store/slices/authSlice';
-import styles from './Login.module.sass';
+import styles from './LoginPage.module.sass';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +25,12 @@ const LoginPage = () => {
 
   const submitLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginRequest({ email, password, rememberUser }));
+    dispatch(
+      loginRequest({
+        credentials: { email, password, rememberUser },
+        navigate,
+      })
+    );
   };
 
   const editEmail = (

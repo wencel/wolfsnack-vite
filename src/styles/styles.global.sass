@@ -1,15 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap')
 
-// Vibrant Green Color Palette - Semantic Variable Names
-$pageBackground: #f0fdf4
-$cardBackground: #ffffff
-$primaryColor: #10b981
-$primaryColorHover: #059669
-$primaryColorActive: #047857
-$buttonTextColor: #ffffff
-$textColor: #064e3b
-$secondaryColor: #6b7280
-$transparentPrimary: #10b98180
+// Wolf Snacks Teal Theme - Based on Logo Design
+// Light backgrounds with teal accents
+
+// Primary Colors (keeping existing variable names)
+$pageBackground: #f0f7f9  // Very light teal-tinted background
+$cardBackground: #ffffff  // Light green for cards (more contrast)
+$primaryColor: #1A434E    // Dark teal from logo background
+$primaryColorHover: #8FB83A   // Lighter teal for hover
+$primaryColorActive: #9BC547  // Medium teal for active state
+$buttonTextColor: #ffffff     // White text on teal buttons
+$textColor: #1f2937          // Dark gray for primary text (excellent contrast)
+$secondaryColor: #9ca3af     // Light gray for secondary elements and input borders
+$transparentPrimary: rgba(26, 67, 78, 0.1)  // Very light teal overlay
+$errorColor: #dc2626
+$errorBackground: #fef2f2
+$errorBorder: #fecaca 
+
+// CSS Custom Properties for use throughout the app
+:root
+  // Background colors
+  --page-background: #{$pageBackground}
+  --card-background: #{$cardBackground}
+  
+  // Primary colors
+  --primary-color: #{$primaryColor}
+  --primary-color-hover: #{$primaryColorHover}
+  --primary-color-active: #{$primaryColorActive}
+  
+  // Text colors
+  --text-color: #{$textColor}
+  --text-secondary: #{$secondaryColor}
+  --button-text-color: #{$buttonTextColor}
+  
+  // Transparent overlays
+  --transparent-primary: #{$transparentPrimary}
+  
+  // Error colors
+  --error-color: #{$errorColor}
+  --error-background: #{$errorBackground}
+  --error-border: #{$errorBorder}
 
 div.Snackbar_snackbar-wrapper
   z-index: 20

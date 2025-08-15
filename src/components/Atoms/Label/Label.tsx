@@ -12,7 +12,11 @@ const Label: React.FC<LabelProps> = ({ children, className }) => {
     [className as string]: !!className,
     [styles.Label]: true,
   });
-  return <label className={labelClasses}>{children}</label>;
+  return (
+    <label className={labelClasses} role='label'>
+      {children}
+    </label>
+  );
 };
 
 export default Label;

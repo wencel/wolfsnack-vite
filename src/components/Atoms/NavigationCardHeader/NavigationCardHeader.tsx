@@ -2,6 +2,7 @@ import React from 'react';
 import { IoIosArrowDropright } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import styles from './NavigationCardHeader.module.sass';
+import classNames from 'classnames';
 
 interface NavigationCardHeaderProps {
   header?: string | React.ReactNode;
@@ -15,12 +16,9 @@ const NavigationCardHeader: React.FC<NavigationCardHeaderProps> = ({
   className,
   ...restProps
 }) => {
+  const classes = classNames(styles.NavigationCardHeader, className);
   return (
-    <Link
-      to={href}
-      className={className || styles.NavigationCardHeader}
-      {...restProps}
-    >
+    <Link to={href} className={classes} {...restProps}>
       <div className={styles.title}>{header}</div>
       <div className={styles.icon}>
         <IoIosArrowDropright />

@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
 import type { AxiosError } from 'axios';
+import { extractErrorMessage } from './errorUtils';
 
 // Toast configuration
 const toastConfig = {
@@ -34,54 +35,9 @@ const errorToastConfig = {
   icon: '❌',
 };
 
-// Extract error message from Axios error
-export const extractErrorMessage = (error: AxiosError): string => {
-  console.log(error);
-  if (
-    error.response?.data &&
-    typeof error.response.data === 'object' &&
-    'message' in error.response.data
-  ) {
-    return error.response.data.message as string;
-  }
-
-  if (
-    error.response?.data &&
-    typeof error.response.data === 'object' &&
-    'error' in error.response.data
-  ) {
-    return error.response.data.error as string;
-  }
-
-  // Handle different HTTP status codes
-  switch (error.response?.status) {
-    case 400:
-      return 'Bad request. Please check your input.';
-    case 401:
-      return 'Unauthorized. Please log in again.';
-    case 403:
-      return "Access forbidden. You don't have permission.";
-    case 404:
-      return 'Resource not found.';
-    case 409:
-      return 'Conflict. This resource already exists.';
-    case 422:
-      return 'Validation error. Please check your input.';
-    case 500:
-      return 'Server error. Please try again later.';
-    case 502:
-      return 'Bad gateway. Please try again later.';
-    case 503:
-      return 'Service unavailable. Please try again later.';
-    default:
-      return error.message || 'An unexpected error occurred.';
-  }
-};
-
 // Show error toast
 export const showErrorToast = (error: AxiosError | string): void => {
-  const message =
-    typeof error === 'string' ? error : extractErrorMessage(error);
+  const message = extractErrorMessage(error);
   toast.error(message, errorToastConfig);
 };
 

@@ -1,4 +1,3 @@
-@use '@/styles/styles.global.sass' as *
 .Checkbox 
     position: relative
     display: flex
@@ -14,18 +13,18 @@
         -moz-appearance: none
         position: relative
         outline: none
-        background: $pageBackground
+        background: var(--page-background)
         border: none
         margin: 0
         padding: 0
         cursor: pointer
         border-radius: 4px
         transition: box-shadow .3s
-        box-shadow: inset 0 0 0 1px $secondaryColor
+        box-shadow: inset 0 0 0 1px var(--text-secondary)
         &:hover 
-            box-shadow: inset 0 0 0 2px $primaryColorActive
+            box-shadow: inset 0 0 0 2px var(--primary-color-active)
         &:checked 
-            box-shadow: inset 0 0 0 1px $primaryColor
+            box-shadow: inset 0 0 0 1px var(--primary-color)
     
     svg 
         pointer-events: none
@@ -33,7 +32,7 @@
         stroke-width: 2px
         stroke-linecap: round
         stroke-linejoin: round
-        stroke: var(--stroke, $primaryColor)
+        stroke: var(--stroke, var(--primary-color))
         position: absolute
         top: 0
         left: 0
@@ -58,7 +57,7 @@
             stroke-dashoffset: var(--o, 86.12)
             transition: stroke-dasharray .6s, stroke-dashoffset .6s
     &.bounce 
-        --stroke: $pageBackground
+        --stroke: var(--page-background)
         input 
             &:checked 
                 --s: 11px

@@ -134,11 +134,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className={styles.buttonContainer}>
           <Link to={`/products/${product._id}`}>
-            <Button theme='RoundWithLabel'>
+            <Button
+              theme='RoundWithLabel'
+              tooltip={textConstants.product.EDIT_PRODUCT}
+            >
               <RiEditLine />
             </Button>
           </Link>
-          <Button theme='RoundWithLabel' onClick={showDeleteProductModal}>
+          <Button
+            theme='RoundWithLabel'
+            onClick={showDeleteProductModal}
+            tooltip={textConstants.product.DELETE_PRODUCT}
+          >
             <RiDeleteBinLine />
           </Button>
         </div>

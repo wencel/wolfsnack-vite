@@ -9,7 +9,7 @@ import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { BiCalendarAlt } from 'react-icons/bi';
 import { RiDeleteBinLine, RiEditLine } from 'react-icons/ri';
 import { textConstants } from '@/lib/appConstants';
-import { calculateTotalPriceProduct } from '@/utils/utils';
+import { calculateTotalPriceProduct } from '@/lib/utils';
 import Button from '@/components/Atoms/Button/Button';
 import Card from '@/components/Atoms/Card';
 import Divider from '@/components/Atoms/Divider';
@@ -253,11 +253,18 @@ const SaleCard: React.FC<SaleCardProps> = ({
         </div>
         <div className={styles.buttonContainer}>
           <Link to={`/sales/${sale._id}`}>
-            <Button theme='RoundWithLabel'>
+            <Button
+              theme='RoundWithLabel'
+              tooltip={textConstants.sale.EDIT_SALE}
+            >
               <RiEditLine />
             </Button>
           </Link>
-          <Button theme='RoundWithLabel' onClick={showDeleteSaleModal}>
+          <Button
+            theme='RoundWithLabel'
+            onClick={showDeleteSaleModal}
+            tooltip={textConstants.sale.DELETE_SALE}
+          >
             <RiDeleteBinLine />
           </Button>
         </div>

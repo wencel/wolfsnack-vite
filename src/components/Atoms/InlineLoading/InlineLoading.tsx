@@ -13,7 +13,7 @@ const InlineLoading: React.FC<InlineLoadingProps> = ({ className }) => {
     [styles.loadingRipple]: true,
   });
   return (
-    <div className={loadingClasses}>
+    <div className={loadingClasses} data-testid="inline-loading">
       <div />
       <div />
     </div>

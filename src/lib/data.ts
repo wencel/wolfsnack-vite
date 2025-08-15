@@ -17,13 +17,13 @@ export interface Customer {
   _id: string;
   name?: string;
   email?: string;
-  address: string;
-  storeName: string;
-  phoneNumber: string;
+  address: string; // required
+  storeName: string; // required
+  phoneNumber: string; // required
   secondaryPhoneNumber?: string;
-  locality?: string;
-  town?: string;
-  idNumber?: string;
+  locality?: string; // enum from localities, not required
+  town?: string; // not required
+  idNumber?: string; // string, not number
   user: string;
   createdAt: string;
   updatedAt: string;

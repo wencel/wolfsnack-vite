@@ -1,15 +1,15 @@
-@use '@/styles/styles.global.sass' as *
 .Navbar
   height: 3em
-  background-color: $cardBackground
+  background-color: var(--card-background)
   padding: 0 0.5em
   width: calc(100% - 1em)
   position: fixed
   z-index: 10
-  border-bottom: 1px solid $primaryColor
+  border-bottom: 1px solid var(--primary-color)
   display: flex
   align-items: center
   justify-content: space-between
+  color: var(--primary-color)
   .logout
     display: flex
     align-items: center

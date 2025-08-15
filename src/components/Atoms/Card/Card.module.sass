@@ -1,15 +1,23 @@
-@use '@/styles/styles.global.sass' as *
 .Card
-  background-color: $cardBackground
+  background-color: var(--card-background)
   padding: 1em 1.5em
   border-radius: 5px
   position: relative
+  margin: 0.5em 0
+  &:first-child
+    margin-top: 0
+  &:last-child
+    margin-bottom: 0
+  a
+    text-decoration: none
   .title
     text-transform: uppercase
     top: 1.4em
     left: 1.4em
-    color: $primaryColor
+    color: var(--primary-color-active)
+    font-weight: 500
     font-family: 'Montserrat', sans-serif 
   .description
     margin-top: 1em
     font-size: 0.9em
+    color: var(--primary-color)

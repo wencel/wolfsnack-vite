@@ -2,6 +2,18 @@ const lighterWolfGreen = '#007f99';
 const brightGreen = '#05e8b8';
 
 export const textConstants = {
+  pageTitles: {
+    HOME: 'Inicio',
+    LOGIN: 'Iniciar sesión',
+    CUSTOMERS: 'Clientes',
+    ADD_CUSTOMER: 'Agregar cliente',
+    EDIT_CUSTOMER: 'Editar cliente',
+    CUSTOMER_DETAILS: 'Detalles del cliente',
+    PRODUCTS: 'Productos',
+    ORDERS: 'Pedidos',
+    SALES: 'Ventas',
+    NOT_FOUND: 'Página no encontrada',
+  },
   login: {
     EMAIL_LABEL: 'Correo Electrónico',
     PASSWORD_LABEL: 'Contraseña',
@@ -23,7 +35,7 @@ export const textConstants = {
   addCustomer: {
     TITLE: 'Agregar nuevo cliente',
     ADD_CUSTOMER: 'Agregar cliente',
-    ADD_CUSTOMER_SUCCESS: 'Cliente agregado exitosamente',
+    ADD_CUSTOMER_SUCCESS: 'Cliente creado exitosamente',
     ADD_CUSTOMER_ERROR: 'Error al agregar cliente',
   },
   addProduct: {
@@ -31,14 +43,14 @@ export const textConstants = {
     ADD_PRODUCT: 'Agregar producto',
     WARNING_EDIT:
       'Los campos Nombre, Presentacion y Peso no pueden ser editados',
-    ADD_PRODUCT_SUCCESS: 'Producto agregado exitosamente',
+    ADD_PRODUCT_SUCCESS: 'Producto creado exitosamente',
     ADD_PRODUCT_ERROR: 'Error al agregar producto',
   },
   addOrder: {
     TITLE: 'Agregar pedido',
     ADD_ORDER: 'Agregar pedido',
     ADD_PRODUCT: 'Agregar producto',
-    ADD_ORDER_SUCCESS: 'Pedido agregado exitosamente',
+    ADD_ORDER_SUCCESS: 'Pedido creado exitosamente',
     ADD_ORDER_ERROR: 'Error al agregar pedido',
   },
   addSale: {
@@ -46,7 +58,7 @@ export const textConstants = {
     ADD_SALE: 'Agregar venta',
     ADD_PRODUCT: 'Agregar producto',
     SEARCH_CUSTOMER: 'Buscar cliente',
-    ADD_SALE_SUCCESS: 'Venta agregada exitosamente',
+    ADD_SALE_SUCCESS: 'Venta creada exitosamente',
     ADD_SALE_ERROR: 'Error al agregar venta',
   },
   editCustomer: {
@@ -79,6 +91,8 @@ export const textConstants = {
     LOCALITY: 'Localidad',
     TOWN: 'Barrio',
     ID_NUMBER: 'Cedula o NIT',
+    DELETE_CUSTOMER: 'Eliminar cliente',
+    EDIT_CUSTOMER: 'Editar cliente',
   },
   product: {
     NAME: 'Nombre',
@@ -87,6 +101,8 @@ export const textConstants = {
     BASE_PRICE: 'Precio base',
     SELLING_PRICE: 'Precio de venta',
     STOCK: 'Cantidad en inventario',
+    DELETE_PRODUCT: 'Eliminar producto',
+    EDIT_PRODUCT: 'Editar producto',
   },
   order: {
     TOTAL_PRICE: 'Total',
@@ -96,6 +112,8 @@ export const textConstants = {
     QUANTITY: 'Cantidad',
     PRODUCT: 'Producto',
     PRODUCTS: 'Productos',
+    DELETE_ORDER: 'Eliminar pedido',
+    EDIT_ORDER: 'Editar pedido',
   },
   sale: {
     TOTAL_PRICE: 'Total',
@@ -110,6 +128,8 @@ export const textConstants = {
     PRODUCT: 'Producto',
     PRODUCTS: 'Productos',
     CUSTOMER: 'Cliente',
+    DELETE_SALE: 'Eliminar venta',
+    EDIT_SALE: 'Editar venta',
   },
   customerPage: {
     TITLE: 'Clientes',
@@ -174,6 +194,9 @@ export const textConstants = {
     SEARCH_SALE_ERROR: 'Error al buscar venta',
   },
   misc: {
+    CUSTOMER_NOT_FOUND: 'Cliente no encontrado',
+    CUSTOMER_NOT_FOUND_DESCRIPTION:
+      'El cliente que buscas no existe, puedes agregar uno nuevo con el botón en la parte de arriba',
     SAVE: 'Guardar',
     EDIT: 'Editar',
     DELETE: 'Eliminar',
@@ -195,6 +218,11 @@ export const textConstants = {
     ASCENDING: 'Ascendente',
     DESCENDING: 'Descendente',
     BACK: 'Atras',
+    NO_CUSTOMER_ID: 'No se proporcionó un ID de cliente',
+    SUBMITTING: 'Enviando...',
+    SUBMIT: 'Enviar',
+    BUTTON_TEXT: 'Botón',
+    LOADING: 'Cargando...',
   },
   navbar: {
     SALES: 'Ventas',

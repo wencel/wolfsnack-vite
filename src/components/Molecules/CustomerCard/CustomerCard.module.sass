@@ -1,10 +1,9 @@
-@use '@/styles/styles.global.sass' as *
 .CustomerCard
-  margin: 0.5em 0
   padding-bottom: 3em
-  a
-    color: $primaryColor
-    text-decoration: none
+  color: var(--primary-color)
+  .phoneNumber, .email
+    a
+      color: var(--primary-color)
   .name, .address, .email, .phoneNumber, .idNumber
     display: flex
     align-items: center
@@ -16,7 +15,7 @@
   .email, .phoneNumber, .idNumber
     font-size: 0.8em
   .icon
-    color: $primaryColor
+    color: var(--primary-color)
     margin-right: 7px
   .buttonContainer
     position: absolute

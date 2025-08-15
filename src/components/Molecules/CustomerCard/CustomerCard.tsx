@@ -145,12 +145,19 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
           ''
         )}
         <div className={styles.buttonContainer}>
-          <Link to={`/customers/${customer._id}`}>
-            <Button theme='RoundWithLabel'>
+          <Link to={`/customers/${customer._id}/edit`}>
+            <Button
+              theme='RoundWithLabel'
+              tooltip={textConstants.customer.EDIT_CUSTOMER}
+            >
               <RiEditLine />
             </Button>
           </Link>
-          <Button theme='RoundWithLabel' onClick={showDeleteCustomerModal}>
+          <Button
+            theme='RoundWithLabel'
+            onClick={showDeleteCustomerModal}
+            tooltip={textConstants.customer.DELETE_CUSTOMER}
+          >
             <RiDeleteBinLine />
           </Button>
         </div>

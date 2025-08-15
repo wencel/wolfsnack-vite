@@ -22,7 +22,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     .join(' ');
 
   return (
-    <div className={spinnerClasses}>
+    <div className={spinnerClasses} role='status' aria-label='Loading'>
       <div className={styles.spinnerInner}></div>
     </div>
   );

@@ -198,11 +198,18 @@ const OrderCard: React.FC<OrderCardProps> = ({
         </div>
         <div className={styles.buttonContainer}>
           <Link to={`/orders/${order._id}`}>
-            <Button theme='RoundWithLabel'>
+            <Button
+              theme='RoundWithLabel'
+              tooltip={textConstants.order.EDIT_ORDER}
+            >
               <RiEditLine />
             </Button>
           </Link>
-          <Button theme='RoundWithLabel' onClick={showDeleteOrderModal}>
+          <Button
+            theme='RoundWithLabel'
+            onClick={showDeleteOrderModal}
+            tooltip={textConstants.order.DELETE_ORDER}
+          >
             <RiDeleteBinLine />
           </Button>
         </div>

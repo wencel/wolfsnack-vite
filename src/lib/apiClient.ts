@@ -1,11 +1,8 @@
-import axios from 'axios';
-import type {
-  AxiosInstance,
-  InternalAxiosRequestConfig,
-  AxiosResponse,
+import axios, {
+  type AxiosResponse,
+  type InternalAxiosRequestConfig,
 } from 'axios';
-import type { User, Customer, Product, Order, Sale } from '@/lib/data';
-import { apiToast } from './toastService';
+import type { Customer, Product, Order, Sale, User } from './data';
 import { store } from '@/store';
 
 // Extend the config type to include metadata
@@ -46,7 +43,7 @@ interface PaginatedResponse<T> {
 }
 
 // Create axios instance
-const apiClient: AxiosInstance = axios.create({
+const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   timeout: 10000,
   headers: {
@@ -101,9 +98,6 @@ apiClient.interceptors.response.use(
     return response;
   },
   error => {
-    // Show error toast for all failed requests
-    apiToast.error(error);
-
     // Handle 401 Unauthorized - clear token and redirect to login
     if (error.response?.status === 401) {
       // Clear from storage (source of truth)
@@ -135,7 +129,7 @@ export const api = {
     login: (credentials: LoginCredentials) =>
       apiClient.post<LoginResponse>('/users/login', credentials),
 
-    checkAuth: () => apiClient.get<User>('/users/me'), // Returns User object, not LoginResponse
+    checkAuth: () => apiClient.get<User>('/users/me'),
 
     logout: () => apiClient.post('/users/logout'),
   },
@@ -155,7 +149,7 @@ export const api = {
     create: (data: Omit<Customer, '_id'>) =>
       apiClient.post<Customer>('/customers', data),
     update: (id: string, data: Partial<Customer>) =>
-      apiClient.put<Customer>(`/customers/${id}`, data),
+      apiClient.patch<Customer>(`/customers/${id}`, data),
     delete: (id: string) => apiClient.delete(`/customers/${id}`),
   },
 
@@ -167,7 +161,7 @@ export const api = {
     create: (data: Omit<Product, '_id'>) =>
       apiClient.post<Product>('/products', data),
     update: (id: string, data: Partial<Product>) =>
-      apiClient.put<Product>(`/products/${id}`, data),
+      apiClient.patch<Product>(`/products/${id}`, data),
     delete: (id: string) => apiClient.delete(`/products/${id}`),
   },
 
@@ -179,7 +173,7 @@ export const api = {
     create: (data: Omit<Order, '_id'>) =>
       apiClient.post<Order>('/orders', data),
     update: (id: string, data: Partial<Order>) =>
-      apiClient.put<Order>(`/orders/${id}`, data),
+      apiClient.patch<Order>(`/orders/${id}`, data),
     delete: (id: string) => apiClient.delete(`/orders/${id}`),
   },
 
@@ -190,7 +184,7 @@ export const api = {
     getById: (id: string) => apiClient.get<Sale>(`/sales/${id}`),
     create: (data: Omit<Sale, '_id'>) => apiClient.post<Sale>('/sales', data),
     update: (id: string, data: Partial<Sale>) =>
-      apiClient.put<Sale>(`/sales/${id}`, data),
+      apiClient.patch<Sale>(`/sales/${id}`, data),
     delete: (id: string) => apiClient.delete(`/sales/${id}`),
   },
 

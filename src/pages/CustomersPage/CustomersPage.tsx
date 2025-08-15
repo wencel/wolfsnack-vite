@@ -10,7 +10,6 @@ import { textConstants } from '@/lib/appConstants';
 import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
 import useLoading from '@/hooks/useLoading';
 import useCustomers from '@/hooks/useCustomers';
-
 import styles from './CustomersPage.module.sass';
 
 const CustomersPage: React.FC = () => {
@@ -133,6 +132,11 @@ const CustomersPage: React.FC = () => {
         <TopActions
           buttons={[
             {
+              text: textConstants.addCustomer.ADD_CUSTOMER,
+              icon: <MdPersonAdd />,
+              href: '/customers/new',
+            },
+            {
               text: textConstants.misc.FILTERS,
               icon: <RiFilterLine />,
               onClick: () => setShowFiltersModal(true),
@@ -141,11 +145,6 @@ const CustomersPage: React.FC = () => {
               text: textConstants.misc.RESET_FILTERS,
               icon: <RiFilterOffLine />,
               onClick: resetFilters,
-            },
-            {
-              text: textConstants.addCustomer.ADD_CUSTOMER,
-              icon: <MdPersonAdd />,
-              href: '/customers/new',
             },
           ]}
         />

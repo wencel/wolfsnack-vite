@@ -1,10 +1,8 @@
 import React from 'react';
-import type { Ref } from 'react';
 import classnames from 'classnames';
 import styles from './PageContainer.module.sass';
 
 interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  containerRef?: Ref<HTMLDivElement>;
   children?: React.ReactNode;
   className?: string;
 }
@@ -12,7 +10,6 @@ interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 const PageContainer: React.FC<PageContainerProps> = ({
   children,
   className,
-  containerRef,
   onScroll,
   ...restProps
 }) => {
@@ -22,9 +19,9 @@ const PageContainer: React.FC<PageContainerProps> = ({
   });
   return (
     <div
-      ref={containerRef}
       className={containerClasses}
       onScroll={onScroll}
+      data-testid='page-container'
       {...restProps}
     >
       {children}
