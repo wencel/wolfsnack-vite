@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@/test/test-utils';
+import { testRender, screen } from '@/test/test-utils';
 import Card from './Card';
 import styles from './Card.module.sass';
 
 describe('Card Component', () => {
   it('renders card with title and description', () => {
-    render(
+    testRender(
       <Card title='Test Title' description='Test Description'>
         Card Content
       </Card>
@@ -17,21 +17,21 @@ describe('Card Component', () => {
   });
 
   it('renders card with only title', () => {
-    render(<Card title='Test Title' />);
+    testRender(<Card title='Test Title' />);
 
     expect(screen.getByText('Test Title')).toBeVisible();
     expect(screen.queryByText('Test Description')).not.toBeInTheDocument();
   });
 
   it('renders card with only description', () => {
-    render(<Card description='Test Description' />);
+    testRender(<Card description='Test Description' />);
 
     expect(screen.getByText('Test Description')).toBeVisible();
     expect(screen.queryByText('Test Title')).not.toBeInTheDocument();
   });
 
   it('renders card without title or description', () => {
-    render(<Card>Card Content</Card>);
+    testRender(<Card>Card Content</Card>);
 
     expect(screen.getByText('Card Content')).toBeVisible();
     expect(screen.queryByText('Test Title')).not.toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('Card Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-card-class';
-    render(<Card className={customClass}>Card Content</Card>);
+    testRender(<Card className={customClass}>Card Content</Card>);
 
     const card = screen.getByText('Card Content').closest('div');
     expect(card).toHaveClass(customClass);
@@ -48,7 +48,7 @@ describe('Card Component', () => {
   });
 
   it('renders divider when children are present', () => {
-    render(<Card>Card Content</Card>);
+    testRender(<Card>Card Content</Card>);
 
     // Check if Divider component is rendered (it should be present when children exist)
     const card = screen.getByText('Card Content').closest('div');
@@ -56,7 +56,7 @@ describe('Card Component', () => {
   });
 
   it('does not render divider when no children', () => {
-    render(<Card title='Test Title' description='Test Description' />);
+    testRender(<Card title='Test Title' description='Test Description' />);
 
     // When no children, divider should not be rendered
     expect(screen.getByText('Test Title')).toBeVisible();
@@ -67,7 +67,7 @@ describe('Card Component', () => {
     const titleNode = <span>Custom Title</span>;
     const descriptionNode = <em>Custom Description</em>;
 
-    render(
+    testRender(
       <Card title={titleNode} description={descriptionNode}>
         Card Content
       </Card>
@@ -79,7 +79,7 @@ describe('Card Component', () => {
   });
 
   it('has correct DOM structure', () => {
-    render(
+    testRender(
       <Card title='Test Title' description='Test Description'>
         Card Content
       </Card>
@@ -96,7 +96,7 @@ describe('Card Component', () => {
   });
 
   it('handles empty children gracefully', () => {
-    render(
+    testRender(
       <Card title='Test Title' description='Test Description'>
         {null}
       </Card>
@@ -107,14 +107,14 @@ describe('Card Component', () => {
   });
 
   it('handles undefined className gracefully', () => {
-    render(<Card className={undefined}>Card Content</Card>);
+    testRender(<Card className={undefined}>Card Content</Card>);
 
     const card = screen.getByText('Card Content').closest('div');
     expect(card).toHaveClass(styles.Card);
   });
 
   it('renders multiple children correctly', () => {
-    render(
+    testRender(
       <Card title='Test Title'>
         <div>Child 1</div>
         <div>Child 2</div>

@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { type ReactElement } from 'react';
-import { render, type RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import {  MemoryRouter, Routes, Route } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from '@/store/slices/authSlice';
@@ -28,46 +28,63 @@ const createTestStore = (preloadedState = {}) => {
   });
 };
 
-// Custom render function that includes providers
-interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+interface TestRenderOptions {
   preloadedState?: Partial<RootState>;
-  route?: string;
+  initialEntries?: string[];
+  mountPath?: string;
+  routes?: Array<{ path: string; element: React.ReactElement }>;
 }
 
-const AllTheProviders = ({
-  children,
-  preloadedState = {},
-  route = '/',
-}: {
-  children: React.ReactNode;
-  preloadedState?: Partial<RootState>;
-  route?: string;
-}) => {
+const testRender = (
+  ui: ReactElement,
+  options: TestRenderOptions = {}
+) => {
+  const {
+    preloadedState = {},
+    initialEntries = ['/'],
+    mountPath = '/',
+    routes = [],
+  } = options;
+
   const store = createTestStore(preloadedState);
 
-  // Set up router with initial route
-  window.history.pushState({}, 'Test page', route);
-
-  return (
+  const result = render(
     <Provider store={store}>
       <ToastProvider>
-        <BrowserRouter>{children}</BrowserRouter>
+        <MemoryRouter initialEntries={initialEntries}>
+          <Routes>
+            <Route path={mountPath} element={ui} />
+            {routes.map(({ path, element }) => (
+              <Route key={path} path={path} element={element} />
+            ))}
+          </Routes>
+        </MemoryRouter>
       </ToastProvider>
     </Provider>
   );
-};
 
-const customRender = (ui: ReactElement, options: CustomRenderOptions = {}) => {
-  const { preloadedState, route, ...renderOptions } = options;
+  // Create a custom rerender function that maintains the same context
+  const testRerender = (newUi: ReactElement) => {
+    return result.rerender(
+      <Provider store={store}>
+        <ToastProvider>
+          <MemoryRouter initialEntries={initialEntries}>
+            <Routes>
+              <Route path={mountPath} element={newUi} />
+              {routes.map(({ path, element }) => (
+                <Route key={path} path={path} element={element} />
+              ))}
+            </Routes>
+          </MemoryRouter>
+        </ToastProvider>
+      </Provider>
+    );
+  };
 
-  return render(ui, {
-    wrapper: ({ children }) => (
-      <AllTheProviders preloadedState={preloadedState} route={route}>
-        {children}
-      </AllTheProviders>
-    ),
-    ...renderOptions,
-  });
+  return {
+    ...result,
+    testRerender,
+  };
 };
 
 // Mock axios methods for the apiClient
@@ -124,5 +141,5 @@ const resetAxiosMocks = () => {
 
 // Re-export everything
 export * from '@testing-library/react';
-export { customRender as render };
+export { testRender };
 export { createTestStore, mockAxios, resetAxiosMocks };

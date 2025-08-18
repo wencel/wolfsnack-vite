@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@/test/test-utils';
+import { testRender, screen, fireEvent } from '@/test/test-utils';
 import Form from './Form';
 import styles from './Form.module.sass';
 
@@ -42,7 +42,7 @@ describe('Form Component', () => {
   });
 
   it('renders form with children', () => {
-    render(
+    testRender(
       <Form>
         <input type='text' placeholder='Test input' />
         <label>Test label</label>
@@ -57,7 +57,7 @@ describe('Form Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-form-class';
-    render(<Form className={customClass} />);
+    testRender(<Form className={customClass} />);
 
     const form = screen.getByRole('form');
     expect(form).toHaveClass(customClass);
@@ -65,7 +65,7 @@ describe('Form Component', () => {
   });
 
   it('applies default Form class when no custom className', () => {
-    render(<Form />);
+    testRender(<Form />);
 
     const form = screen.getByRole('form');
     expect(form).toHaveClass(styles.Form);
@@ -73,21 +73,21 @@ describe('Form Component', () => {
   });
 
   it('handles undefined className gracefully', () => {
-    render(<Form className={undefined} />);
+    testRender(<Form className={undefined} />);
 
     const form = screen.getByRole('form');
     expect(form).toHaveClass(styles.Form);
   });
 
   it('handles falsy className values', () => {
-    render(<Form className='' />);
+    testRender(<Form className='' />);
 
     const form = screen.getByRole('form');
     expect(form).toHaveClass(styles.Form);
   });
 
   it('always renders submit button with default text when no buttonProps provided', () => {
-    render(<Form />);
+    testRender(<Form />);
 
     const submitButton = screen.getByRole('button', { name: /enviar/i });
     expect(submitButton).toBeVisible();
@@ -100,7 +100,7 @@ describe('Form Component', () => {
       className: 'primary-btn',
     };
 
-    render(<Form buttonProps={buttonProps} />);
+    testRender(<Form buttonProps={buttonProps} />);
 
     const submitButton = screen.getByRole('button', { name: /submit form/i });
     expect(submitButton).toBeVisible();
@@ -117,7 +117,7 @@ describe('Form Component', () => {
       className: 'secondary-btn',
     };
 
-    render(<Form secondButtonProps={secondButtonProps} />);
+    testRender(<Form secondButtonProps={secondButtonProps} />);
 
     const cancelButton = screen.getByRole('button', { name: /cancel/i });
     expect(cancelButton).toBeVisible();
@@ -132,7 +132,7 @@ describe('Form Component', () => {
     const buttonProps = { buttonText: 'Submit' };
     const secondButtonProps = { buttonText: 'Cancel' };
 
-    render(
+    testRender(
       <Form buttonProps={buttonProps} secondButtonProps={secondButtonProps} />
     );
 
@@ -147,7 +147,7 @@ describe('Form Component', () => {
       generalError: null,
     });
 
-    render(<Form />);
+    testRender(<Form />);
 
     const errorElement = screen.getByText(errorMessage);
     expect(errorElement).toBeVisible();
@@ -160,7 +160,7 @@ describe('Form Component', () => {
       generalError: null,
     });
 
-    render(<Form />);
+    testRender(<Form />);
 
     expect(
       screen.queryByText(/form submission failed/i)
@@ -179,7 +179,7 @@ describe('Form Component', () => {
 
     const buttonProps = { buttonText: 'Submit' };
     const submittingText = 'Submitting...';
-    render(<Form buttonProps={buttonProps} submittingText={submittingText} />);
+    testRender(<Form buttonProps={buttonProps} submittingText={submittingText} />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
     // The loadingText prop is passed to the Button component, which handles it internally
@@ -199,7 +199,7 @@ describe('Form Component', () => {
       isFetching: false,
     });
 
-    render(<Form />);
+    testRender(<Form />);
 
     const submitButton = screen.getByRole('button', { name: /enviando/i });
     expect(submitButton).toBeVisible();
@@ -221,7 +221,7 @@ describe('Form Component', () => {
 
     const buttonProps = { buttonText: 'Submit' };
     const submittingText = 'Submitting...';
-    render(<Form buttonProps={buttonProps} submittingText={submittingText} />);
+    testRender(<Form buttonProps={buttonProps} submittingText={submittingText} />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
     expect(submitButton).toBeVisible();
@@ -237,7 +237,7 @@ describe('Form Component', () => {
       onClick: handleClick,
     };
 
-    render(<Form secondButtonProps={secondButtonProps} />);
+    testRender(<Form secondButtonProps={secondButtonProps} />);
 
     const cancelButton = screen.getByRole('button', { name: /cancel/i });
     fireEvent.click(cancelButton);
@@ -246,7 +246,7 @@ describe('Form Component', () => {
   });
 
   it('passes through form attributes', () => {
-    render(
+    testRender(
       <Form
         action='/submit'
         method='post'
@@ -269,7 +269,7 @@ describe('Form Component', () => {
       disabled: true,
     };
 
-    render(<Form buttonProps={buttonProps} />);
+    testRender(<Form buttonProps={buttonProps} />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
     expect(submitButton).toBeDisabled();
@@ -287,7 +287,7 @@ describe('Form Component', () => {
       'data-testid': 'submit-btn',
     };
 
-    render(<Form buttonProps={buttonProps} />);
+    testRender(<Form buttonProps={buttonProps} />);
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
     expect(submitButton).not.toBeDisabled();
@@ -299,7 +299,7 @@ describe('Form Component', () => {
   });
 
   it('renders form with buttons container when no buttons', () => {
-    render(<Form />);
+    testRender(<Form />);
 
     const form = screen.getByRole('form');
     // The buttons container is always rendered, even when empty
@@ -309,7 +309,7 @@ describe('Form Component', () => {
   });
 
   it('handles empty children gracefully', () => {
-    render(<Form />);
+    testRender(<Form />);
 
     const form = screen.getByRole('form');
     expect(form).toBeVisible();
@@ -318,14 +318,14 @@ describe('Form Component', () => {
   });
 
   it('handles null children gracefully', () => {
-    render(<Form>{null}</Form>);
+    testRender(<Form>{null}</Form>);
 
     const form = screen.getByRole('form');
     expect(form).toBeVisible();
   });
 
   it('handles undefined children gracefully', () => {
-    render(<Form>{undefined}</Form>);
+    testRender(<Form>{undefined}</Form>);
 
     const form = screen.getByRole('form');
     expect(form).toBeVisible();

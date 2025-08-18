@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@/test/test-utils';
+import { testRender, screen } from '@/test/test-utils';
 import LoadingSpinner from './LoadingSpinner';
 import styles from './LoadingSpinner.module.sass';
 
 describe('LoadingSpinner Component', () => {
   it('renders with default props', () => {
-    render(<LoadingSpinner />);
+    testRender(<LoadingSpinner />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toBeVisible();
@@ -15,7 +15,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('renders with custom size', () => {
-    render(<LoadingSpinner size='large' />);
+    testRender(<LoadingSpinner size='large' />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.large);
@@ -24,7 +24,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('renders with custom color', () => {
-    render(<LoadingSpinner color='primary' />);
+    testRender(<LoadingSpinner color='primary' />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.primary);
@@ -34,7 +34,7 @@ describe('LoadingSpinner Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-spinner-class';
-    render(<LoadingSpinner className={customClass} />);
+    testRender(<LoadingSpinner className={customClass} />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(customClass);
@@ -42,7 +42,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('renders with all custom props', () => {
-    render(
+    testRender(
       <LoadingSpinner size='small' color='secondary' className='test-class' />
     );
 
@@ -54,7 +54,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('handles undefined className gracefully', () => {
-    render(<LoadingSpinner className={undefined} />);
+    testRender(<LoadingSpinner className={undefined} />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.spinner);
@@ -63,7 +63,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('has correct accessibility attributes', () => {
-    render(<LoadingSpinner />);
+    testRender(<LoadingSpinner />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveAttribute('role', 'status');
@@ -71,7 +71,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('renders spinner inner element', () => {
-    render(<LoadingSpinner />);
+    testRender(<LoadingSpinner />);
 
     const spinner = screen.getByRole('status');
     expect(spinner.children).toHaveLength(1);
@@ -79,7 +79,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('applies all size variants correctly', () => {
-    const { rerender } = render(<LoadingSpinner size='small' />);
+    const { rerender } = testRender(<LoadingSpinner size='small' />);
 
     let spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.small);
@@ -94,7 +94,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('applies all color variants correctly', () => {
-    const { rerender } = render(<LoadingSpinner color='white' />);
+    const { rerender } = testRender(<LoadingSpinner color='white' />);
 
     let spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.white);

@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@/test/test-utils';
+import { testRender, screen } from '@/test/test-utils';
 import Logo from './Logo';
 import styles from './Logo.module.sass';
 
 describe('Logo Component', () => {
   it('renders logo with image', () => {
-    render(<Logo />);
+    testRender(<Logo />);
 
     const logo = screen.getByRole('img', { name: 'Logo' });
     expect(logo).toBeVisible();
@@ -14,7 +14,7 @@ describe('Logo Component', () => {
   });
 
   it('renders with default styling', () => {
-    render(<Logo />);
+    testRender(<Logo />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -24,7 +24,7 @@ describe('Logo Component', () => {
   });
 
   it('renders with rounded styling when isRound is true', () => {
-    render(<Logo isRound />);
+    testRender(<Logo isRound />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -34,7 +34,7 @@ describe('Logo Component', () => {
   });
 
   it('renders without rounded styling when isRound is false', () => {
-    render(<Logo isRound={false} />);
+    testRender(<Logo isRound={false} />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -45,7 +45,7 @@ describe('Logo Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-logo-class';
-    render(<Logo className={customClass} />);
+    testRender(<Logo className={customClass} />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -56,7 +56,7 @@ describe('Logo Component', () => {
 
   it('combines custom className with default and conditional classes', () => {
     const customClass = 'custom-logo-class';
-    render(<Logo className={customClass} isRound />);
+    testRender(<Logo className={customClass} isRound />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -67,7 +67,7 @@ describe('Logo Component', () => {
   });
 
   it('handles undefined className gracefully', () => {
-    render(<Logo className={undefined} />);
+    testRender(<Logo className={undefined} />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -77,7 +77,7 @@ describe('Logo Component', () => {
   });
 
   it('handles empty string className gracefully', () => {
-    render(<Logo className='' />);
+    testRender(<Logo className='' />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -87,7 +87,7 @@ describe('Logo Component', () => {
   });
 
   it('has correct DOM structure', () => {
-    render(<Logo />);
+    testRender(<Logo />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -99,7 +99,7 @@ describe('Logo Component', () => {
   });
 
   it('maintains logo image attributes', () => {
-    render(<Logo />);
+    testRender(<Logo />);
 
     const logo = screen.getByRole('img', { name: 'Logo' });
     expect(logo).toHaveAttribute('src', '/wolf.svg');
@@ -107,7 +107,7 @@ describe('Logo Component', () => {
   });
 
   it('renders consistently with different prop combinations', () => {
-    const { rerender } = render(<Logo />);
+    const { rerender } = testRender(<Logo />);
 
     // Default state
     let logoContainer = screen
@@ -138,7 +138,7 @@ describe('Logo Component', () => {
   });
 
   it('filters out falsy className values', () => {
-    render(<Logo className='' />);
+    testRender(<Logo className='' />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -150,7 +150,7 @@ describe('Logo Component', () => {
   });
 
   it('renders logo image with correct dimensions', () => {
-    render(<Logo />);
+    testRender(<Logo />);
 
     const logo = screen.getByRole('img', { name: 'Logo' });
     expect(logo).toBeVisible();

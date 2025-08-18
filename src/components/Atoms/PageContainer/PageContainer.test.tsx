@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@/test/test-utils';
+import { testRender, screen } from '@/test/test-utils';
 import PageContainer from './PageContainer';
 import styles from './PageContainer.module.sass';
 
 describe('PageContainer Component', () => {
   it('renders with children', () => {
-    render(
+    testRender(
       <PageContainer>
         <div>Test Content</div>
       </PageContainer>
@@ -17,7 +17,7 @@ describe('PageContainer Component', () => {
   });
 
   it('applies default PageContainer class', () => {
-    render(<PageContainer>Content</PageContainer>);
+    testRender(<PageContainer>Content</PageContainer>);
 
     const container = screen.getByTestId('page-container');
     expect(container).toHaveClass(styles.PageContainer);
@@ -25,7 +25,7 @@ describe('PageContainer Component', () => {
 
   it('applies custom className when provided', () => {
     const customClass = 'custom-container-class';
-    render(<PageContainer className={customClass}>Content</PageContainer>);
+    testRender(<PageContainer className={customClass}>Content</PageContainer>);
 
     const container = screen.getByTestId('page-container');
     expect(container).toHaveClass(customClass);
@@ -33,7 +33,7 @@ describe('PageContainer Component', () => {
   });
 
   it('renders without children', () => {
-    render(<PageContainer />);
+    testRender(<PageContainer />);
 
     const container = screen.getByTestId('page-container');
     expect(container).toBeVisible();
@@ -42,7 +42,7 @@ describe('PageContainer Component', () => {
 
   it('handles onScroll event', () => {
     const handleScroll = vi.fn();
-    render(<PageContainer onScroll={handleScroll}>Content</PageContainer>);
+    testRender(<PageContainer onScroll={handleScroll}>Content</PageContainer>);
 
     const container = screen.getByTestId('page-container');
     expect(container).toBeInTheDocument();
@@ -50,7 +50,7 @@ describe('PageContainer Component', () => {
   });
 
   it('forwards additional HTML attributes', () => {
-    render(
+    testRender(
       <PageContainer
         data-testid='test-container'
         aria-label='Test page container'

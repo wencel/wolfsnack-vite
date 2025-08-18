@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@/test/test-utils';
+import { testRender, screen, fireEvent } from '@/test/test-utils';
 import Button from './Button';
 import styles from './Button.module.sass';
 
 describe('Button Component', () => {
-  it('renders button with children', () => {
-    render(<Button>Click me</Button>);
+      it('renders button with children', () => {
+      testRender(<Button>Click me</Button>);
 
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button).toBeInTheDocument();
@@ -14,7 +14,7 @@ describe('Button Component', () => {
 
   it('renders button with icon', () => {
     const TestIcon = () => <span aria-hidden='true'>🚀</span>;
-    render(
+    testRender(
       <Button>
         <TestIcon />
       </Button>
@@ -25,7 +25,7 @@ describe('Button Component', () => {
 
   it('renders button with icon and tooltip', () => {
     const TestIcon = () => <span aria-hidden='true'>🚀</span>;
-    render(
+    testRender(
       <Button tooltip='Launch rocket'>
         <TestIcon />
       </Button>
@@ -38,7 +38,7 @@ describe('Button Component', () => {
 
   it('applies custom className to wrapper', () => {
     const customClass = 'custom-button-wrapper';
-    render(<Button className={customClass}>Click me</Button>);
+    testRender(<Button className={customClass}>Click me</Button>);
 
     const wrapper = screen.getByRole('button').closest('div');
     expect(wrapper).toHaveClass(customClass);
@@ -46,28 +46,28 @@ describe('Button Component', () => {
   });
 
   it('applies theme classes to button', () => {
-    render(<Button theme='Primary'>Primary Button</Button>);
+    testRender(<Button theme='Primary'>Primary Button</Button>);
 
     const button = screen.getByRole('button', { name: /primary button/i });
     expect(button).toHaveClass(styles.Primary);
   });
 
   it('applies active state', () => {
-    render(<Button isActive>Active Button</Button>);
+    testRender(<Button isActive>Active Button</Button>);
 
     const button = screen.getByRole('button', { name: /active button/i });
     expect(button).toHaveClass(styles.active);
   });
 
   it('shows loading spinner when loading', () => {
-    render(<Button loading>Loading Button</Button>);
+    testRender(<Button loading>Loading Button</Button>);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toBeVisible();
   });
 
   it('shows loading text when provided', () => {
-    render(
+    testRender(
       <Button loading loadingText='Processing...'>
         Loading Button
       </Button>
@@ -77,21 +77,21 @@ describe('Button Component', () => {
   });
 
   it('disables button when loading', () => {
-    render(<Button loading>Loading Button</Button>);
+    testRender(<Button loading>Loading Button</Button>);
 
     const button = screen.getByRole('button', { name: /Cargando.../i });
     expect(button).toBeDisabled();
   });
 
   it('disables button when disabled prop is true', () => {
-    render(<Button disabled>Disabled Button</Button>);
+    testRender(<Button disabled>Disabled Button</Button>);
 
     const button = screen.getByRole('button', { name: /disabled button/i });
     expect(button).toBeDisabled();
   });
 
   it('combines disabled and loading states', () => {
-    render(
+    testRender(
       <Button disabled loading>
         Button
       </Button>
@@ -103,14 +103,14 @@ describe('Button Component', () => {
   });
 
   it('renders as link when href is provided', () => {
-    render(<Button href='/test'>Link Button</Button>);
+    testRender(<Button href='/test'>Link Button</Button>);
 
     const link = screen.getByRole('link', { name: /link button/i });
     expect(link).toHaveAttribute('href', '/test');
   });
 
   it('applies link button themes', () => {
-    render(
+    testRender(
       <Button href='/test' theme='WolfGreen'>
         Link Button
       </Button>
@@ -122,7 +122,7 @@ describe('Button Component', () => {
 
   it('forwards additional props to button', () => {
     const handleClick = vi.fn();
-    render(
+    testRender(
       <Button onClick={handleClick} data-testid='test-button'>
         Click me
       </Button>
@@ -135,7 +135,7 @@ describe('Button Component', () => {
   });
 
   it('forwards additional props to link', () => {
-    render(
+    testRender(
       <Button href='/test' data-testid='test-link'>
         Link
       </Button>
@@ -146,7 +146,7 @@ describe('Button Component', () => {
   });
 
   it('shows tooltip on hover when tooltip prop is provided', () => {
-    render(<Button tooltip='This is a tooltip'>Button</Button>);
+    testRender(<Button tooltip='This is a tooltip'>Button</Button>);
 
     const button = screen.getByRole('button', { name: /this is a tooltip/i });
     // When tooltip is provided, title should not be set to avoid duplicate tooltips
@@ -154,21 +154,21 @@ describe('Button Component', () => {
   });
 
   it('allows title attribute when no tooltip is provided', () => {
-    render(<Button title='Native title'>Button</Button>);
+    testRender(<Button title='Native title'>Button</Button>);
 
     const button = screen.getByRole('button', { name: /button/i });
     expect(button).toHaveAttribute('title', 'Native title');
   });
 
   it('sets aria-label to tooltip when tooltip is provided', () => {
-    render(<Button tooltip='Accessible label'>Button</Button>);
+    testRender(<Button tooltip='Accessible label'>Button</Button>);
 
     const button = screen.getByRole('button', { name: /accessible label/i });
     expect(button).toHaveAttribute('aria-label', 'Accessible label');
   });
 
   it('sets aria-label to loading state when loading', () => {
-    render(
+    testRender(
       <Button loading tooltip='Button tooltip'>
         Button
       </Button>
@@ -179,7 +179,7 @@ describe('Button Component', () => {
   });
 
   it('handles round button theme correctly', () => {
-    render(
+    testRender(
       <Button theme='RoundWithLabel' tooltip='Round button'>
         🔘
       </Button>
@@ -190,7 +190,7 @@ describe('Button Component', () => {
   });
 
   it('handles outline button theme correctly', () => {
-    render(
+    testRender(
       <Button theme='Outline' tooltip='Outline button'>
         Outline
       </Button>
@@ -201,7 +201,7 @@ describe('Button Component', () => {
   });
 
   it('handles bottom navigation theme correctly', () => {
-    render(
+    testRender(
       <Button theme='BottomNavigation' tooltip='Nav button'>
         🏠
       </Button>

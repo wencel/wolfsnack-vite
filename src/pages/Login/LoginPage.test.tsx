@@ -1,44 +1,18 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
-  render as rtlRender,
+  testRender,
   screen,
   mockAxios,
   resetAxiosMocks,
-  createTestStore,
 } from '@/test/test-utils';
-import { render } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import LoginPage from './LoginPage';
 import { textConstants } from '@/lib/appConstants';
-import ToastProvider from '@/components/Providers/ToastProvider';
 
 describe('Login Page with Full Redux Integration', () => {
   let axiosMock: ReturnType<typeof mockAxios>;
 
-  const renderWithProviders = () => {
-    return rtlRender(<LoginPage />);
-  };
 
-  const renderWithRouting = (initialRoute = '/login') => {
-    const store = createTestStore();
-    return render(
-      <Provider store={store}>
-        <ToastProvider>
-          <MemoryRouter initialEntries={[initialRoute]}>
-            <Routes>
-              <Route path='/login' element={<LoginPage />} />
-              <Route
-                path='/customers'
-                element={<div>Customers Page Content</div>}
-              />
-            </Routes>
-          </MemoryRouter>
-        </ToastProvider>
-      </Provider>
-    );
-  };
 
   beforeEach(() => {
     axiosMock = mockAxios();
@@ -49,7 +23,7 @@ describe('Login Page with Full Redux Integration', () => {
   });
 
   it('renders login form with all required fields', () => {
-    renderWithProviders();
+    testRender(<LoginPage />);
 
     const emailInput = screen.getByLabelText(textConstants.login.EMAIL_LABEL);
     const passwordInput = screen.getByLabelText(
@@ -69,7 +43,7 @@ describe('Login Page with Full Redux Integration', () => {
   });
 
   it('displays page title correctly', () => {
-    renderWithProviders();
+    testRender(<LoginPage />);
 
     expect(screen.getByText(textConstants.login.TITLE)).toBeVisible();
     expect(screen.getByText(textConstants.login.DESCRIPTION)).toBeVisible();
@@ -77,7 +51,7 @@ describe('Login Page with Full Redux Integration', () => {
 
   it('allows user to enter email and password', async () => {
     const user = userEvent.setup();
-    renderWithProviders();
+    testRender(<LoginPage />);
 
     const emailInput = screen.getByLabelText(textConstants.login.EMAIL_LABEL);
     const passwordInput = screen.getByLabelText(
@@ -95,7 +69,7 @@ describe('Login Page with Full Redux Integration', () => {
 
   it('toggles remember me checkbox', async () => {
     const user = userEvent.setup();
-    renderWithProviders();
+    testRender(<LoginPage />);
 
     const rememberMeCheckbox = screen.getByLabelText(
       textConstants.misc.REMEMBER_ME
@@ -122,7 +96,7 @@ describe('Login Page with Full Redux Integration', () => {
     };
     axiosMock.post.mockRejectedValue(mockError);
 
-    renderWithProviders();
+    testRender(<LoginPage />);
 
     // User fills in the form
     const emailInput = screen.getByLabelText(textConstants.login.EMAIL_LABEL);
@@ -158,7 +132,19 @@ describe('Login Page with Full Redux Integration', () => {
       },
     });
 
-    renderWithRouting('/login');
+    testRender(
+      <LoginPage />,
+      {
+        initialEntries: ['/login'],
+        mountPath: '/login',
+        routes: [
+          {
+            path: '/customers',
+            element: <div>Customers Page Content</div>
+          }
+        ]
+      }
+    );
 
     // Verify we start on the login page
     expect(screen.getByText(textConstants.login.TITLE)).toBeVisible();

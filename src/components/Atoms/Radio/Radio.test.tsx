@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@/test/test-utils';
+import { testRender, screen, fireEvent } from '@/test/test-utils';
 import Radio from './Radio';
 import styles from './Radio.module.sass';
 
 describe('Radio Component', () => {
   it('renders radio input with label', () => {
-    render(<Radio label='Test Radio' />);
+    testRender(<Radio label='Test Radio' />);
 
     const radio = screen.getByRole('radio', { name: /test radio/i });
     expect(radio).toBeVisible();
@@ -13,7 +13,7 @@ describe('Radio Component', () => {
   });
 
   it('renders radio input without label', () => {
-    render(<Radio />);
+    testRender(<Radio />);
 
     const radio = screen.getByRole('radio');
     expect(radio).toBeVisible();
@@ -22,7 +22,7 @@ describe('Radio Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-radio-class';
-    render(<Radio className={customClass} label='Test Radio' />);
+    testRender(<Radio className={customClass} label='Test Radio' />);
 
     const label = screen.getByText('Test Radio').closest('label');
     expect(label).toHaveClass(customClass);
@@ -30,7 +30,7 @@ describe('Radio Component', () => {
   });
 
   it('applies theme classes correctly', () => {
-    const { rerender } = render(<Radio theme='path' label='Path Theme' />);
+    const { rerender } = testRender(<Radio theme='path' label='Path Theme' />);
 
     let label = screen.getByText('Path Theme').closest('label');
     expect(label).toHaveClass(styles.path);
@@ -41,14 +41,14 @@ describe('Radio Component', () => {
   });
 
   it('uses default theme when none provided', () => {
-    render(<Radio label='Default Theme' />);
+    testRender(<Radio label='Default Theme' />);
 
     const label = screen.getByText('Default Theme').closest('label');
     expect(label).toHaveClass(styles.path);
   });
 
   it('handles checked state', () => {
-    render(<Radio label='Test Radio' />);
+    testRender(<Radio label='Test Radio' />);
 
     const radio = screen.getByRole('radio', { name: /test radio/i });
     expect(radio).not.toBeChecked();
@@ -58,7 +58,7 @@ describe('Radio Component', () => {
   });
 
   it('handles disabled state', () => {
-    render(<Radio label='Disabled Radio' disabled />);
+    testRender(<Radio label='Disabled Radio' disabled />);
 
     const radio = screen.getByRole('radio', { name: /disabled radio/i });
     expect(radio).toBeDisabled();
@@ -66,7 +66,7 @@ describe('Radio Component', () => {
 
   it('calls onChange handler when clicked', () => {
     const handleChange = vi.fn();
-    render(<Radio label='Test Radio' onChange={handleChange} />);
+    testRender(<Radio label='Test Radio' onChange={handleChange} />);
 
     const radio = screen.getByRole('radio', { name: /test radio/i });
     fireEvent.click(radio);
@@ -75,7 +75,7 @@ describe('Radio Component', () => {
   });
 
   it('renders SVG icon', () => {
-    render(<Radio label='Test Radio' />);
+    testRender(<Radio label='Test Radio' />);
 
     const svg = screen.getByTestId('radio-icon');
     expect(svg).toBeVisible();
@@ -83,7 +83,7 @@ describe('Radio Component', () => {
   });
 
   it('has correct DOM structure', () => {
-    render(<Radio label='Test Radio' />);
+    testRender(<Radio label='Test Radio' />);
 
     const label = screen.getByText('Test Radio').closest('label');
     const radio = screen.getByRole('radio', { name: /test radio/i });
@@ -100,7 +100,7 @@ describe('Radio Component', () => {
   });
 
   it('handles controlled checked state', () => {
-    const { rerender } = render(
+    const { rerender } = testRender(
       <Radio label='Controlled Radio' checked={false} />
     );
 
@@ -113,7 +113,7 @@ describe('Radio Component', () => {
   });
 
   it('applies all HTML input attributes', () => {
-    render(
+    testRender(
       <Radio
         label='Test Radio'
         name='test-radio'
@@ -131,21 +131,21 @@ describe('Radio Component', () => {
   });
 
   it('handles undefined className gracefully', () => {
-    render(<Radio className={undefined} label='Test Radio' />);
+    testRender(<Radio className={undefined} label='Test Radio' />);
 
     const label = screen.getByText('Test Radio').closest('label');
     expect(label).toHaveClass(styles.Radio);
   });
 
   it('handles falsy className values', () => {
-    render(<Radio className='' label='Test Radio' />);
+    testRender(<Radio className='' label='Test Radio' />);
 
     const label = screen.getByText('Test Radio').closest('label');
     expect(label).toHaveClass(styles.Radio);
   });
 
   it('handles multiple radio buttons in a group', () => {
-    render(
+    testRender(
       <div>
         <Radio name='group' value='option1' label='Option 1' />
         <Radio name='group' value='option2' label='Option 2' />
@@ -163,7 +163,7 @@ describe('Radio Component', () => {
   });
 
   it('maintains radio button behavior', () => {
-    render(
+    testRender(
       <div>
         <Radio name='group' value='option1' label='Option 1' />
         <Radio name='group' value='option2' label='Option 2' />
