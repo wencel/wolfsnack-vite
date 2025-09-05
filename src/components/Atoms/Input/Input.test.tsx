@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { testRender, screen, fireEvent } from '@/test/test-utils';
-import Input from './Input';
+import Input from './';
 import styles from './Input.module.sass';
 
 describe('Input Component', () => {

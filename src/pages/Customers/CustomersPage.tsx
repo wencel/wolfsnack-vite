@@ -14,6 +14,7 @@ import styles from './CustomersPage.module.sass';
 
 const CustomersPage: React.FC = () => {
   const { loading: globalLoading, fetching } = useLoading();
+
   const {
     customers,
     total,
@@ -28,22 +29,6 @@ const CustomersPage: React.FC = () => {
   const [textQuery, setTextQuery] = useState('');
   const [sortBy, setSortBy] = useState('storeName');
   const [direction, setDirection] = useState('asc');
-
-  useEffect(() => {
-    resetCustomers();
-    fetchCustomers({
-      limit: paginationLimit,
-      textQuery,
-      sortBy: `${sortBy}:${direction}`,
-    });
-  }, [
-    resetCustomers,
-    fetchCustomers,
-    paginationLimit,
-    textQuery,
-    sortBy,
-    direction,
-  ]);
 
   useEffect(() => {
     resetCustomers();
@@ -92,7 +77,7 @@ const CustomersPage: React.FC = () => {
     setDirection(q.direction);
     setShowFiltersModal(false);
   };
-
+  
   return (
     <>
       <CustomerFilterModal

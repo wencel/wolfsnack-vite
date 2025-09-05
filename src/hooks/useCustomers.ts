@@ -101,8 +101,8 @@ export const useCustomers = () => {
     resetCurrentCustomer: resetCurrentCustomerAction,
 
     // Helpers
-    hasCustomers: customers.length > 0,
-    hasMoreCustomers: customers.length < total,
+    hasCustomers: Boolean(customers && customers.length > 0),
+    hasMoreCustomers: Boolean(customers && customers.length < total),
   };
 };
 

@@ -92,12 +92,10 @@ export const loginRequest = createAsyncThunk(
     try {
       dispatch(setSubmitting(true));
       dispatch(clearSubmitError()); // Clear any previous submit errors
-      console.log('beforeloginRequest', credentials);
       const response = await api.auth.login({
         email: credentials.email,
         password: credentials.password,
       });
-      console.log('response', response);
       const data = response.data;
 
       // Store token in storage (source of truth)

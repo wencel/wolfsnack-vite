@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { testRender, screen } from '@/test/test-utils';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from './';
 import styles from './LoadingSpinner.module.sass';
 
 describe('LoadingSpinner Component', () => {

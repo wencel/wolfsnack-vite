@@ -4,7 +4,7 @@ import { fetchLocalities } from '@/store/slices/localitiesSlice';
 
 export const useLocalities = () => {
   const dispatch = useAppDispatch();
-  const { localities, loading, error } = useAppSelector(
+  const { localities } = useAppSelector(
     state => state.localities
   );
 
@@ -16,8 +16,6 @@ export const useLocalities = () => {
   return {
     // State
     localities,
-    loading,
-    error,
 
     // Actions
     fetchLocalities: fetchLocalitiesAction,

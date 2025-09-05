@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import styles from './Button.module.sass';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner';
 import { textConstants } from '@/lib/appConstants';
 
 interface BaseButtonProps {
@@ -77,12 +77,34 @@ const Button: React.FC<ButtonProps> = ({
         }
       : (restProps as React.AnchorHTMLAttributes<HTMLAnchorElement>);
 
+    // Create a custom onClick handler that prevents clicks when loading
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (loading) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      
+      // Call the original onClick if provided and not loading
+      if (linkProps.onClick) {
+        linkProps.onClick(e);
+      }
+    };
+
+    // Remove onClick from linkProps to avoid conflicts with our custom handler
+    const { ...linkPropsWithoutOnClick } = linkProps;
+
     return (
       <Tooltip.Provider delayDuration={0}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
             <div className={wrapperClasses}>
-              <Link to={href} className={buttonClasses} {...linkProps}>
+              <Link 
+                to={href} 
+                className={buttonClasses} 
+                onClick={handleLinkClick}
+                {...linkPropsWithoutOnClick}
+              >
                 {buttonContent}
               </Link>
             </div>
@@ -121,7 +143,24 @@ const Button: React.FC<ButtonProps> = ({
     if (tooltip) {
       return tooltip;
     }
-    return children ? String(children) : textConstants.misc.BUTTON_TEXT;
+    if (children) {
+      // Extract only text content from children, ignoring React elements
+      const extractText = (node: React.ReactNode): string => {
+        if (typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean') {
+          return String(node);
+        }
+        if (Array.isArray(node)) {
+          return node.map(extractText).join('');
+        }
+        if (React.isValidElement(node) && node.props && typeof node.props === 'object' && 'children' in node.props) {
+          return extractText(node.props.children as React.ReactNode);
+        }
+        return '';
+      };
+      const textContent = extractText(children);
+      return textContent || textConstants.misc.BUTTON_TEXT;
+    }
+    return textConstants.misc.BUTTON_TEXT;
   };
 
   return (

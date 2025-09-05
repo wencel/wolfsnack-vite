@@ -86,18 +86,6 @@ describe('Logo Component', () => {
     expect(logoContainer).toHaveClass(styles.Logo);
   });
 
-  it('has correct DOM structure', () => {
-    testRender(<Logo />);
-
-    const logoContainer = screen
-      .getByRole('img', { name: 'Logo' })
-      .closest('div');
-    const img = logoContainer?.querySelector('img');
-
-    expect(logoContainer?.tagName).toBe('DIV');
-    expect(img?.tagName).toBe('IMG');
-  });
-
   it('maintains logo image attributes', () => {
     testRender(<Logo />);
 

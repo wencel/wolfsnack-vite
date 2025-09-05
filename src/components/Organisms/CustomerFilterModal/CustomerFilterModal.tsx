@@ -37,8 +37,7 @@ const CustomerFilterModal: React.FC<CustomerFilterModalProps> = ({
       setSortBy(parentSortBy);
       setDirection(parentDirection);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showModal]);
+  }, [showModal, parentSearchTerm, parentSortBy, parentDirection]);
   return (
     <Modal show={showModal} backgroundOnClick={closeModal}>
       <Card

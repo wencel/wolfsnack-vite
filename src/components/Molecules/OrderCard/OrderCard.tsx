@@ -103,6 +103,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
       />
       <Card
         className={cardClasses}
+        role="article"
         title={
           navigate ? (
             <NavigationCardHeader

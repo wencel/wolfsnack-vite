@@ -9,15 +9,21 @@ import { store } from '@/store';
 import AuthProvider from '@/components/Providers/AuthProvider';
 import ToastProvider from '@/components/Providers/ToastProvider';
 import Layout from '@/components/Layout';
-import { ProtectedRoute, PublicRoute } from '@/components/Guards';
+import PublicRoute from '@/components/Guards/PublicRoute';
+import ProtectedRoute from '@/components/Guards/ProtectedRoute';
 import Login from '@/pages/Login';
-import Customers from '@/pages/CustomersPage/CustomersPage';
+import Customers from '@/pages/Customers/CustomersPage';
 import Customer from '@/pages/Customer/CustomerPage';
 import AddEditCustomer from '@/pages/AddEditCustomer';
 import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
 import '@/styles/styles.global.sass';
+
+// Dummy components for missing routes
+const ProductsPage = () => <div>Products Page - Coming Soon</div>;
+const SalesPage = () => <div>Sales Page - Coming Soon</div>;
+const OrdersPage = () => <div>Orders Page - Coming Soon</div>;
 
 function AppContent() {
   usePageTitle();
@@ -66,6 +72,36 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <Customer />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Products route */}
+          <Route
+            path='/products'
+            element={
+              <ProtectedRoute>
+                <ProductsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Sales route */}
+          <Route
+            path='/sales'
+            element={
+              <ProtectedRoute>
+                <SalesPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Orders route */}
+          <Route
+            path='/orders'
+            element={
+              <ProtectedRoute>
+                <OrdersPage />
               </ProtectedRoute>
             }
           />

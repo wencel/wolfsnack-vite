@@ -69,6 +69,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
       />
       <Card
         className={cardClasses}
+        role="article"
         title={
           navigate ? (
             <NavigationCardHeader

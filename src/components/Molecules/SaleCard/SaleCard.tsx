@@ -144,6 +144,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
             </>
           )
         }
+        role="article"
       >
         <div className={styles.date}>
           <BiCalendarAlt className={styles.icon} />

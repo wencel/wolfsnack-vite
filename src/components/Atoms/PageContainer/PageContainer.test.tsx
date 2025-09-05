@@ -45,7 +45,7 @@ describe('PageContainer Component', () => {
     testRender(<PageContainer onScroll={handleScroll}>Content</PageContainer>);
 
     const container = screen.getByTestId('page-container');
-    expect(container).toBeInTheDocument();
+    expect(container).toBeVisible();
     // React doesn't set onScroll as a DOM attribute, it's handled internally
   });
 

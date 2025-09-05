@@ -3,7 +3,6 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from 'axios';
 import type { Customer, Product, Order, Sale, User } from './data';
-import { store } from '@/store';
 
 // Extend the config type to include metadata
 interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -58,17 +57,9 @@ const getOperationName = (config: InternalAxiosRequestConfig): string => {
   return `${method} ${url}`;
 };
 
-// Helper function to get token (prefer Redux state, fallback to storage)
+// Helper function to get token (only from storage to avoid circular dependency)
 const getAuthToken = (): string | null => {
-  // Try to get from Redux state first (faster)
-  const state = store.getState();
-  const cachedToken = state.auth.token;
-
-  if (cachedToken) {
-    return cachedToken;
-  }
-
-  // Fallback to storage (source of truth)
+  // Only read from storage (source of truth) to avoid circular dependency
   return localStorage.getItem('token') || sessionStorage.getItem('token');
 };
 
@@ -99,6 +90,7 @@ apiClient.interceptors.response.use(
   },
   error => {
     // Handle 401 Unauthorized - clear token and redirect to login
+    console.log('error', error);
     if (error.response?.status === 401) {
       // Clear from storage (source of truth)
       localStorage.removeItem('token');

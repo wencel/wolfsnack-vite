@@ -6,6 +6,7 @@ import Card from '@/components/Atoms/Card';
 import PageContainer from '@/components/Atoms/PageContainer';
 import CustomerCard from '@/components/Molecules/CustomerCard';
 import TopActions from '@/components/Organisms/TopActions';
+import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
 import { textConstants } from '@/lib/appConstants';
 import useLoading from '@/hooks/useLoading';
 import useCustomers from '@/hooks/useCustomers';
@@ -52,7 +53,13 @@ const CustomerPage: React.FC = () => {
         ]}
       />
 
-      {currentCustomer && (
+      {loading && (
+        <div className={styles.loadingContainer}>
+          <LoadingSpinner size='large' color='primary' />
+        </div>
+      )}
+
+      {currentCustomer && !loading && (
         <CustomerCard
           className={styles.customerCard}
           customer={currentCustomer}

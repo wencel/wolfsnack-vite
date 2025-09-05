@@ -1,25 +1,16 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import {
   testRender,
   screen,
-  mockAxios,
-  resetAxiosMocks,
 } from '@/test/test-utils';
+import { axiosMock } from '@/test/setup';
 import userEvent from '@testing-library/user-event';
-import LoginPage from './LoginPage';
+import LoginPage from './';
 import { textConstants } from '@/lib/appConstants';
 
 describe('Login Page with Full Redux Integration', () => {
-  let axiosMock: ReturnType<typeof mockAxios>;
-
-
-
-  beforeEach(() => {
-    axiosMock = mockAxios();
-  });
-
   afterEach(() => {
-    resetAxiosMocks();
+    axiosMock.reset();
   });
 
   it('renders login form with all required fields', () => {
@@ -84,17 +75,10 @@ describe('Login Page with Full Redux Integration', () => {
 
   it('displays error message when login fails', async () => {
     const user = userEvent.setup();
-    const errorMessage = 'No autorizado. Por favor, inicia sesión nuevamente.';
+    const errorMessage = 'Recurso no encontrado.';
 
-    // Mock login to fail with proper AxiosError structure
-    const mockError = {
-      isAxiosError: true,
-      response: {
-        status: 401,
-        data: {},
-      },
-    };
-    axiosMock.post.mockRejectedValue(mockError);
+    // Mock login to fail with 404 status
+    axiosMock.onPost('/users/login').reply(404, {});
 
     testRender(<LoginPage />);
 
@@ -121,15 +105,13 @@ describe('Login Page with Full Redux Integration', () => {
     const user = userEvent.setup();
 
     // Mock successful login response
-    axiosMock.post.mockResolvedValue({
-      data: {
-        user: {
-          _id: '1',
-          email: 'test@example.com',
-          name: 'Test User',
-        },
-        token: 'fake-jwt-token',
+    axiosMock.onPost('/users/login').reply(200, {
+      user: {
+        _id: '1',
+        email: 'test@example.com',
+        name: 'Test User',
       },
+      token: 'fake-jwt-token',
     });
 
     testRender(

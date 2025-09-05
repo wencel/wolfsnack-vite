@@ -104,6 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )
         }
         key={product._id}
+        role="article"
       >
         <div className={styles.stock}>
           <ImListNumbered className={styles.icon} />

@@ -76,6 +76,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
             className={styles.cancelButton}
             type='button'
             onClick={selectItem(null)}
+            aria-label="Limpiar búsqueda"
           >
             <RiCloseLine />
           </button>
@@ -117,6 +118,8 @@ const SearchField: React.FC<SearchFieldProps> = ({
             className={styles.cancelButton}
             type='button'
             onClick={selectItem(null)}
+            aria-label="Limpiar valor seleccionado"
+            data-testid="search-cancel-button"
           >
             <RiCloseLine />
           </button>

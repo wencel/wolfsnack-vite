@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { testRender, screen } from '@/test/test-utils';
-import SubCard from './SubCard';
+import SubCard from './';
 import styles from './SubCard.module.sass';
 
 describe('SubCard Component', () => {

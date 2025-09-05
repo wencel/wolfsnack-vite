@@ -29,7 +29,11 @@ const WarningModal: React.FC<WarningModalProps> = ({
   confirmationText = textConstants.misc.SAVE,
 }) => {
   return (
-    <Modal show={showModal} backgroundOnClick={closeModal}>
+    <Modal 
+      show={showModal} 
+      backgroundOnClick={closeModal}
+      aria-label={title || 'Warning modal'}
+    >
       <Card
         title={title}
         description={description}

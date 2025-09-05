@@ -1,5 +1,7 @@
+import apiClient from '@/lib/apiClient';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
+import AxiosMockAdapter from 'axios-mock-adapter';
 
 // Mock react-hot-toast
 vi.mock('react-hot-toast', () => ({
@@ -16,28 +18,7 @@ vi.mock('react-hot-toast', () => ({
   Toaster: vi.fn(() => null),
 }));
 
-// Mock environment variables
-vi.mock('@/lib/apiClient', () => ({
-  api: {
-    auth: {
-      login: vi.fn(),
-      checkAuth: vi.fn(),
-      logout: vi.fn(),
-    },
-    customers: {
-      getAll: vi.fn(),
-      getById: vi.fn(),
-      create: vi.fn(),
-      update: vi.fn(),
-      delete: vi.fn(),
-    },
-    utils: {
-      getLocalities: vi.fn(),
-      getPresentations: vi.fn(),
-      getProductTypes: vi.fn(),
-    },
-  },
-}));
+export const axiosMock = new AxiosMockAdapter(apiClient);
 
 // Global test utilities
 global.ResizeObserver = vi.fn().mockImplementation(() => ({

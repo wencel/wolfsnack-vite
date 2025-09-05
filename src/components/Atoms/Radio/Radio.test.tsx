@@ -94,7 +94,6 @@ describe('Radio Component', () => {
     expect(labelText).toBeVisible();
     expect(labelText).toHaveTextContent('Test Radio');
 
-    // Test that the label contains the expected elements without querySelector
     expect(label).toContainElement(radio);
     expect(label).toContainElement(labelText);
   });

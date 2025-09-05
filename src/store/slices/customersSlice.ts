@@ -70,20 +70,14 @@ export const fetchCustomers = createAsyncThunk(
       } else {
         dispatch(setFetching(true));
       }
-
       const response = await api.customers.getAll(params);
       return response.data; // PaginatedResponse<Customer>
     } catch (error) {
       const axiosError = error as AxiosError;
       return rejectWithValue(extractErrorMessage(axiosError));
     } finally {
-      // Clear the appropriate loading state
-      const isInitialLoad = !params.skip || params.skip === 0;
-      if (isInitialLoad) {
-        dispatch(setLoading(false));
-      } else {
-        dispatch(setFetching(false));
-      }
+      dispatch(setLoading(false));      
+      dispatch(setFetching(false));
     }
   }
 );

@@ -88,9 +88,11 @@ temp/
 !.vscode/tasks.json
 !.vscode/launch.json
 .idea/
+.cursor/
 *.swp
 *.swo
 *~
+.cursorrules
 
 # OS generated files
 .DS_Store

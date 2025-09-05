@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { testRender } from '@/test/test-utils';
-import Layout from './Layout';
+import Layout from './';
 
 describe('Layout', () => {
   const TestChild = () => <div>Test Content</div>;
