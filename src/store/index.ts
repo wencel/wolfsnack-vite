@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import loadingReducer from './slices/loadingSlice';
 import errorReducer from './slices/errorSlice';
 import customersReducer from './slices/customersSlice';
+import productsReducer from './slices/productsSlice';
 import localitiesReducer from './slices/localitiesSlice';
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     loading: loadingReducer,
     error: errorReducer,
     customers: customersReducer,
+    products: productsReducer,
     localities: localitiesReducer,
   },
   middleware: getDefaultMiddleware =>

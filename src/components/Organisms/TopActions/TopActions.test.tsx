@@ -156,17 +156,6 @@ describe('TopActions', () => {
       const navigation = screen.getByRole('navigation');
       expect(navigation.className).toContain('TopActions');
     });
-
-    it('applies item class to button wrappers', () => {
-      testRender(<TopActions {...defaultProps} />);
-      
-      const buttons = screen.getAllByRole('button');
-      buttons.forEach(button => {
-        // The item class is applied to the button wrapper div
-        const wrapper = button.closest('div');
-        expect(wrapper?.className).toContain('item');
-      });
-    });
   });
 
   describe('edge cases', () => {

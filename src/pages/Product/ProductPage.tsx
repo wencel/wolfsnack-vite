@@ -1,37 +1,36 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IoIosArrowDropleft } from 'react-icons/io';
-import { MdPersonAdd } from 'react-icons/md';
+import { MdPlaylistAdd } from 'react-icons/md';
 import Card from '@/components/Atoms/Card';
 import PageContainer from '@/components/Atoms/PageContainer';
-import CustomerCard from '@/components/Molecules/CustomerCard';
+import ProductCard from '@/components/Molecules/ProductCard';
 import TopActions from '@/components/Organisms/TopActions';
 import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
 import { textConstants } from '@/lib/appConstants';
 import useLoading from '@/hooks/useLoading';
-import useCustomers from '@/hooks/useCustomers';
-import styles from './CustomerPage.module.sass';
+import useProducts from '@/hooks/useProducts';
+import styles from './ProductPage.module.sass';
 
-const CustomerPage: React.FC = () => {
+const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { loading } = useLoading();
-  const { currentCustomer, fetchCustomer, resetCurrentCustomer } =
-    useCustomers();
+  const { currentProduct, fetchProduct, resetCurrentProduct } = useProducts();
 
   useEffect(() => {
     if (id) {
-      fetchCustomer(id);
+      fetchProduct(id);
     }
 
     return () => {
-      resetCurrentCustomer();
+      resetCurrentProduct();
     };
-  }, [id, fetchCustomer, resetCurrentCustomer]);
+  }, [id, fetchProduct, resetCurrentProduct]);
 
   if (!id) {
     return (
       <PageContainer>
-        <Card title='Error' description={textConstants.misc.NO_CUSTOMER_ID} />
+        <Card title='Error' description={textConstants.misc.NO_PRODUCT_ID} />
       </PageContainer>
     );
   }
@@ -43,12 +42,12 @@ const CustomerPage: React.FC = () => {
           {
             text: textConstants.misc.BACK,
             icon: <IoIosArrowDropleft />,
-            href: '/customers',
+            href: '/products',
           },
           {
-            text: textConstants.addCustomer.ADD_CUSTOMER,
-            icon: <MdPersonAdd />,
-            href: '/customers/new',
+            text: textConstants.addProduct.ADD_PRODUCT,
+            icon: <MdPlaylistAdd />,
+            href: '/products/new',
           },
         ]}
       />
@@ -59,22 +58,22 @@ const CustomerPage: React.FC = () => {
         </div>
       )}
 
-      {currentCustomer && !loading && (
-        <CustomerCard
-          className={styles.customerCard}
-          customer={currentCustomer}
+      {currentProduct && !loading && (
+        <ProductCard
+          className={styles.productCard}
+          product={currentProduct}
           navigate={false}
         />
       )}
 
-      {!currentCustomer && !loading && (
+      {!currentProduct && !loading && (
         <Card
-          title={textConstants.misc.CUSTOMER_NOT_FOUND}
-          description={textConstants.misc.CUSTOMER_NOT_FOUND_DESCRIPTION}
+          title={textConstants.misc.PRODUCT_NOT_FOUND}
+          description={textConstants.misc.PRODUCT_NOT_FOUND_DESCRIPTION}
         />
       )}
     </PageContainer>
   );
 };
 
-export default CustomerPage;
+export default ProductPage;

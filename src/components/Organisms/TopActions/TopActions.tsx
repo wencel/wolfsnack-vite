@@ -32,7 +32,6 @@ const TopActions: React.FC<TopActionsProps> = ({
           if (button.onClick) button.onClick(e);
         }}
         theme='BottomNavigation'
-        className={styles.item}
       >
         {button.icon}
         {button.text}

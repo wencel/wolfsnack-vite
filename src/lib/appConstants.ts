@@ -197,6 +197,10 @@ export const textConstants = {
     CUSTOMER_NOT_FOUND: 'Cliente no encontrado',
     CUSTOMER_NOT_FOUND_DESCRIPTION:
       'El cliente que buscas no existe, puedes agregar uno nuevo con el botón en la parte de arriba',
+    PRODUCT_NOT_FOUND: 'Producto no encontrado',
+    PRODUCT_NOT_FOUND_DESCRIPTION:
+      'El producto que buscas no existe, puedes agregar uno nuevo con el botón en la parte de arriba',
+    NO_PRODUCT_ID: 'No se proporcionó ID de producto',
     SAVE: 'Guardar',
     EDIT: 'Editar',
     DELETE: 'Eliminar',

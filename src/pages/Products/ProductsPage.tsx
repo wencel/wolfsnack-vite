@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { RiFilterLine, RiFilterOffLine } from 'react-icons/ri';
-import { MdPersonAdd } from 'react-icons/md';
+import { MdPlaylistAdd } from 'react-icons/md';
 import Card from '@/components/Atoms/Card';
 import PageContainer from '@/components/Atoms/PageContainer';
-import CustomerCard from '@/components/Molecules/CustomerCard';
+import ProductCard from '@/components/Molecules/ProductCard';
 import TopActions from '@/components/Organisms/TopActions';
-import CustomerFilterModal from '@/components/Organisms/CustomerFilterModal';
+import ProductFilterModal from '@/components/Organisms/ProductFilterModal';
 import { textConstants } from '@/lib/appConstants';
 import LoadingSpinner from '@/components/Atoms/LoadingSpinner';
 import useLoading from '@/hooks/useLoading';
-import useCustomers from '@/hooks/useCustomers';
+import useProducts from '@/hooks/useProducts';
 
-const CustomersPage: React.FC = () => {
+const ProductsPage: React.FC = () => {
   const { loading: globalLoading, fetching } = useLoading();
 
   const {
-    customers,
+    products,
     total,
     skip,
-    fetchCustomers,
-    deleteCustomer,
-    resetCustomers,
-  } = useCustomers();
+    fetchProducts,
+    deleteProduct,
+    resetProducts,
+  } = useProducts();
 
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [textQuery, setTextQuery] = useState('');
-  const [sortBy, setSortBy] = useState('storeName');
+  const [sortBy, setSortBy] = useState('name');
   const [direction, setDirection] = useState('asc');
 
   useEffect(() => {
-    resetCustomers();
-    fetchCustomers({
+    resetProducts();
+    fetchProducts({
       textQuery,
       sortBy: `${sortBy}:${direction}`,
       limit: paginationLimit,
@@ -42,15 +42,15 @@ const CustomersPage: React.FC = () => {
     sortBy,
     direction,
     paginationLimit,
-    resetCustomers,
-    fetchCustomers,
+    resetProducts,
+    fetchProducts,
   ]);
 
   const onScrollContent = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
     if (target.offsetHeight + target.scrollTop >= target.scrollHeight - 200) {
-      if (!fetching && customers.length < total) {
-        fetchCustomers({
+      if (!fetching && products.length < total) {
+        fetchProducts({
           textQuery,
           sortBy: `${sortBy}:${direction}`,
           limit: paginationLimit,
@@ -62,7 +62,7 @@ const CustomersPage: React.FC = () => {
 
   const resetFilters = () => {
     setTextQuery('');
-    setSortBy('storeName');
+    setSortBy('name');
     setDirection('asc');
   };
 
@@ -79,7 +79,7 @@ const CustomersPage: React.FC = () => {
   
   return (
     <>
-      <CustomerFilterModal
+      <ProductFilterModal
         showModal={showFiltersModal}
         applyFilter={applyFilters}
         closeModal={() => setShowFiltersModal(false)}
@@ -90,21 +90,21 @@ const CustomersPage: React.FC = () => {
 
       <PageContainer onScroll={onScrollContent}>
         <Card
-          title={textConstants.customerPage.TITLE}
-          description={textConstants.customerPage.DESCRIPTION}
+          title={textConstants.productPage.TITLE}
+          description={textConstants.productPage.DESCRIPTION}
         ></Card>
-        {customers?.map(customer => (
-          <CustomerCard
-            customer={customer}
+        {products?.map(product => (
+          <ProductCard
+            product={product}
             navigate
-            key={customer._id}
-            deleteCustomer={deleteCustomer}
+            key={product._id}
+            deleteProduct={deleteProduct}
           />
         ))}
-        {customers?.length === 0 && !globalLoading && (
+        {products?.length === 0 && !globalLoading && (
           <Card
-            title={textConstants.customerPage.EMPTY_TITLE}
-            description={textConstants.customerPage.EMPTY_DESCRIPTION}
+            title={textConstants.productPage.EMPTY_TITLE}
+            description={textConstants.productPage.EMPTY_DESCRIPTION}
           />
         )}
         {fetching && (
@@ -116,9 +116,9 @@ const CustomersPage: React.FC = () => {
         <TopActions
           buttons={[
             {
-              text: textConstants.addCustomer.ADD_CUSTOMER,
-              icon: <MdPersonAdd />,
-              href: '/customers/new',
+              text: textConstants.addProduct.ADD_PRODUCT,
+              icon: <MdPlaylistAdd />,
+              href: '/products/new',
             },
             {
               text: textConstants.misc.FILTERS,
@@ -137,4 +137,4 @@ const CustomersPage: React.FC = () => {
   );
 };
 
-export default CustomersPage;
+export default ProductsPage;

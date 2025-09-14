@@ -92,7 +92,7 @@ const Button: React.FC<ButtonProps> = ({
     };
 
     // Remove onClick from linkProps to avoid conflicts with our custom handler
-    const { ...linkPropsWithoutOnClick } = linkProps;
+    const { onClick, ...linkPropsWithoutOnClick } = linkProps;
 
     return (
       <Tooltip.Provider delayDuration={0}>

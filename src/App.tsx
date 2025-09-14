@@ -15,13 +15,14 @@ import Login from '@/pages/Login';
 import Customers from '@/pages/Customers/CustomersPage';
 import Customer from '@/pages/Customer/CustomerPage';
 import AddEditCustomer from '@/pages/AddEditCustomer';
+import Products from '@/pages/Products';
+import Product from '@/pages/Product';
 import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
 import '@/styles/styles.global.sass';
 
 // Dummy components for missing routes
-const ProductsPage = () => <div>Products Page - Coming Soon</div>;
 const SalesPage = () => <div>Sales Page - Coming Soon</div>;
 const OrdersPage = () => <div>Orders Page - Coming Soon</div>;
 
@@ -76,12 +77,36 @@ function AppContent() {
             }
           />
 
-          {/* Products route */}
+          {/* Products routes */}
           <Route
             path='/products'
             element={
               <ProtectedRoute>
-                <ProductsPage />
+                <Products />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/products/:id'
+            element={
+              <ProtectedRoute>
+                <Product />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/products/new'
+            element={
+              <ProtectedRoute>
+                <div>Add Product Page - Coming Soon</div>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/products/:id/edit'
+            element={
+              <ProtectedRoute>
+                <div>Edit Product Page - Coming Soon</div>
               </ProtectedRoute>
             }
           />

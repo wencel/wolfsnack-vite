@@ -9,6 +9,7 @@ import authReducer from '@/store/slices/authSlice';
 import loadingReducer from '@/store/slices/loadingSlice';
 import errorReducer from '@/store/slices/errorSlice';
 import customersReducer from '@/store/slices/customersSlice';
+import productsReducer from '@/store/slices/productsSlice';
 import localitiesReducer from '@/store/slices/localitiesSlice';
 import type { RootState } from '@/store';
 import ToastProvider from '@/components/Providers/ToastProvider';
@@ -21,6 +22,7 @@ const createTestStore = (preloadedState = {}) => {
       loading: loadingReducer,
       error: errorReducer,
       customers: customersReducer,
+      products: productsReducer,
       localities: localitiesReducer,
     },
     preloadedState,
