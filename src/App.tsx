@@ -17,6 +17,7 @@ import Customer from '@/pages/Customer/CustomerPage';
 import AddEditCustomer from '@/pages/AddEditCustomer';
 import Products from '@/pages/Products';
 import Product from '@/pages/Product';
+import AddEditProduct from '@/pages/AddEditProduct';
 import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
@@ -98,7 +99,7 @@ function AppContent() {
             path='/products/new'
             element={
               <ProtectedRoute>
-                <div>Add Product Page - Coming Soon</div>
+                <AddEditProduct />
               </ProtectedRoute>
             }
           />
@@ -106,7 +107,7 @@ function AppContent() {
             path='/products/:id/edit'
             element={
               <ProtectedRoute>
-                <div>Edit Product Page - Coming Soon</div>
+                <AddEditProduct />
               </ProtectedRoute>
             }
           />

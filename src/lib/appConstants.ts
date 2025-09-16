@@ -10,6 +10,9 @@ export const textConstants = {
     EDIT_CUSTOMER: 'Editar cliente',
     CUSTOMER_DETAILS: 'Detalles del cliente',
     PRODUCTS: 'Productos',
+    ADD_PRODUCT: 'Agregar producto',
+    EDIT_PRODUCT: 'Editar producto',
+    PRODUCT_DETAILS: 'Detalles del producto',
     ORDERS: 'Pedidos',
     SALES: 'Ventas',
     NOT_FOUND: 'Página no encontrada',
@@ -97,7 +100,7 @@ export const textConstants = {
   product: {
     NAME: 'Nombre',
     PRESENTATION: 'Presentación',
-    WEIGHT: 'Peso (kg)',
+    WEIGHT: 'Peso (g)',
     BASE_PRICE: 'Precio base',
     SELLING_PRICE: 'Precio de venta',
     STOCK: 'Cantidad en inventario',

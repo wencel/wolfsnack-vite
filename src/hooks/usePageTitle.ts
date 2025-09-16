@@ -12,6 +12,7 @@ const getPageTitle = (pathname: string): string => {
     '/customers': textConstants.pageTitles.CUSTOMERS,
     '/customers/new': textConstants.pageTitles.ADD_CUSTOMER,
     '/products': textConstants.pageTitles.PRODUCTS,
+    '/products/new': textConstants.pageTitles.ADD_PRODUCT,
     '/orders': textConstants.pageTitles.ORDERS,
     '/sales': textConstants.pageTitles.SALES,
   };
@@ -30,6 +31,23 @@ const getPageTitle = (pathname: string): string => {
     // Handle nested routes like /customers/:id/edit
     if (parts.length === 4 && parts[3] === 'edit') {
       return `${textConstants.pageTitles.EDIT_CUSTOMER} - ${baseTitle}`;
+    }
+  }
+
+  // Check for dynamic product routes (like /products/:id)
+  if (pathname.startsWith('/products/') && pathname !== '/products/new') {
+    const parts = pathname.split('/');
+    if (parts.length === 3 && parts[2] !== 'new') {
+      // Check if it's an edit route
+      if (pathname.includes('/edit')) {
+        return `${textConstants.pageTitles.EDIT_PRODUCT} - ${baseTitle}`;
+      }
+      // It's a view product route
+      return `${textConstants.pageTitles.PRODUCT_DETAILS} - ${baseTitle}`;
+    }
+    // Handle nested routes like /products/:id/edit
+    if (parts.length === 4 && parts[3] === 'edit') {
+      return `${textConstants.pageTitles.EDIT_PRODUCT} - ${baseTitle}`;
     }
   }
 

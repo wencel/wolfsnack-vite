@@ -4,6 +4,7 @@ import {
   calculateTotalPriceProduct,
   formatCurrency,
   formatDate,
+  getChangedFields,
 } from './utils';
 
 describe('utils', () => {
@@ -119,6 +120,50 @@ describe('utils', () => {
     it('should handle invalid date gracefully', () => {
       const result = formatDate('invalid-date');
       expect(result).toBe('Invalid Date');
+    });
+  });
+
+  describe('getChangedFields', () => {
+    it('should return only changed fields', () => {
+      const original = { name: 'John', age: 30, city: 'New York' };
+      const updated = { name: 'Jane', age: 30, city: 'Boston' };
+      const result = getChangedFields(original, updated);
+      expect(result).toEqual({ name: 'Jane', city: 'Boston' });
+    });
+
+    it('should return empty object when no changes', () => {
+      const original = { name: 'John', age: 30 };
+      const updated = { name: 'John', age: 30 };
+      const result = getChangedFields(original, updated);
+      expect(result).toEqual({});
+    });
+
+    it('should handle undefined vs empty string differences', () => {
+      const original = { name: 'John', email: undefined as string | undefined };
+      const updated = { name: 'John', email: '' as string | undefined };
+      const result = getChangedFields(original, updated);
+      expect(result).toEqual({});
+    });
+
+    it('should handle empty string vs undefined differences', () => {
+      const original = { name: 'John', email: '' as string | undefined };
+      const updated = { name: 'John', email: undefined as string | undefined };
+      const result = getChangedFields(original, updated);
+      expect(result).toEqual({});
+    });
+
+    it('should handle numeric changes', () => {
+      const original = { price: 10, quantity: 5 };
+      const updated = { price: 12, quantity: 5 };
+      const result = getChangedFields(original, updated);
+      expect(result).toEqual({ price: 12 });
+    });
+
+    it('should handle boolean changes', () => {
+      const original = { active: true, visible: false };
+      const updated = { active: false, visible: false };
+      const result = getChangedFields(original, updated);
+      expect(result).toEqual({ active: false });
     });
   });
 });

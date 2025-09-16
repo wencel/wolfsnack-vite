@@ -5,6 +5,8 @@ import errorReducer from './slices/errorSlice';
 import customersReducer from './slices/customersSlice';
 import productsReducer from './slices/productsSlice';
 import localitiesReducer from './slices/localitiesSlice';
+import presentationsReducer from './slices/presentationsSlice';
+import productTypesReducer from './slices/productTypesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
     customers: customersReducer,
     products: productsReducer,
     localities: localitiesReducer,
+    presentations: presentationsReducer,
+    productTypes: productTypesReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

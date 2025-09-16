@@ -8,6 +8,7 @@ import Form from '@/components/Atoms/Form';
 import Input from '@/components/Atoms/Input';
 import TopActions from '@/components/Organisms/TopActions';
 import { textConstants } from '@/lib/appConstants';
+import { getChangedFields } from '@/lib/utils';
 import useCustomers from '@/hooks/useCustomers';
 import useLocalities from '@/hooks/useLocalities';
 
@@ -42,6 +43,9 @@ const AddEditCustomerPage: React.FC = () => {
     idNumber: '',
   });
 
+  // Track original customer data for comparison in edit mode
+  const [originalCustomerData, setOriginalCustomerData] = useState<CustomerFormData | null>(null);
+
   const isEditMode = !!id;
 
   // Load localities on mount
@@ -59,7 +63,7 @@ const AddEditCustomerPage: React.FC = () => {
   // Update form data when customer data is loaded
   useEffect(() => {
     if (currentCustomer && isEditMode) {
-      setFormData({
+      const customerFormData = {
         storeName: currentCustomer.storeName || '',
         name: currentCustomer.name || '',
         address: currentCustomer.address || '',
@@ -69,7 +73,9 @@ const AddEditCustomerPage: React.FC = () => {
         locality: currentCustomer.locality || '',
         town: currentCustomer.town || '',
         idNumber: currentCustomer.idNumber || '',
-      });
+      };
+      setFormData(customerFormData);
+      setOriginalCustomerData(customerFormData);
     }
   }, [currentCustomer, isEditMode]);
 
@@ -84,7 +90,10 @@ const AddEditCustomerPage: React.FC = () => {
     e.preventDefault();
 
     if (isEditMode && id) {
-      updateCustomer({ id, customerData: formData, navigate });
+      // Only send changed fields in edit mode
+      const originalData = originalCustomerData || {};
+      const changedFields = getChangedFields(originalData, formData);
+      updateCustomer({ id, customerData: changedFields, navigate });
       // Navigation and error handling are done by the thunk
     } else {
       createCustomer({ customerData: formData, navigate });
@@ -121,7 +130,7 @@ const AddEditCustomerPage: React.FC = () => {
           <Input
             label={textConstants.customer.STORE_NAME}
             value={formData.storeName}
-            onChange={e => handleInputChange('storeName', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('storeName', e.target.value)}
             required
           />
 
@@ -129,19 +138,19 @@ const AddEditCustomerPage: React.FC = () => {
             label={textConstants.customer.ID_NUMBER}
             type='text'
             value={formData.idNumber}
-            onChange={e => handleInputChange('idNumber', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('idNumber', e.target.value)}
           />
 
           <Input
             label={textConstants.customer.NAME}
             value={formData.name}
-            onChange={e => handleInputChange('name', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('name', e.target.value)}
           />
 
           <Input
             label={textConstants.customer.ADDRESS}
             value={formData.address}
-            onChange={e => handleInputChange('address', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('address', e.target.value)}
             required
           />
 
@@ -149,14 +158,14 @@ const AddEditCustomerPage: React.FC = () => {
             label={textConstants.customer.EMAIL}
             type='email'
             value={formData.email}
-            onChange={e => handleInputChange('email', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
           />
 
           <Input
             label={textConstants.customer.PHONE_NUMBER}
             type='phoneNumber'
             value={formData.phoneNumber}
-            onChange={e => handleInputChange('phoneNumber', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('phoneNumber', e.target.value)}
             required
           />
 
@@ -164,7 +173,7 @@ const AddEditCustomerPage: React.FC = () => {
             label={textConstants.customer.SECONDARY_PHONE_NUMBER}
             type='phoneNumber'
             value={formData.secondaryPhoneNumber}
-            onChange={e =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('secondaryPhoneNumber', e.target.value)
             }
           />
@@ -174,13 +183,13 @@ const AddEditCustomerPage: React.FC = () => {
             type='select'
             options={localities}
             value={formData.locality}
-            onChange={e => handleInputChange('locality', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('locality', e.target.value)}
           />
 
           <Input
             label={textConstants.customer.TOWN}
             value={formData.town}
-            onChange={e => handleInputChange('town', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('town', e.target.value)}
           />
         </Form>
       </Card>

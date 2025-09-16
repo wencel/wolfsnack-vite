@@ -301,9 +301,40 @@ export const createCustomerWithMissingFields = (): Customer =>
 export const createCustomerWithPartialFields = (): Customer => 
   omit(['secondaryPhoneNumber', 'town', 'idNumber'], mockCustomers[0]);
 
+export const createProductWithMissingFields = (): Product => ({
+  ...mockProducts[0],
+  presentation: undefined as any,
+  weight: undefined as any,
+  basePrice: undefined as any,
+  sellingPrice: undefined as any,
+  stock: undefined as any,
+});
+
 // Mock localities data for testing
 export const mockLocalities = [
   { value: 'locality1', label: 'Test Locality 1' },
   { value: 'locality2', label: 'Test Locality 2' },
   { value: 'locality3', label: 'Test Locality 3' },
+];
+
+// Mock presentations data for testing
+export const mockPresentations = [
+  'Bolsa',
+  'Unidad',
+  'Caja',
+  'Paquete',
+];
+
+// Mock product types data for testing
+export const mockProductTypes = [
+  'Wolf Snack Mix',
+  'Trail Mix Deluxe',
+  'Protein Bars',
+  'Energy Mix',
+  'Nut Mix Premium',
+  'Granola Bars',
+  'Dried Fruit Mix',
+  'Chocolate Coated Nuts',
+  'Seeds Mix',
+  'Spicy Mix',
 ];

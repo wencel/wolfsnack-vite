@@ -134,7 +134,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           />
         </div>
         <div className={styles.buttonContainer}>
-          <Link to={`/products/${product._id}`}>
+          <Link to={`/products/${product._id}/edit`}>
             <Button
               theme='RoundWithLabel'
               tooltip={textConstants.product.EDIT_PRODUCT}

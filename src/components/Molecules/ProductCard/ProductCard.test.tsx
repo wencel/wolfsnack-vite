@@ -96,7 +96,7 @@ describe('ProductCard', () => {
     
     // Check that the button is inside a link with correct href
     const editLink = editButton.closest('a');
-    expect(editLink).toHaveAttribute('href', '/products/1');
+    expect(editLink).toHaveAttribute('href', '/products/1/edit');
   });
 
   it('renders delete button', () => {
