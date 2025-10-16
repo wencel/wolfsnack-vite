@@ -1,4 +1,4 @@
-import type { Customer, Product } from '@/lib/data';
+import type { Customer, Product, Sale } from '@/lib/data';
 import { omit } from 'ramda';
 
 export const mockCustomers: Customer[] = [
@@ -287,7 +287,225 @@ export const mockProducts: Product[] = [
   },
 ];
 
-export const mockPaginatedResponse = <T>(data: T[], total: number, skip: number = 0, limit: number = 10) => ({
+export const mockSales: Sale[] = [
+  {
+    _id: '1',
+    saleId: 1,
+    saleDate: '2024-01-15T00:00:00.000Z',
+    customer: mockCustomers[0],
+    isThirteenDozen: false,
+    owes: false,
+    partialPayment: 0,
+    totalPrice: 31.98,
+    products: [
+      {
+        product: mockProducts[0],
+        price: 15.99,
+        quantity: 2,
+        totalPrice: 31.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-15T00:00:00.000Z',
+    updatedAt: '2024-01-15T00:00:00.000Z',
+  },
+  {
+    _id: '2',
+    saleId: 2,
+    saleDate: '2024-01-16T00:00:00.000Z',
+    customer: mockCustomers[1],
+    isThirteenDozen: true,
+    owes: true,
+    partialPayment: 20.0,
+    totalPrice: 39.98,
+    products: [
+      {
+        product: mockProducts[1],
+        price: 19.99,
+        quantity: 2,
+        totalPrice: 39.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-16T00:00:00.000Z',
+    updatedAt: '2024-01-16T00:00:00.000Z',
+  },
+  {
+    _id: '3',
+    saleId: 3,
+    saleDate: '2024-01-17T00:00:00.000Z',
+    customer: mockCustomers[2],
+    isThirteenDozen: false,
+    owes: false,
+    partialPayment: 0,
+    totalPrice: 23.98,
+    products: [
+      {
+        product: mockProducts[2],
+        price: 11.99,
+        quantity: 2,
+        totalPrice: 23.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-17T00:00:00.000Z',
+    updatedAt: '2024-01-17T00:00:00.000Z',
+  },
+  {
+    _id: '4',
+    saleId: 4,
+    saleDate: '2024-01-18T00:00:00.000Z',
+    customer: mockCustomers[3],
+    isThirteenDozen: false,
+    owes: true,
+    partialPayment: 10.0,
+    totalPrice: 25.98,
+    products: [
+      {
+        product: mockProducts[3],
+        price: 12.99,
+        quantity: 2,
+        totalPrice: 25.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-18T00:00:00.000Z',
+    updatedAt: '2024-01-18T00:00:00.000Z',
+  },
+  {
+    _id: '5',
+    saleId: 5,
+    saleDate: '2024-01-19T00:00:00.000Z',
+    customer: mockCustomers[4],
+    isThirteenDozen: true,
+    owes: false,
+    partialPayment: 0,
+    totalPrice: 49.98,
+    products: [
+      {
+        product: mockProducts[4],
+        price: 24.99,
+        quantity: 2,
+        totalPrice: 49.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-19T00:00:00.000Z',
+    updatedAt: '2024-01-19T00:00:00.000Z',
+  },
+  {
+    _id: '6',
+    saleId: 6,
+    saleDate: '2024-01-20T00:00:00.000Z',
+    customer: mockCustomers[0],
+    isThirteenDozen: false,
+    owes: false,
+    partialPayment: 0,
+    totalPrice: 35.98,
+    products: [
+      {
+        product: mockProducts[0],
+        price: 17.99,
+        quantity: 2,
+        totalPrice: 35.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-20T00:00:00.000Z',
+    updatedAt: '2024-01-20T00:00:00.000Z',
+  },
+  {
+    _id: '7',
+    saleId: 7,
+    saleDate: '2024-01-21T00:00:00.000Z',
+    customer: mockCustomers[1],
+    isThirteenDozen: true,
+    owes: true,
+    partialPayment: 15.0,
+    totalPrice: 45.98,
+    products: [
+      {
+        product: mockProducts[1],
+        price: 22.99,
+        quantity: 2,
+        totalPrice: 45.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-21T00:00:00.000Z',
+    updatedAt: '2024-01-21T00:00:00.000Z',
+  },
+  {
+    _id: '8',
+    saleId: 8,
+    saleDate: '2024-01-22T00:00:00.000Z',
+    customer: mockCustomers[2],
+    isThirteenDozen: false,
+    owes: false,
+    partialPayment: 0,
+    totalPrice: 28.98,
+    products: [
+      {
+        product: mockProducts[2],
+        price: 14.49,
+        quantity: 2,
+        totalPrice: 28.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-22T00:00:00.000Z',
+    updatedAt: '2024-01-22T00:00:00.000Z',
+  },
+  {
+    _id: '9',
+    saleId: 9,
+    saleDate: '2024-01-23T00:00:00.000Z',
+    customer: mockCustomers[3],
+    isThirteenDozen: false,
+    owes: true,
+    partialPayment: 5.0,
+    totalPrice: 30.98,
+    products: [
+      {
+        product: mockProducts[3],
+        price: 15.49,
+        quantity: 2,
+        totalPrice: 30.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-23T00:00:00.000Z',
+    updatedAt: '2024-01-23T00:00:00.000Z',
+  },
+  {
+    _id: '10',
+    saleId: 10,
+    saleDate: '2024-01-24T00:00:00.000Z',
+    customer: mockCustomers[4],
+    isThirteenDozen: true,
+    owes: false,
+    partialPayment: 0,
+    totalPrice: 55.98,
+    products: [
+      {
+        product: mockProducts[4],
+        price: 27.99,
+        quantity: 2,
+        totalPrice: 55.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-24T00:00:00.000Z',
+    updatedAt: '2024-01-24T00:00:00.000Z',
+  },
+];
+
+export const mockPaginatedResponse = <T>(
+  data: T[],
+  total: number,
+  skip: number = 0,
+  limit: number = 10
+) => ({
   data,
   total,
   skip,
@@ -295,10 +513,13 @@ export const mockPaginatedResponse = <T>(data: T[], total: number, skip: number 
 });
 
 // Helper functions to create test data variants
-export const createCustomerWithMissingFields = (): Customer => 
-  omit(['email', 'secondaryPhoneNumber', 'locality', 'town', 'idNumber'], mockCustomers[0]);
+export const createCustomerWithMissingFields = (): Customer =>
+  omit(
+    ['email', 'secondaryPhoneNumber', 'locality', 'town', 'idNumber'],
+    mockCustomers[0]
+  );
 
-export const createCustomerWithPartialFields = (): Customer => 
+export const createCustomerWithPartialFields = (): Customer =>
   omit(['secondaryPhoneNumber', 'town', 'idNumber'], mockCustomers[0]);
 
 export const createProductWithMissingFields = (): Product => ({
@@ -318,12 +539,7 @@ export const mockLocalities = [
 ];
 
 // Mock presentations data for testing
-export const mockPresentations = [
-  'Bolsa',
-  'Unidad',
-  'Caja',
-  'Paquete',
-];
+export const mockPresentations = ['Bolsa', 'Unidad', 'Caja', 'Paquete'];
 
 // Mock product types data for testing
 export const mockProductTypes = [

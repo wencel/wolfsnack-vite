@@ -12,13 +12,13 @@ const mockItems: SearchItem[] = [
 ];
 
 const mockCustomerItems: SearchItem[] = [
-  { 
-    value: { _id: '1', name: 'John Doe', storeName: 'Store ABC' } as any, 
-    label: 'John Doe - Store ABC' 
+  {
+    value: { _id: '1', name: 'John Doe', storeName: 'Store ABC' } as any,
+    label: 'John Doe - Store ABC',
   },
-  { 
-    value: { _id: '2', name: 'Jane Smith', storeName: 'Store XYZ' } as any, 
-    label: 'Jane Smith - Store XYZ' 
+  {
+    value: { _id: '2', name: 'Jane Smith', storeName: 'Store XYZ' } as any,
+    label: 'Jane Smith - Store XYZ',
   },
 ];
 
@@ -48,12 +48,7 @@ describe('SearchField', () => {
   });
 
   it('calls onSearch when input value changes', async () => {
-    testRender(
-      <SearchField 
-        itemsList={[]} 
-        onSearch={mockOnSearch} 
-      />
-    );
+    testRender(<SearchField itemsList={[]} onSearch={mockOnSearch} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
@@ -70,24 +65,36 @@ describe('SearchField', () => {
     fireEvent.change(searchInput, { target: { value: 'test' } });
 
     // Now we can use the accessible name
-    const cancelButton = screen.getByRole('button', { name: 'Limpiar búsqueda' });
+    const cancelButton = screen.getByRole('button', {
+      name: 'Limpiar búsqueda',
+    });
     expect(cancelButton).toBeVisible();
     expect(cancelButton).toHaveAttribute('type', 'button');
   });
 
-  it('shows cancel button when there are items in the list', () => {
+  it('shows cancel button when there are items in the list and input value', () => {
     testRender(<SearchField itemsList={mockItems} />);
 
-    // Check that a cancel button is present when there are items
-    const cancelButton = screen.getByRole('button', { name: 'Limpiar búsqueda' });
+    const searchInput = screen.getByLabelText('Buscar');
+    fireEvent.change(searchInput, { target: { value: 'test' } });
+
+    // Check that a cancel button is present when there are items and input value
+    const cancelButton = screen.getByRole('button', {
+      name: 'Limpiar búsqueda',
+    });
     expect(cancelButton).toBeVisible();
   });
 
-  it('shows cancel button when loading', () => {
+  it('shows cancel button when loading and has input value', () => {
     testRender(<SearchField itemsList={[]} isLoading={true} />);
 
-    // Check that a cancel button is present when loading
-    const cancelButton = screen.getByRole('button', { name: 'Limpiar búsqueda' });
+    const searchInput = screen.getByLabelText('Buscar');
+    fireEvent.change(searchInput, { target: { value: 'test' } });
+
+    // Check that a cancel button is present when loading and has input value
+    const cancelButton = screen.getByRole('button', {
+      name: 'Limpiar búsqueda',
+    });
     expect(cancelButton).toBeVisible();
   });
 
@@ -99,27 +106,27 @@ describe('SearchField', () => {
   });
 
   it('clears input and calls onSelect when cancel button is clicked', () => {
-    testRender(
-      <SearchField 
-        itemsList={[]} 
-        onSelect={mockOnSelect} 
-      />
-    );
+    testRender(<SearchField itemsList={[]} onSelect={mockOnSelect} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
 
-    const cancelButton = screen.getByRole('button', { name: 'Limpiar búsqueda' });
+    const cancelButton = screen.getByRole('button', {
+      name: 'Limpiar búsqueda',
+    });
     fireEvent.click(cancelButton);
 
     expect(searchInput).toHaveValue('');
     expect(mockOnSelect).toHaveBeenCalledWith(null);
   });
 
-  it('shows loading indicator when isLoading is true', () => {
+  it('shows loading indicator when isLoading is true and has input value', () => {
     testRender(<SearchField itemsList={[]} isLoading={true} />);
 
-    // The loading indicator should be visible
+    const searchInput = screen.getByLabelText('Buscar');
+    fireEvent.change(searchInput, { target: { value: 'test' } });
+
+    // The loading indicator should be visible when loading and has input value
     expect(screen.getByTestId('inline-loading')).toBeVisible();
   });
 
@@ -133,12 +140,7 @@ describe('SearchField', () => {
   });
 
   it('shows items list when there are items and input value', () => {
-    testRender(
-      <SearchField 
-        itemsList={mockItems} 
-        onSelect={mockOnSelect} 
-      />
-    );
+    testRender(<SearchField itemsList={mockItems} onSelect={mockOnSelect} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
@@ -150,12 +152,7 @@ describe('SearchField', () => {
   });
 
   it('calls onSelect when an item is clicked', () => {
-    testRender(
-      <SearchField 
-        itemsList={mockItems} 
-        onSelect={mockOnSelect} 
-      />
-    );
+    testRender(<SearchField itemsList={mockItems} onSelect={mockOnSelect} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
@@ -167,12 +164,7 @@ describe('SearchField', () => {
   });
 
   it('clears input when an item is selected', () => {
-    testRender(
-      <SearchField 
-        itemsList={mockItems} 
-        onSelect={mockOnSelect} 
-      />
-    );
+    testRender(<SearchField itemsList={mockItems} onSelect={mockOnSelect} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
@@ -185,10 +177,7 @@ describe('SearchField', () => {
 
   it('handles customer objects as item values', () => {
     testRender(
-      <SearchField 
-        itemsList={mockCustomerItems} 
-        onSelect={mockOnSelect} 
-      />
+      <SearchField itemsList={mockCustomerItems} onSelect={mockOnSelect} />
     );
 
     const searchInput = screen.getByLabelText('Buscar');
@@ -207,10 +196,7 @@ describe('SearchField', () => {
     ];
 
     testRender(
-      <SearchField 
-        itemsList={itemsWithNull} 
-        onSelect={mockOnSelect} 
-      />
+      <SearchField itemsList={itemsWithNull} onSelect={mockOnSelect} />
     );
 
     const searchInput = screen.getByLabelText('Buscar');
@@ -229,10 +215,7 @@ describe('SearchField', () => {
     ];
 
     testRender(
-      <SearchField 
-        itemsList={itemsWithNumbers} 
-        onSelect={mockOnSelect} 
-      />
+      <SearchField itemsList={itemsWithNumbers} onSelect={mockOnSelect} />
     );
 
     const searchInput = screen.getByLabelText('Buscar');
@@ -247,13 +230,9 @@ describe('SearchField', () => {
   it('shows value display when value prop is provided', () => {
     const testValue = 'selected-value';
     const testLabel = 'Selected Value Label';
-    
+
     testRender(
-      <SearchField 
-        itemsList={[]} 
-        value={testValue}
-        valueLabel={testLabel}
-      />
+      <SearchField itemsList={[]} value={testValue} valueLabel={testLabel} />
     );
 
     const valueInput = screen.getByLabelText(testLabel);
@@ -263,12 +242,16 @@ describe('SearchField', () => {
   });
 
   it('shows value display with customer object', () => {
-    const customerValue = { _id: '1', name: 'John Doe', storeName: 'Store ABC' } as any;
+    const customerValue = {
+      _id: '1',
+      name: 'John Doe',
+      storeName: 'Store ABC',
+    } as any;
     const testLabel = 'Selected Customer';
-    
+
     testRender(
-      <SearchField 
-        itemsList={[]} 
+      <SearchField
+        itemsList={[]}
         value={customerValue}
         valueLabel={testLabel}
       />
@@ -283,13 +266,9 @@ describe('SearchField', () => {
   it('shows value display with number value', () => {
     const numberValue = 42;
     const testLabel = 'Selected Number';
-    
+
     testRender(
-      <SearchField 
-        itemsList={[]} 
-        value={numberValue}
-        valueLabel={testLabel}
-      />
+      <SearchField itemsList={[]} value={numberValue} valueLabel={testLabel} />
     );
 
     const valueInput = screen.getByLabelText(testLabel);
@@ -301,10 +280,10 @@ describe('SearchField', () => {
   it('has cancel button for value display', () => {
     const testValue = 'selected-value';
     const testLabel = 'Selected Value Label';
-    
+
     testRender(
-      <SearchField 
-        itemsList={[]} 
+      <SearchField
+        itemsList={[]}
         value={testValue}
         valueLabel={testLabel}
         onSelect={mockOnSelect}
@@ -312,20 +291,24 @@ describe('SearchField', () => {
     );
 
     // Only the value display cancel button should be present when there's no input/search activity
-    const valueCancelButton = screen.getByRole('button', { name: 'Limpiar valor seleccionado' });
+    const valueCancelButton = screen.getByRole('button', {
+      name: 'Limpiar valor seleccionado',
+    });
     expect(valueCancelButton).toBeVisible();
-    
+
     // The search cancel button should not be present since there's no input value
-    expect(screen.queryByRole('button', { name: 'Limpiar búsqueda' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Limpiar búsqueda' })
+    ).not.toBeInTheDocument();
   });
 
   it('calls onSelect with null when value display cancel button is clicked', () => {
     const testValue = 'selected-value';
     const testLabel = 'Selected Value Label';
-    
+
     testRender(
-      <SearchField 
-        itemsList={[]} 
+      <SearchField
+        itemsList={[]}
         value={testValue}
         valueLabel={testLabel}
         onSelect={mockOnSelect}
@@ -333,24 +316,19 @@ describe('SearchField', () => {
     );
 
     // Click the value display cancel button specifically
-    const valueCancelButton = screen.getByRole('button', { name: 'Limpiar valor seleccionado' });
+    const valueCancelButton = screen.getByRole('button', {
+      name: 'Limpiar valor seleccionado',
+    });
     fireEvent.click(valueCancelButton);
 
     expect(mockOnSelect).toHaveBeenCalledWith(null);
   });
 
-
-
   it('calls onSearch for each input change', async () => {
-    testRender(
-      <SearchField 
-        itemsList={[]} 
-        onSearch={mockOnSearch} 
-      />
-    );
+    testRender(<SearchField itemsList={[]} onSearch={mockOnSearch} />);
 
     const searchInput = screen.getByLabelText('Buscar');
-    
+
     // Type multiple characters quickly
     fireEvent.change(searchInput, { target: { value: 't' } });
     fireEvent.change(searchInput, { target: { value: 'te' } });
@@ -367,12 +345,7 @@ describe('SearchField', () => {
   });
 
   it('handles empty string input', async () => {
-    testRender(
-      <SearchField 
-        itemsList={[]} 
-        onSearch={mockOnSearch} 
-      />
-    );
+    testRender(<SearchField itemsList={[]} onSearch={mockOnSearch} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
@@ -384,12 +357,7 @@ describe('SearchField', () => {
   });
 
   it('handles special characters in search input', async () => {
-    testRender(
-      <SearchField 
-        itemsList={[]} 
-        onSearch={mockOnSearch} 
-      />
-    );
+    testRender(<SearchField itemsList={[]} onSearch={mockOnSearch} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     const specialValue = 'test@#$%^&*()';
@@ -401,12 +369,7 @@ describe('SearchField', () => {
   });
 
   it('handles very long search input', async () => {
-    testRender(
-      <SearchField 
-        itemsList={[]} 
-        onSearch={mockOnSearch} 
-      />
-    );
+    testRender(<SearchField itemsList={[]} onSearch={mockOnSearch} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     const longValue = 'a'.repeat(1000);
@@ -418,12 +381,7 @@ describe('SearchField', () => {
   });
 
   it('clears input after item selection', () => {
-    testRender(
-      <SearchField 
-        itemsList={mockItems} 
-        onSelect={mockOnSelect} 
-      />
-    );
+    testRender(<SearchField itemsList={mockItems} onSelect={mockOnSelect} />);
 
     const searchInput = screen.getByLabelText('Buscar');
     fireEvent.change(searchInput, { target: { value: 'test' } });
@@ -436,21 +394,16 @@ describe('SearchField', () => {
   });
 
   it('handles multiple item selections sequentially', () => {
-    testRender(
-      <SearchField 
-        itemsList={mockItems} 
-        onSelect={mockOnSelect} 
-      />
-    );
+    testRender(<SearchField itemsList={mockItems} onSelect={mockOnSelect} />);
 
     const searchInput = screen.getByLabelText('Buscar');
-    
+
     // First selection
     fireEvent.change(searchInput, { target: { value: 'test' } });
     const firstItem = screen.getByText('First Item');
     fireEvent.click(firstItem);
     expect(mockOnSelect).toHaveBeenCalledWith('item1');
-    
+
     // Second selection (input is cleared, so we need to type again)
     fireEvent.change(searchInput, { target: { value: 'test2' } });
     const secondItem = screen.getByText('Second Item');

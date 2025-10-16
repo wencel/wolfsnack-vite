@@ -3,8 +3,6 @@ import { describe, it, expect } from 'vitest';
 import { testRender } from '@/test/test-utils';
 import ProtectedRoute from './';
 
-
-
 // Test component to render inside ProtectedRoute
 const TestComponent = () => <div>Protected Content</div>;
 
@@ -17,7 +15,14 @@ describe('ProtectedRoute', () => {
       {
         preloadedState: {
           auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2024-01-01',
+              updatedAt: '2024-01-01',
+            },
             token: 'fake-token',
             isAuthenticated: true,
             error: null,
@@ -26,9 +31,7 @@ describe('ProtectedRoute', () => {
         },
         initialEntries: ['/protected'],
         mountPath: '/protected',
-        routes: [
-          { path: '/login', element: <div>Login Page</div> },
-        ],
+        routes: [{ path: '/login', element: <div>Login Page</div> }],
       }
     );
 
@@ -52,9 +55,7 @@ describe('ProtectedRoute', () => {
         },
         initialEntries: ['/protected'],
         mountPath: '/protected',
-        routes: [
-          { path: '/login', element: <div>Login Page</div> },
-        ],
+        routes: [{ path: '/login', element: <div>Login Page</div> }],
       }
     );
 
@@ -81,9 +82,7 @@ describe('ProtectedRoute', () => {
         },
         initialEntries: ['/protected'],
         mountPath: '/protected',
-        routes: [
-          { path: '/login', element: <div>Login Page</div> },
-        ],
+        routes: [{ path: '/login', element: <div>Login Page</div> }],
       }
     );
 
@@ -107,7 +106,14 @@ describe('ProtectedRoute', () => {
       {
         preloadedState: {
           auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2024-01-01',
+              updatedAt: '2024-01-01',
+            },
             token: 'fake-token',
             isAuthenticated: true,
             error: null,
@@ -116,9 +122,7 @@ describe('ProtectedRoute', () => {
         },
         initialEntries: ['/protected'],
         mountPath: '/protected',
-        routes: [
-          { path: '/login', element: <div>Login Page</div> },
-        ],
+        routes: [{ path: '/login', element: <div>Login Page</div> }],
       }
     );
 
@@ -128,27 +132,27 @@ describe('ProtectedRoute', () => {
   });
 
   it('handles empty children gracefully when authenticated', () => {
-    testRender(
-      <ProtectedRoute>
-        {null}
-      </ProtectedRoute>,
-      {
-        preloadedState: {
-          auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
-            token: 'fake-token',
-            isAuthenticated: true,
-            error: null,
-            initialized: true,
+    testRender(<ProtectedRoute>{null}</ProtectedRoute>, {
+      preloadedState: {
+        auth: {
+          user: {
+            _id: '1',
+            name: 'Test User',
+            email: 'test@example.com',
+            active: true,
+            createdAt: '2024-01-01',
+            updatedAt: '2024-01-01',
           },
+          token: 'fake-token',
+          isAuthenticated: true,
+          error: null,
+          initialized: true,
         },
-        initialEntries: ['/protected'],
-        mountPath: '/protected',
-        routes: [
-          { path: '/login', element: <div>Login Page</div> },
-        ],
-      }
-    );
+      },
+      initialEntries: ['/protected'],
+      mountPath: '/protected',
+      routes: [{ path: '/login', element: <div>Login Page</div> }],
+    });
 
     // Should render without crashing
     expect(screen.queryByText('Protected Content')).not.toBeInTheDocument();

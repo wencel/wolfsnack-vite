@@ -5,7 +5,7 @@ import styles from './Checkbox.module.sass';
 
 describe('Checkbox Component', () => {
   it('renders checkbox with label', () => {
-    testRender(<Checkbox label='Test Checkbox' />);
+    testRender(<Checkbox label="Test Checkbox" />);
 
     const checkbox = screen.getByRole('checkbox', { name: /test checkbox/i });
     expect(checkbox).toBeVisible();
@@ -21,7 +21,7 @@ describe('Checkbox Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-checkbox-class';
-    testRender(<Checkbox className={customClass} label='Test Checkbox' />);
+    testRender(<Checkbox className={customClass} label="Test Checkbox" />);
 
     const label = screen.getByText('Test Checkbox').closest('label');
     expect(label).toHaveClass(customClass);
@@ -29,25 +29,27 @@ describe('Checkbox Component', () => {
   });
 
   it('applies theme classes correctly', () => {
-    const { rerender } = testRender(<Checkbox theme='path' label='Path Theme' />);
+    const { rerender } = testRender(
+      <Checkbox theme="path" label="Path Theme" />
+    );
 
     let label = screen.getByText('Path Theme').closest('label');
     expect(label).toHaveClass(styles.path);
 
-    rerender(<Checkbox theme='bounce' label='Bounce Theme' />);
+    rerender(<Checkbox theme="bounce" label="Bounce Theme" />);
     label = screen.getByText('Bounce Theme').closest('label');
     expect(label).toHaveClass(styles.bounce);
   });
 
   it('uses default theme when none provided', () => {
-    testRender(<Checkbox label='Default Theme' />);
+    testRender(<Checkbox label="Default Theme" />);
 
     const label = screen.getByText('Default Theme').closest('label');
     expect(label).toHaveClass(styles.path);
   });
 
   it('generates unique id when none provided', () => {
-    testRender(<Checkbox label='Test Checkbox' />);
+    testRender(<Checkbox label="Test Checkbox" />);
 
     const checkbox = screen.getByRole('checkbox', { name: /test checkbox/i });
     const label = screen.getByText('Test Checkbox').closest('label');
@@ -58,7 +60,7 @@ describe('Checkbox Component', () => {
 
   it('uses provided id when available', () => {
     const customId = 'custom-checkbox-id';
-    testRender(<Checkbox id={customId} label='Test Checkbox' />);
+    testRender(<Checkbox id={customId} label="Test Checkbox" />);
 
     const checkbox = screen.getByRole('checkbox', { name: /test checkbox/i });
     const label = screen.getByText('Test Checkbox').closest('label');
@@ -68,7 +70,7 @@ describe('Checkbox Component', () => {
   });
 
   it('handles checked state', () => {
-    testRender(<Checkbox label='Test Checkbox' />);
+    testRender(<Checkbox label="Test Checkbox" />);
 
     const checkbox = screen.getByRole('checkbox', { name: /test checkbox/i });
     expect(checkbox).not.toBeChecked();
@@ -78,7 +80,7 @@ describe('Checkbox Component', () => {
   });
 
   it('handles disabled state', () => {
-    testRender(<Checkbox label='Disabled Checkbox' disabled />);
+    testRender(<Checkbox label="Disabled Checkbox" disabled />);
 
     const checkbox = screen.getByRole('checkbox', {
       name: /disabled checkbox/i,
@@ -88,7 +90,7 @@ describe('Checkbox Component', () => {
 
   it('calls onChange handler when clicked', () => {
     const handleChange = vi.fn();
-    testRender(<Checkbox label='Test Checkbox' onChange={handleChange} />);
+    testRender(<Checkbox label="Test Checkbox" onChange={handleChange} />);
 
     const checkbox = screen.getByRole('checkbox', { name: /test checkbox/i });
     fireEvent.click(checkbox);
@@ -97,7 +99,7 @@ describe('Checkbox Component', () => {
   });
 
   it('renders SVG icon', () => {
-    testRender(<Checkbox label='Test Checkbox' />);
+    testRender(<Checkbox label="Test Checkbox" />);
 
     const svg = screen.getByTestId('checkbox-icon');
     expect(svg).toBeVisible();
@@ -105,7 +107,7 @@ describe('Checkbox Component', () => {
   });
 
   it('has correct DOM structure', () => {
-    testRender(<Checkbox label='Test Checkbox' />);
+    testRender(<Checkbox label="Test Checkbox" />);
 
     const label = screen.getByText('Test Checkbox').closest('label');
     const checkbox = screen.getByRole('checkbox', { name: /test checkbox/i });
@@ -121,7 +123,7 @@ describe('Checkbox Component', () => {
 
   it('handles controlled checked state', () => {
     const { rerender } = testRender(
-      <Checkbox label='Controlled Checkbox' checked={false} />
+      <Checkbox label="Controlled Checkbox" checked={false} />
     );
 
     let checkbox = screen.getByRole('checkbox', {
@@ -129,7 +131,7 @@ describe('Checkbox Component', () => {
     });
     expect(checkbox).not.toBeChecked();
 
-    rerender(<Checkbox label='Controlled Checkbox' checked={true} />);
+    rerender(<Checkbox label="Controlled Checkbox" checked={true} />);
     checkbox = screen.getByRole('checkbox', { name: /controlled checkbox/i });
     expect(checkbox).toBeChecked();
   });
@@ -137,11 +139,11 @@ describe('Checkbox Component', () => {
   it('applies all HTML input attributes', () => {
     testRender(
       <Checkbox
-        label='Test Checkbox'
-        name='test-checkbox'
-        value='test-value'
+        label="Test Checkbox"
+        name="test-checkbox"
+        value="test-value"
         required
-        aria-describedby='description'
+        aria-describedby="description"
       />
     );
 
@@ -153,14 +155,14 @@ describe('Checkbox Component', () => {
   });
 
   it('handles undefined className gracefully', () => {
-    testRender(<Checkbox className={undefined} label='Test Checkbox' />);
+    testRender(<Checkbox className={undefined} label="Test Checkbox" />);
 
     const label = screen.getByText('Test Checkbox').closest('label');
     expect(label).toHaveClass(styles.Checkbox);
   });
 
   it('handles falsy className values', () => {
-    testRender(<Checkbox className='' label='Test Checkbox' />);
+    testRender(<Checkbox className="" label="Test Checkbox" />);
 
     const label = screen.getByText('Test Checkbox').closest('label');
     expect(label).toHaveClass(styles.Checkbox);

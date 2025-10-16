@@ -21,8 +21,16 @@ interface InputProps {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void;
-  onFocus?: (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+  onFocus?: (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
+  onBlur?: (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
   prefix?: string;
   suffix?: string;
   disabled?: boolean;
@@ -132,18 +140,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ) : (
           ''
         )}
-      {type === 'select' && (
-        <select
-          ref={actualRef as unknown as React.RefObject<HTMLSelectElement>}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={onChange}
-          id={inputId}
-          value={String(value)}
-          disabled={disabled}
-          required={required}
-          {...restProps}
-        >
+        {type === 'select' && (
+          <select
+            ref={actualRef as unknown as React.RefObject<HTMLSelectElement>}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChange={onChange}
+            id={inputId}
+            value={String(value)}
+            disabled={disabled}
+            required={required}
+            {...restProps}
+          >
             {options.map((option: string | Option) => (
               <option
                 disabled={
@@ -158,19 +166,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ))}
           </select>
         )}
-      {type === 'textarea' && (
-        <textarea
-          ref={actualRef as unknown as React.RefObject<HTMLTextAreaElement>}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={onChange}
-          id={inputId}
-          value={String(value)}
-          disabled={disabled}
-          required={required}
-          {...restProps}
-        />
-      )}
+        {type === 'textarea' && (
+          <textarea
+            ref={actualRef as unknown as React.RefObject<HTMLTextAreaElement>}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChange={onChange}
+            id={inputId}
+            value={String(value)}
+            disabled={disabled}
+            required={required}
+            {...restProps}
+          />
+        )}
         {!['select', 'textarea'].includes(type || 'text') && (
           <input
             ref={actualRef}

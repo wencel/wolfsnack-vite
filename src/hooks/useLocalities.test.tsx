@@ -16,8 +16,8 @@ vi.mock('@/store/hooks', () => ({
 // Mock the localities slice actions
 const mockFetchLocalities = vi.hoisted(() => vi.fn());
 
-vi.mock('@/store/slices/localitiesSlice', async (importOriginal) => {
-  const actual = await importOriginal() as any;
+vi.mock('@/store/slices/localitiesSlice', async importOriginal => {
+  const actual = (await importOriginal()) as any;
   return {
     ...actual,
     fetchLocalities: mockFetchLocalities,
@@ -92,7 +92,12 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual(['São Paulo', 'México D.F.', 'Buenos Aires', 'Córdoba']);
+      expect(result.current.localities).toEqual([
+        'São Paulo',
+        'México D.F.',
+        'Buenos Aires',
+        'Córdoba',
+      ]);
       expect(result.current.localities).toHaveLength(4);
     });
 
@@ -107,7 +112,12 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual(['New York', 'Los Angeles', 'San Francisco', 'Las Vegas']);
+      expect(result.current.localities).toEqual([
+        'New York',
+        'Los Angeles',
+        'San Francisco',
+        'Las Vegas',
+      ]);
       expect(result.current.localities).toHaveLength(4);
     });
   });
@@ -190,13 +200,19 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual(['', 'Buenos Aires', '', 'Córdoba']);
+      expect(result.current.localities).toEqual([
+        '',
+        'Buenos Aires',
+        '',
+        'Córdoba',
+      ]);
       expect(result.current.localities).toHaveLength(4);
     });
 
     it('handles very long locality names correctly', () => {
-      const longLocalityName = 'This is a very long locality name that contains many characters and should be handled properly by the hook without any issues or truncation';
-      
+      const longLocalityName =
+        'This is a very long locality name that contains many characters and should be handled properly by the hook without any issues or truncation';
+
       const mockLocalitiesState = {
         localities: [longLocalityName, 'Short Name'],
         loading: false,
@@ -207,7 +223,10 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual([longLocalityName, 'Short Name']);
+      expect(result.current.localities).toEqual([
+        longLocalityName,
+        'Short Name',
+      ]);
       expect(result.current.localities[0]).toBe(longLocalityName);
       expect(result.current.localities).toHaveLength(2);
     });
@@ -223,13 +242,19 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual(['   ', 'Buenos Aires', '  ', 'Córdoba']);
+      expect(result.current.localities).toEqual([
+        '   ',
+        'Buenos Aires',
+        '  ',
+        'Córdoba',
+      ]);
       expect(result.current.localities).toHaveLength(4);
     });
 
     it('handles large number of localities correctly', () => {
-      const largeLocalitiesList = Array.from({ length: 1000 }, (_, index) => 
-        `Locality ${index}`
+      const largeLocalitiesList = Array.from(
+        { length: 1000 },
+        (_, index) => `Locality ${index}`
       );
 
       const mockLocalitiesState = {
@@ -258,7 +283,13 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual(['北京', '東京', '서울', 'Mumbai', 'Delhi']);
+      expect(result.current.localities).toEqual([
+        '北京',
+        '東京',
+        '서울',
+        'Mumbai',
+        'Delhi',
+      ]);
       expect(result.current.localities).toHaveLength(5);
     });
 
@@ -273,7 +304,12 @@ describe('useLocalities Hook', () => {
 
       const { result } = renderHook(() => useLocalities(), { wrapper });
 
-      expect(result.current.localities).toEqual(['New York 🗽', 'London 🇬🇧', 'Paris 🇫🇷', 'Tokyo 🗾']);
+      expect(result.current.localities).toEqual([
+        'New York 🗽',
+        'London 🇬🇧',
+        'Paris 🇫🇷',
+        'Tokyo 🗾',
+      ]);
       expect(result.current.localities).toHaveLength(4);
     });
   });
@@ -288,7 +324,9 @@ describe('useLocalities Hook', () => {
 
       mockUseAppSelector.mockReturnValue(mockLocalitiesState);
 
-      const { result, rerender } = renderHook(() => useLocalities(), { wrapper });
+      const { result, rerender } = renderHook(() => useLocalities(), {
+        wrapper,
+      });
 
       const firstFetchLocalities = result.current.fetchLocalities;
 
@@ -310,7 +348,9 @@ describe('useLocalities Hook', () => {
 
       mockUseAppSelector.mockReturnValue(initialLocalitiesState);
 
-      const { result, rerender } = renderHook(() => useLocalities(), { wrapper });
+      const { result, rerender } = renderHook(() => useLocalities(), {
+        wrapper,
+      });
 
       expect(result.current.localities).toEqual(['Buenos Aires']);
 
@@ -324,8 +364,11 @@ describe('useLocalities Hook', () => {
       mockUseAppSelector.mockReturnValue(updatedLocalitiesState);
       rerender();
 
-      expect(result.current.localities).toEqual(['Buenos Aires', 'Córdoba', 'Santa Fe']);
+      expect(result.current.localities).toEqual([
+        'Buenos Aires',
+        'Córdoba',
+        'Santa Fe',
+      ]);
     });
   });
 });
-

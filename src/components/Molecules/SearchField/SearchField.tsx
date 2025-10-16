@@ -57,9 +57,9 @@ const SearchField: React.FC<SearchFieldProps> = ({
       <div className={searchFieldClasses}>
         <Input
           label={label}
-          type='text'
+          type="text"
           value={inputValue}
-          id='search-input'
+          id="search-input"
           className={styles.input}
           options={[]}
           ref={undefined}
@@ -71,44 +71,46 @@ const SearchField: React.FC<SearchFieldProps> = ({
             setInputValue(e.target.value);
           }}
         />
-        {(isLoading || itemsList.length > 0 || inputValue) && (
-          <button
-            className={styles.cancelButton}
-            type='button'
-            onClick={selectItem(null)}
-            aria-label="Limpiar búsqueda"
-          >
-            <RiCloseLine />
-          </button>
+        {inputValue && (
+          <>
+            <button
+              className={styles.cancelButton}
+              type="button"
+              onClick={selectItem(null)}
+              aria-label="Limpiar búsqueda"
+            >
+              <RiCloseLine />
+            </button>
+            <div className={listClasses}>
+              {isLoading && <InlineLoading />}
+              {inputValue && itemsList.length === 0 && !isLoading && (
+                <div>No hay resultado de la busqueda</div>
+              )}
+              {inputValue &&
+                itemsList.length > 0 &&
+                !isLoading &&
+                itemsList.map(item => (
+                  <Button
+                    key={idGenerator()}
+                    type="button"
+                    theme="Primary"
+                    onClick={selectItem(item.value as string | number | null)}
+                    className={styles.button}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+            </div>
+          </>
         )}
-        <div className={listClasses}>
-          {isLoading && <InlineLoading />}
-          {inputValue && itemsList.length === 0 && !isLoading && (
-            <div>No hay resultado de la busqueda</div>
-          )}
-          {inputValue &&
-            itemsList.length > 0 &&
-            !isLoading &&
-            itemsList.map(item => (
-              <Button
-                key={idGenerator()}
-                type='button'
-                theme='Outline'
-                onClick={selectItem(item.value as string | number | null)}
-                className={styles.button}
-              >
-                {item.label}
-              </Button>
-            ))}
-        </div>
       </div>
       {value && (
         <div className={styles.relative}>
           <Input
             label={valueLabel}
-            type='text'
+            type="text"
             value={value as string | number}
-            id='search-value-input'
+            id="search-value-input"
             className={styles.input}
             options={[]}
             ref={undefined}
@@ -116,7 +118,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
           />
           <button
             className={styles.cancelButton}
-            type='button'
+            type="button"
             onClick={selectItem(null)}
             aria-label="Limpiar valor seleccionado"
             data-testid="search-cancel-button"

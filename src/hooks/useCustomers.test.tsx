@@ -22,8 +22,8 @@ const mockDeleteCustomer = vi.hoisted(() => vi.fn());
 const mockResetCustomers = vi.hoisted(() => vi.fn());
 const mockResetCurrentCustomer = vi.hoisted(() => vi.fn());
 
-vi.mock('@/store/slices/customersSlice', async (importOriginal) => {
-  const actual = await importOriginal() as any;
+vi.mock('@/store/slices/customersSlice', async importOriginal => {
+  const actual = (await importOriginal()) as any;
   return {
     ...actual,
     fetchCustomers: mockFetchCustomers,
@@ -91,7 +91,9 @@ describe('useCustomers Hook', () => {
       const { result } = renderHook(() => useCustomers(), { wrapper });
 
       expect(result.current.customers).toEqual(mockCustomersState.customers);
-      expect(result.current.currentCustomer).toBe(mockCustomersState.currentCustomer);
+      expect(result.current.currentCustomer).toBe(
+        mockCustomersState.currentCustomer
+      );
       expect(result.current.total).toBe(mockCustomersState.total);
       expect(result.current.skip).toBe(mockCustomersState.skip);
       expect(result.current.error).toBe(mockCustomersState.error);
@@ -236,7 +238,9 @@ describe('useCustomers Hook', () => {
 
       result.current.fetchCustomer('customer-123');
 
-      expect(mockDispatch).toHaveBeenCalledWith(mockFetchCustomer('customer-123'));
+      expect(mockDispatch).toHaveBeenCalledWith(
+        mockFetchCustomer('customer-123')
+      );
     });
 
     it('calls createCustomer action correctly', () => {
@@ -317,7 +321,9 @@ describe('useCustomers Hook', () => {
 
       result.current.deleteCustomer('customer-123');
 
-      expect(mockDispatch).toHaveBeenCalledWith(mockDeleteCustomer('customer-123'));
+      expect(mockDispatch).toHaveBeenCalledWith(
+        mockDeleteCustomer('customer-123')
+      );
     });
 
     it('calls resetCustomers action correctly', () => {

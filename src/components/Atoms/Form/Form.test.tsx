@@ -44,7 +44,7 @@ describe('Form Component', () => {
   it('renders form with children', () => {
     testRender(
       <Form>
-        <input type='text' placeholder='Test input' />
+        <input type="text" placeholder="Test input" />
         <label>Test label</label>
       </Form>
     );
@@ -80,7 +80,7 @@ describe('Form Component', () => {
   });
 
   it('handles falsy className values', () => {
-    testRender(<Form className='' />);
+    testRender(<Form className="" />);
 
     const form = screen.getByRole('form');
     expect(form).toHaveClass(styles.Form);
@@ -179,7 +179,9 @@ describe('Form Component', () => {
 
     const buttonProps = { buttonText: 'Submit' };
     const submittingText = 'Submitting...';
-    testRender(<Form buttonProps={buttonProps} submittingText={submittingText} />);
+    testRender(
+      <Form buttonProps={buttonProps} submittingText={submittingText} />
+    );
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
     // The loadingText prop is passed to the Button component, which handles it internally
@@ -221,7 +223,9 @@ describe('Form Component', () => {
 
     const buttonProps = { buttonText: 'Submit' };
     const submittingText = 'Submitting...';
-    testRender(<Form buttonProps={buttonProps} submittingText={submittingText} />);
+    testRender(
+      <Form buttonProps={buttonProps} submittingText={submittingText} />
+    );
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
     expect(submitButton).toBeVisible();
@@ -248,10 +252,10 @@ describe('Form Component', () => {
   it('passes through form attributes', () => {
     testRender(
       <Form
-        action='/submit'
-        method='post'
-        data-testid='test-form'
-        aria-label='Test form'
+        action="/submit"
+        method="post"
+        data-testid="test-form"
+        aria-label="Test form"
       />
     );
 

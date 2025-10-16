@@ -52,9 +52,9 @@ describe('PageContainer Component', () => {
   it('forwards additional HTML attributes', () => {
     testRender(
       <PageContainer
-        data-testid='test-container'
-        aria-label='Test page container'
-        id='page-1'
+        data-testid="test-container"
+        aria-label="Test page container"
+        id="page-1"
       >
         Content
       </PageContainer>

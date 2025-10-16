@@ -13,7 +13,7 @@ const Label: React.FC<LabelProps> = ({ children, className }) => {
     [styles.Label]: true,
   });
   return (
-    <label className={labelClasses} role='label'>
+    <label className={labelClasses} role="label">
       {children}
     </label>
   );

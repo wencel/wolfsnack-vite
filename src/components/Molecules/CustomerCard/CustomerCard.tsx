@@ -102,8 +102,8 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
             <NumericFormat
               value={customer.idNumber}
               displayType={'text'}
-              thousandSeparator='.'
-              decimalSeparator=','
+              thousandSeparator="."
+              decimalSeparator=","
             />
           </div>
         ) : (
@@ -124,7 +124,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
               <PatternFormat
                 value={customer.phoneNumber}
                 displayType={'text'}
-                format='(###)-###-####'
+                format="(###)-###-####"
               />
             </a>
           </div>
@@ -138,7 +138,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
               <PatternFormat
                 value={customer.secondaryPhoneNumber}
                 displayType={'text'}
-                format='(###)-###-####'
+                format="(###)-###-####"
               />
             </a>
           </div>
@@ -148,14 +148,14 @@ const CustomerCard: React.FC<CustomerCardProps> = ({
         <div className={styles.buttonContainer}>
           <Link to={`/customers/${customer._id}/edit`}>
             <Button
-              theme='RoundWithLabel'
+              theme="RoundWithLabel"
               tooltip={textConstants.customer.EDIT_CUSTOMER}
             >
               <RiEditLine />
             </Button>
           </Link>
           <Button
-            theme='RoundWithLabel'
+            theme="RoundWithLabel"
             onClick={showDeleteCustomerModal}
             tooltip={textConstants.customer.DELETE_CUSTOMER}
           >

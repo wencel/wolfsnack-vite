@@ -2,7 +2,7 @@
 import React, { type ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import {  MemoryRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from '@/store/slices/authSlice';
@@ -10,6 +10,7 @@ import loadingReducer from '@/store/slices/loadingSlice';
 import errorReducer from '@/store/slices/errorSlice';
 import customersReducer from '@/store/slices/customersSlice';
 import productsReducer from '@/store/slices/productsSlice';
+import salesReducer from '@/store/slices/salesSlice';
 import localitiesReducer from '@/store/slices/localitiesSlice';
 import presentationsReducer from '@/store/slices/presentationsSlice';
 import productTypesReducer from '@/store/slices/productTypesSlice';
@@ -25,6 +26,7 @@ const createTestStore = (preloadedState = {}) => {
       error: errorReducer,
       customers: customersReducer,
       products: productsReducer,
+      sales: salesReducer,
       localities: localitiesReducer,
       presentations: presentationsReducer,
       productTypes: productTypesReducer,
@@ -40,10 +42,7 @@ interface TestRenderOptions {
   routes?: Array<{ path: string; element: React.ReactElement }>;
 }
 
-const testRender = (
-  ui: ReactElement,
-  options: TestRenderOptions = {}
-) => {
+const testRender = (ui: ReactElement, options: TestRenderOptions = {}) => {
   const {
     preloadedState = {},
     initialEntries = ['/'],

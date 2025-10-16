@@ -10,7 +10,7 @@ const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     <>
       {children}
       <Toaster
-        position='top-center'
+        position="top-center"
         toastOptions={{
           duration: 4000,
           style: {

@@ -5,7 +5,7 @@ import styles from './Input.module.sass';
 
 describe('Input Component', () => {
   it('renders text input by default', () => {
-    testRender(<Input label='Test Input' />);
+    testRender(<Input label="Test Input" />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     expect(input).toBeVisible();
@@ -14,7 +14,7 @@ describe('Input Component', () => {
   });
 
   it('renders input with label', () => {
-    testRender(<Input label='Test Input' />);
+    testRender(<Input label="Test Input" />);
 
     expect(screen.getByText('Test Input')).toBeVisible();
     const input = screen.getByRole('textbox', { name: /test input/i });
@@ -30,7 +30,7 @@ describe('Input Component', () => {
 
   it('applies custom className', () => {
     const customClass = 'custom-input-class';
-    testRender(<Input className={customClass} label='Test Input' />);
+    testRender(<Input className={customClass} label="Test Input" />);
 
     const wrapper = screen
       .getByRole('textbox', { name: /test input/i })
@@ -40,7 +40,7 @@ describe('Input Component', () => {
   });
 
   it('generates unique id when none provided', () => {
-    testRender(<Input label='Test Input' />);
+    testRender(<Input label="Test Input" />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     const label = screen.getByText('Test Input');
@@ -51,7 +51,7 @@ describe('Input Component', () => {
 
   it('uses provided id when available', () => {
     const customId = 'custom-input-id';
-    testRender(<Input id={customId} label='Test Input' />);
+    testRender(<Input id={customId} label="Test Input" />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     const label = screen.getByText('Test Input');
@@ -62,19 +62,21 @@ describe('Input Component', () => {
 
   it('handles controlled value', () => {
     const { rerender } = testRender(
-      <Input label='Controlled Input' value='initial value' />
+      <Input label="Controlled Input" value="initial value" />
     );
 
     let input = screen.getByRole('textbox', { name: /controlled input/i });
     expect(input).toHaveValue('initial value');
 
-    rerender(<Input label='Controlled Input' value='updated value' />);
+    rerender(<Input label="Controlled Input" value="updated value" />);
     input = screen.getByRole('textbox', { name: /controlled input/i });
     expect(input).toHaveValue('updated value');
   });
 
   it('handles uncontrolled value with defaultValue', () => {
-    testRender(<Input label='Uncontrolled Input' defaultValue='default value' />);
+    testRender(
+      <Input label="Uncontrolled Input" defaultValue="default value" />
+    );
 
     const input = screen.getByRole('textbox', { name: /uncontrolled input/i });
     expect(input).toHaveValue('default value');
@@ -82,7 +84,7 @@ describe('Input Component', () => {
 
   it('calls onChange handler', () => {
     const handleChange = vi.fn();
-    testRender(<Input label='Test Input' onChange={handleChange} />);
+    testRender(<Input label="Test Input" onChange={handleChange} />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     fireEvent.change(input, { target: { value: 'new value' } });
@@ -94,7 +96,7 @@ describe('Input Component', () => {
 
   it('calls onFocus handler', () => {
     const handleFocus = vi.fn();
-    testRender(<Input label='Test Input' onFocus={handleFocus} />);
+    testRender(<Input label="Test Input" onFocus={handleFocus} />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     fireEvent.focus(input);
@@ -104,7 +106,7 @@ describe('Input Component', () => {
 
   it('calls onBlur handler', () => {
     const handleBlur = vi.fn();
-    testRender(<Input label='Test Input' onBlur={handleBlur} />);
+    testRender(<Input label="Test Input" onBlur={handleBlur} />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     fireEvent.focus(input);
@@ -115,7 +117,7 @@ describe('Input Component', () => {
 
   it('renders select input when type is select', () => {
     const options = ['Option 1', 'Option 2', 'Option 3'];
-    testRender(<Input type='select' options={options} label='Test Select' />);
+    testRender(<Input type="select" options={options} label="Test Select" />);
 
     const select = screen.getByRole('combobox', { name: /test select/i });
     expect(select).toBeVisible();
@@ -123,7 +125,7 @@ describe('Input Component', () => {
   });
 
   it('renders textarea when type is textarea', () => {
-    testRender(<Input type='textarea' label='Test Textarea' />);
+    testRender(<Input type="textarea" label="Test Textarea" />);
 
     const textarea = screen.getByRole('textbox', { name: /test textarea/i });
     expect(textarea).toBeVisible();
@@ -131,18 +133,18 @@ describe('Input Component', () => {
   });
 
   it('renders different input types', () => {
-    const { rerender } = testRender(<Input type='email' label='Email Input' />);
+    const { rerender } = testRender(<Input type="email" label="Email Input" />);
     let input = screen.getByRole('textbox', { name: /email input/i });
     expect(input).toHaveAttribute('type', 'email');
 
-    rerender(<Input type='password' label='Password Input' />);
+    rerender(<Input type="password" label="Password Input" />);
     input = screen.getByLabelText(/password input/i);
     expect(input).toHaveAttribute('type', 'password');
   });
 
   it('handles select options with string values', () => {
     const options = ['Option 1', 'Option 2', 'Option 3'];
-    testRender(<Input type='select' options={options} label='Test Select' />);
+    testRender(<Input type="select" options={options} label="Test Select" />);
 
     const select = screen.getByRole('combobox', { name: /test select/i });
     expect(select).toHaveValue('Option 1');
@@ -157,7 +159,7 @@ describe('Input Component', () => {
       { value: 'val1', label: 'Label 1' },
       { value: 'val2', label: 'Label 2' },
     ];
-    testRender(<Input type='select' options={options} label='Test Select' />);
+    testRender(<Input type="select" options={options} label="Test Select" />);
 
     const select = screen.getByRole('combobox', { name: /test select/i });
     expect(select).toHaveValue('val1');
@@ -169,7 +171,7 @@ describe('Input Component', () => {
   });
 
   it('focuses input when label is clicked', () => {
-    testRender(<Input label='Test Input' />);
+    testRender(<Input label="Test Input" />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     const label = screen.getByText('Test Input');
@@ -179,7 +181,7 @@ describe('Input Component', () => {
   });
 
   it('applies active label class when focused', () => {
-    testRender(<Input label='Test Input' />);
+    testRender(<Input label="Test Input" />);
 
     const input = screen.getByRole('textbox', { name: /test input/i });
     const label = screen.getByText('Test Input');
@@ -189,7 +191,7 @@ describe('Input Component', () => {
   });
 
   it('applies active label class when has value', () => {
-    testRender(<Input label='Test Input' defaultValue='some value' />);
+    testRender(<Input label="Test Input" defaultValue="some value" />);
 
     const label = screen.getByText('Test Input');
     expect(label).toHaveClass(styles.active);
@@ -197,14 +199,14 @@ describe('Input Component', () => {
 
   it('forwards ref correctly', () => {
     const ref = vi.fn();
-    testRender(<Input ref={ref} label='Test Input' />);
+    testRender(<Input ref={ref} label="Test Input" />);
 
     expect(ref).toHaveBeenCalled();
   });
 
   it('handles empty string options in select', () => {
     const options = ['', 'Option 1', 'Option 2'];
-    testRender(<Input type='select' options={options} label='Test Select' />);
+    testRender(<Input type="select" options={options} label="Test Select" />);
 
     const select = screen.getByRole('combobox', { name: /test select/i });
     const optionElements = select.querySelectorAll('option');
@@ -216,12 +218,12 @@ describe('Input Component', () => {
   it('handles all HTML input attributes', () => {
     testRender(
       <Input
-        label='Test Input'
-        name='test-input'
-        placeholder='Enter text'
+        label="Test Input"
+        name="test-input"
+        placeholder="Enter text"
         required
         maxLength={50}
-        aria-describedby='description'
+        aria-describedby="description"
       />
     );
 

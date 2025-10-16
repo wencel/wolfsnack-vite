@@ -23,32 +23,32 @@ const BottomNavigation: React.FC = () => {
     >
       <NavigationBar className={styles.BottomNavigation}>
         <Button
-          href='/customers'
-          theme='BottomNavigation'
+          href="/customers"
+          theme="BottomNavigation"
           isActive={pathname === '/customers'}
         >
           <MdPerson />
           {textConstants.navbar.CUSTOMERS}
         </Button>
         <Button
-          href='/products'
-          theme='BottomNavigation'
+          href="/products"
+          theme="BottomNavigation"
           isActive={pathname === '/products'}
         >
           <FaDog />
           {textConstants.navbar.PRODUCTS}
         </Button>
         <Button
-          href='/sales'
-          theme='BottomNavigation'
+          href="/sales"
+          theme="BottomNavigation"
           isActive={pathname === '/sales'}
         >
           <FaMoneyBillWave />
           {textConstants.navbar.SALES}
         </Button>
         <Button
-          href='/orders'
-          theme='BottomNavigation'
+          href="/orders"
+          theme="BottomNavigation"
           isActive={pathname === '/orders'}
         >
           <ImTruck />

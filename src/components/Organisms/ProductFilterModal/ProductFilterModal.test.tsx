@@ -31,13 +31,17 @@ describe('ProductFilterModal Component', () => {
       // The Modal component always renders children but controls visibility with CSS
       // So the content is still in the DOM but should be visually hidden
       expect(screen.getByText(textConstants.misc.FILTERS)).not.toBeVisible();
-      expect(screen.getByText(textConstants.misc.FILTERS_TEXT)).not.toBeVisible();
+      expect(
+        screen.getByText(textConstants.misc.FILTERS_TEXT)
+      ).not.toBeVisible();
     });
 
     it('renders search input with correct label and icon', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       expect(searchInput).toBeVisible();
       expect(searchInput).toHaveValue('initial search');
     });
@@ -51,17 +55,23 @@ describe('ProductFilterModal Component', () => {
 
       // Check all sort options are present
       expect(screen.getByText(textConstants.product.NAME)).toBeVisible();
-      expect(screen.getByText(textConstants.product.PRESENTATION)).toBeVisible();
+      expect(
+        screen.getByText(textConstants.product.PRESENTATION)
+      ).toBeVisible();
       expect(screen.getByText(textConstants.product.WEIGHT)).toBeVisible();
       expect(screen.getByText(textConstants.product.BASE_PRICE)).toBeVisible();
-      expect(screen.getByText(textConstants.product.SELLING_PRICE)).toBeVisible();
+      expect(
+        screen.getByText(textConstants.product.SELLING_PRICE)
+      ).toBeVisible();
       expect(screen.getByText(textConstants.product.STOCK)).toBeVisible();
     });
 
     it('renders direction select with correct options', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const directionSelect = screen.getByLabelText(textConstants.misc.DIRECTION);
+      const directionSelect = screen.getByLabelText(
+        textConstants.misc.DIRECTION
+      );
       expect(directionSelect).toBeVisible();
       expect(directionSelect).toHaveValue('asc');
 
@@ -72,8 +82,12 @@ describe('ProductFilterModal Component', () => {
     it('renders form buttons correctly', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      expect(screen.getByRole('button', { name: textConstants.misc.APPLY })).toBeVisible();
-      expect(screen.getByRole('button', { name: textConstants.misc.CANCEL })).toBeVisible();
+      expect(
+        screen.getByRole('button', { name: textConstants.misc.APPLY })
+      ).toBeVisible();
+      expect(
+        screen.getByRole('button', { name: textConstants.misc.CANCEL })
+      ).toBeVisible();
     });
   });
 
@@ -81,13 +95,21 @@ describe('ProductFilterModal Component', () => {
     it('initializes state with parent values when modal opens', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      expect(screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT)).toHaveValue('initial search');
-      expect(screen.getByLabelText(textConstants.misc.ORDER_BY)).toHaveValue('name');
-      expect(screen.getByLabelText(textConstants.misc.DIRECTION)).toHaveValue('asc');
+      expect(
+        screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT)
+      ).toHaveValue('initial search');
+      expect(screen.getByLabelText(textConstants.misc.ORDER_BY)).toHaveValue(
+        'name'
+      );
+      expect(screen.getByLabelText(textConstants.misc.DIRECTION)).toHaveValue(
+        'asc'
+      );
     });
 
     it('updates state when parent values change and modal is shown', async () => {
-      const { testRerender } = testRender(<ProductFilterModal {...defaultProps} />);
+      const { testRerender } = testRender(
+        <ProductFilterModal {...defaultProps} />
+      );
 
       // Change parent values
       const newProps = {
@@ -102,16 +124,26 @@ describe('ProductFilterModal Component', () => {
       // The useEffect only runs when showModal changes, not when parent values change
       // So the state won't automatically update. This is actually a bug in the component.
       // For now, we'll test the current behavior
-      expect(screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT)).toHaveValue('initial search');
-      expect(screen.getByLabelText(textConstants.misc.ORDER_BY)).toHaveValue('name');
-      expect(screen.getByLabelText(textConstants.misc.DIRECTION)).toHaveValue('asc');
+      expect(
+        screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT)
+      ).toHaveValue('initial search');
+      expect(screen.getByLabelText(textConstants.misc.ORDER_BY)).toHaveValue(
+        'name'
+      );
+      expect(screen.getByLabelText(textConstants.misc.DIRECTION)).toHaveValue(
+        'asc'
+      );
     });
 
     it('maintains state when modal is hidden and shown again', () => {
-      const { testRerender } = testRender(<ProductFilterModal {...defaultProps} />);
+      const { testRerender } = testRender(
+        <ProductFilterModal {...defaultProps} />
+      );
 
       // Change search term
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       fireEvent.change(searchInput, { target: { value: 'modified search' } });
 
       // Hide modal
@@ -129,7 +161,9 @@ describe('ProductFilterModal Component', () => {
     it('updates search term when user types', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       fireEvent.change(searchInput, { target: { value: 'new search term' } });
 
       expect(searchInput).toHaveValue('new search term');
@@ -147,7 +181,9 @@ describe('ProductFilterModal Component', () => {
     it('updates direction when user selects different option', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const directionSelect = screen.getByLabelText(textConstants.misc.DIRECTION);
+      const directionSelect = screen.getByLabelText(
+        textConstants.misc.DIRECTION
+      );
       fireEvent.change(directionSelect, { target: { value: 'desc' } });
 
       expect(directionSelect).toHaveValue('desc');
@@ -158,7 +194,9 @@ describe('ProductFilterModal Component', () => {
     it('calls applyFilter with current state values when form is submitted', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const applyButton = screen.getByRole('button', { name: textConstants.misc.APPLY });
+      const applyButton = screen.getByRole('button', {
+        name: textConstants.misc.APPLY,
+      });
       fireEvent.click(applyButton);
 
       expect(defaultProps.applyFilter).toHaveBeenCalledWith({
@@ -172,16 +210,22 @@ describe('ProductFilterModal Component', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
       // Modify values
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       const sortBySelect = screen.getByLabelText(textConstants.misc.ORDER_BY);
-      const directionSelect = screen.getByLabelText(textConstants.misc.DIRECTION);
+      const directionSelect = screen.getByLabelText(
+        textConstants.misc.DIRECTION
+      );
 
       fireEvent.change(searchInput, { target: { value: 'modified search' } });
       fireEvent.change(sortBySelect, { target: { value: 'weight' } });
       fireEvent.change(directionSelect, { target: { value: 'desc' } });
 
       // Submit form
-      const applyButton = screen.getByRole('button', { name: textConstants.misc.APPLY });
+      const applyButton = screen.getByRole('button', {
+        name: textConstants.misc.APPLY,
+      });
       fireEvent.click(applyButton);
 
       expect(defaultProps.applyFilter).toHaveBeenCalledWith({
@@ -193,9 +237,11 @@ describe('ProductFilterModal Component', () => {
 
     it('prevents default form submission behavior', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
-      
+
       // Test that the form submission calls applyFilter instead of default behavior
-      const applyButton = screen.getByRole('button', { name: textConstants.misc.APPLY });
+      const applyButton = screen.getByRole('button', {
+        name: textConstants.misc.APPLY,
+      });
       fireEvent.click(applyButton);
 
       expect(defaultProps.applyFilter).toHaveBeenCalled();
@@ -208,7 +254,9 @@ describe('ProductFilterModal Component', () => {
     it('calls closeModal when cancel button is clicked', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const cancelButton = screen.getByRole('button', { name: textConstants.misc.CANCEL });
+      const cancelButton = screen.getByRole('button', {
+        name: textConstants.misc.CANCEL,
+      });
       fireEvent.click(cancelButton);
 
       expect(defaultProps.closeModal).toHaveBeenCalledTimes(1);
@@ -227,7 +275,9 @@ describe('ProductFilterModal Component', () => {
     it('has proper form labels', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      expect(screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT)).toBeVisible();
+      expect(
+        screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT)
+      ).toBeVisible();
       expect(screen.getByLabelText(textConstants.misc.ORDER_BY)).toBeVisible();
       expect(screen.getByLabelText(textConstants.misc.DIRECTION)).toBeVisible();
     });
@@ -235,8 +285,12 @@ describe('ProductFilterModal Component', () => {
     it('has proper button roles', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      expect(screen.getByRole('button', { name: textConstants.misc.APPLY })).toBeVisible();
-      expect(screen.getByRole('button', { name: textConstants.misc.CANCEL })).toBeVisible();
+      expect(
+        screen.getByRole('button', { name: textConstants.misc.APPLY })
+      ).toBeVisible();
+      expect(
+        screen.getByRole('button', { name: textConstants.misc.CANCEL })
+      ).toBeVisible();
     });
 
     it('has proper form role', () => {
@@ -250,10 +304,14 @@ describe('ProductFilterModal Component', () => {
     it('handles empty search term correctly', () => {
       testRender(<ProductFilterModal {...defaultProps} parentSearchTerm="" />);
 
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       expect(searchInput).toHaveValue('');
 
-      const applyButton = screen.getByRole('button', { name: textConstants.misc.APPLY });
+      const applyButton = screen.getByRole('button', {
+        name: textConstants.misc.APPLY,
+      });
       fireEvent.click(applyButton);
 
       expect(defaultProps.applyFilter).toHaveBeenCalledWith({
@@ -266,9 +324,11 @@ describe('ProductFilterModal Component', () => {
     it('handles special characters in search term', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       const specialSearch = 'search with @#$%^&*()';
-      
+
       fireEvent.change(searchInput, { target: { value: specialSearch } });
       expect(searchInput).toHaveValue(specialSearch);
     });
@@ -276,7 +336,9 @@ describe('ProductFilterModal Component', () => {
     it('maintains state consistency across multiple rapid changes', () => {
       testRender(<ProductFilterModal {...defaultProps} />);
 
-      const searchInput = screen.getByLabelText(textConstants.productPage.SEARCH_PRODUCT);
+      const searchInput = screen.getByLabelText(
+        textConstants.productPage.SEARCH_PRODUCT
+      );
       const sortBySelect = screen.getByLabelText(textConstants.misc.ORDER_BY);
 
       // Rapid changes

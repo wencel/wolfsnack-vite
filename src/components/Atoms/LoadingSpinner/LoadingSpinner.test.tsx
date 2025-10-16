@@ -15,7 +15,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('renders with custom size', () => {
-    testRender(<LoadingSpinner size='large' />);
+    testRender(<LoadingSpinner size="large" />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.large);
@@ -24,7 +24,7 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('renders with custom color', () => {
-    testRender(<LoadingSpinner color='primary' />);
+    testRender(<LoadingSpinner color="primary" />);
 
     const spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.primary);
@@ -43,7 +43,7 @@ describe('LoadingSpinner Component', () => {
 
   it('renders with all custom props', () => {
     testRender(
-      <LoadingSpinner size='small' color='secondary' className='test-class' />
+      <LoadingSpinner size="small" color="secondary" className="test-class" />
     );
 
     const spinner = screen.getByRole('status');
@@ -79,31 +79,31 @@ describe('LoadingSpinner Component', () => {
   });
 
   it('applies all size variants correctly', () => {
-    const { rerender } = testRender(<LoadingSpinner size='small' />);
+    const { rerender } = testRender(<LoadingSpinner size="small" />);
 
     let spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.small);
 
-    rerender(<LoadingSpinner size='medium' />);
+    rerender(<LoadingSpinner size="medium" />);
     spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.medium);
 
-    rerender(<LoadingSpinner size='large' />);
+    rerender(<LoadingSpinner size="large" />);
     spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.large);
   });
 
   it('applies all color variants correctly', () => {
-    const { rerender } = testRender(<LoadingSpinner color='white' />);
+    const { rerender } = testRender(<LoadingSpinner color="white" />);
 
     let spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.white);
 
-    rerender(<LoadingSpinner color='primary' />);
+    rerender(<LoadingSpinner color="primary" />);
     spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.primary);
 
-    rerender(<LoadingSpinner color='secondary' />);
+    rerender(<LoadingSpinner color="secondary" />);
     spinner = screen.getByRole('status');
     expect(spinner).toHaveClass(styles.secondary);
   });

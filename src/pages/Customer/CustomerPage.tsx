@@ -31,7 +31,7 @@ const CustomerPage: React.FC = () => {
   if (!id) {
     return (
       <PageContainer>
-        <Card title='Error' description={textConstants.misc.NO_CUSTOMER_ID} />
+        <Card title="Error" description={textConstants.misc.NO_CUSTOMER_ID} />
       </PageContainer>
     );
   }
@@ -55,7 +55,7 @@ const CustomerPage: React.FC = () => {
 
       {loading && (
         <div className="loadingContainer">
-          <LoadingSpinner size='large' color='primary' />
+          <LoadingSpinner size="large" color="primary" />
         </div>
       )}
 

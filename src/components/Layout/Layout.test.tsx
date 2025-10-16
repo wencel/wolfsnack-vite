@@ -84,7 +84,9 @@ describe('Layout', () => {
       </Layout>
     );
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Title' })).toBeVisible();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Title' })
+    ).toBeVisible();
     expect(screen.getByText('Description')).toBeVisible();
     expect(screen.getByRole('button', { name: 'Click me' })).toBeVisible();
   });
@@ -111,7 +113,9 @@ describe('Layout', () => {
       </Layout>
     );
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Section Title' })).toBeVisible();
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Section Title' })
+    ).toBeVisible();
     expect(screen.getByText('Some paragraph text')).toBeVisible();
     expect(screen.getByRole('list')).toBeVisible();
     expect(screen.getAllByRole('listitem')).toHaveLength(2);
@@ -128,7 +132,7 @@ describe('Layout', () => {
 
     // Check that the main landmark is present
     expect(screen.getByRole('main')).toBeVisible();
-    
+
     // Check that navigation is present
     expect(screen.getByRole('navigation')).toBeVisible();
   });
@@ -187,7 +191,9 @@ describe('Layout', () => {
     );
 
     // Now the Loading component should be visible and we can test its accessibility
-    const loadingElement = screen.getByRole('status', { name: 'Loading overlay' });
+    const loadingElement = screen.getByRole('status', {
+      name: 'Loading overlay',
+    });
     expect(loadingElement).toBeVisible();
     expect(loadingElement).toHaveAttribute('role', 'status');
     expect(loadingElement).toHaveAttribute('aria-label', 'Loading overlay');
@@ -202,7 +208,14 @@ describe('Layout', () => {
       {
         preloadedState: {
           auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2024-01-01',
+              updatedAt: '2024-01-01',
+            },
             token: 'fake-token',
             isAuthenticated: true,
             error: null,
@@ -214,11 +227,11 @@ describe('Layout', () => {
 
     // Now BottomNavigation should be visible since the user is authenticated
     expect(screen.getByRole('main')).toBeVisible();
-    
+
     // We should have two navigation elements: Navbar and BottomNavigation
     const navigationElements = screen.getAllByRole('navigation');
     expect(navigationElements).toHaveLength(2);
-    
+
     // Test that we can find the BottomNavigation content
     expect(screen.getByText('Clientes')).toBeVisible();
     expect(screen.getByText('Productos')).toBeVisible();
@@ -247,11 +260,11 @@ describe('Layout', () => {
 
     // Core layout elements should still be present
     expect(screen.getByRole('main')).toBeVisible();
-    
+
     // Should only have one navigation element (the main Navbar)
     const navigationElements = screen.getAllByRole('navigation');
     expect(navigationElements).toHaveLength(1);
-    
+
     // BottomNavigation content should not be present
     expect(screen.queryByText('Clientes')).not.toBeInTheDocument();
     expect(screen.queryByText('Productos')).not.toBeInTheDocument();

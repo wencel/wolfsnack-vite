@@ -4,9 +4,7 @@ import { fetchLocalities } from '@/store/slices/localitiesSlice';
 
 export const useLocalities = () => {
   const dispatch = useAppDispatch();
-  const { localities } = useAppSelector(
-    state => state.localities
-  );
+  const { localities } = useAppSelector(state => state.localities);
 
   const fetchLocalitiesAction = useCallback(
     () => dispatch(fetchLocalities()),

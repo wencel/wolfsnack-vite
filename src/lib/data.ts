@@ -48,7 +48,7 @@ export interface Order {
 }
 
 export interface SaleProduct {
-  product: string;
+  product: Product;
   price: number;
   quantity: number;
   totalPrice: number;
@@ -58,7 +58,7 @@ export interface Sale {
   _id: string;
   saleId: number;
   saleDate: string;
-  customer: string;
+  customer: Customer;
   isThirteenDozen: boolean;
   owes: boolean;
   partialPayment: number;
@@ -206,12 +206,12 @@ const mockSales: Sale[] = [
     _id: '1',
     saleId: 1,
     saleDate: '2024-01-15T00:00:00.000Z',
-    customer: '1',
+    customer: mockCustomers[0],
     isThirteenDozen: false,
     owes: false,
     partialPayment: 0,
     totalPrice: 25.98,
-    products: [{ product: '1', price: 12.99, quantity: 2, totalPrice: 25.98 }],
+    products: [{ product: mockProducts[0], price: 12.99, quantity: 2, totalPrice: 25.98 }],
     user: 'user1',
     createdAt: '2024-01-15T00:00:00.000Z',
     updatedAt: '2024-01-15T00:00:00.000Z',
@@ -220,12 +220,12 @@ const mockSales: Sale[] = [
     _id: '2',
     saleId: 2,
     saleDate: '2024-01-14T00:00:00.000Z',
-    customer: '2',
+    customer: mockCustomers[1],
     isThirteenDozen: true,
     owes: true,
     partialPayment: 10.0,
     totalPrice: 15.99,
-    products: [{ product: '2', price: 15.99, quantity: 1, totalPrice: 15.99 }],
+    products: [{ product: mockProducts[1], price: 15.99, quantity: 1, totalPrice: 15.99 }],
     user: 'user1',
     createdAt: '2024-01-14T00:00:00.000Z',
     updatedAt: '2024-01-14T00:00:00.000Z',

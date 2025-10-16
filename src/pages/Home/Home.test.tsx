@@ -9,11 +9,13 @@ describe('Home Page', () => {
       initialEntries: ['/'],
       mountPath: '/',
       routes: [
-        { 
-          path: '/customers', 
-          element: <div data-testid="dummy-customers-page">Customers Page Content</div> 
-        }
-      ]
+        {
+          path: '/customers',
+          element: (
+            <div data-testid="dummy-customers-page">Customers Page Content</div>
+          ),
+        },
+      ],
     });
   };
 

@@ -76,7 +76,7 @@ export const fetchCustomers = createAsyncThunk(
       const axiosError = error as AxiosError;
       return rejectWithValue(extractErrorMessage(axiosError));
     } finally {
-      dispatch(setLoading(false));      
+      dispatch(setLoading(false));
       dispatch(setFetching(false));
     }
   }

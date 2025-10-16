@@ -39,19 +39,19 @@ describe('CustomerCard', () => {
     const title = screen.getByRole('heading', { name: 'Test Store' });
     const customerCard = title.closest('._CustomerCard_5cfbdf');
     expect(customerCard).toBeVisible();
-    
+
     // Check contact name is displayed
     expect(screen.getByText('John Doe')).toBeVisible();
-    
+
     // Check address is displayed
     expect(screen.getByText('123 Main St, Test City, Test Town')).toBeVisible();
-    
+
     // Check ID number is displayed
     expect(screen.getByText('123.456.789')).toBeVisible();
-    
+
     // Check email is displayed
     expect(screen.getByText('john@example.com')).toBeVisible();
-    
+
     // Check phone numbers are displayed
     expect(screen.getByText('(123)-456-7890')).toBeVisible();
     expect(screen.getByText('(098)-765-4321')).toBeVisible();
@@ -64,13 +64,13 @@ describe('CustomerCard', () => {
     const title2 = screen.getByRole('heading', { name: 'Minimal Store' });
     const customerCard2 = title2.closest('._CustomerCard_5cfbdf');
     expect(customerCard2).toBeVisible();
-    
+
     // Check address is displayed (without locality and town)
     expect(screen.getByText('456 Oak Ave')).toBeVisible();
-    
+
     // Check phone number is displayed
     expect(screen.getByText('(555)-123-4567')).toBeVisible();
-    
+
     // Check that optional fields are not displayed
     expect(screen.queryByText('John Doe')).not.toBeInTheDocument();
     expect(screen.queryByText('john@example.com')).not.toBeInTheDocument();
@@ -93,7 +93,9 @@ describe('CustomerCard', () => {
     const title3 = screen.getByRole('heading', { name: 'Test Store' });
     const customerCard3 = title3.closest('._CustomerCard_5cfbdf');
     expect(customerCard3).toBeVisible();
-    expect(screen.queryByRole('link', { name: 'Test Store' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'Test Store' })
+    ).not.toBeInTheDocument();
   });
 
   it('renders edit button with correct link', () => {
@@ -101,7 +103,7 @@ describe('CustomerCard', () => {
 
     const editButton = screen.getByRole('button', { name: /editar cliente/i });
     expect(editButton).toBeVisible();
-    
+
     // Check that the button is inside a link with correct href
     const editLink = editButton.closest('a');
     expect(editLink).toHaveAttribute('href', '/customers/1/edit');
@@ -110,22 +112,28 @@ describe('CustomerCard', () => {
   it('renders delete button', () => {
     testRender(<CustomerCard customer={mockCustomer} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar cliente/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar cliente/i,
+    });
     expect(deleteButton).toBeVisible();
   });
 
   it('shows delete confirmation modal when delete button is clicked', () => {
     testRender(<CustomerCard customer={mockCustomer} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar cliente/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar cliente/i,
+    });
     fireEvent.click(deleteButton);
 
     // Check that the modal is displayed
-    expect(screen.getByText(/Confirmas que deseas eliminar el cliente/i)).toBeVisible();
-    
+    expect(
+      screen.getByText(/Confirmas que deseas eliminar el cliente/i)
+    ).toBeVisible();
+
     // Check that modal title is visible
     expect(screen.getByText('Eliminar cliente')).toBeVisible();
-    
+
     // Check that the modal contains the customer name in the description
     const modal = screen.getByRole('dialog');
     expect(modal).toHaveTextContent('Test Store');
@@ -134,13 +142,15 @@ describe('CustomerCard', () => {
   it('calls deleteCustomer function when confirmed', () => {
     const mockDeleteCustomer = vi.fn();
     testRender(
-      <CustomerCard 
-        customer={mockCustomer} 
-        deleteCustomer={mockDeleteCustomer} 
+      <CustomerCard
+        customer={mockCustomer}
+        deleteCustomer={mockDeleteCustomer}
       />
     );
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar cliente/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar cliente/i,
+    });
     fireEvent.click(deleteButton);
 
     // Confirm deletion
@@ -153,7 +163,9 @@ describe('CustomerCard', () => {
   it('closes modal when cancel button is clicked', () => {
     testRender(<CustomerCard customer={mockCustomer} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar cliente/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar cliente/i,
+    });
     fireEvent.click(deleteButton);
 
     // Check that modal is visible
@@ -170,7 +182,9 @@ describe('CustomerCard', () => {
   it('closes modal when background is clicked', () => {
     testRender(<CustomerCard customer={mockCustomer} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar cliente/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar cliente/i,
+    });
     fireEvent.click(deleteButton);
 
     // Check that modal is visible
@@ -186,12 +200,14 @@ describe('CustomerCard', () => {
 
   it('applies custom className when provided', () => {
     const customClass = 'custom-customer-card';
-    testRender(<CustomerCard customer={mockCustomer} className={customClass} />);
+    testRender(
+      <CustomerCard customer={mockCustomer} className={customClass} />
+    );
 
     // Find the card element using its accessible role
     const cardElement = screen.getByRole('article');
     expect(cardElement).toBeVisible();
-    
+
     // Verify it contains the store name
     expect(cardElement).toHaveTextContent('Test Store');
   });
@@ -207,8 +223,12 @@ describe('CustomerCard', () => {
   it('renders phone numbers as tel links', () => {
     testRender(<CustomerCard customer={mockCustomer} />);
 
-    const primaryPhoneLink = screen.getByRole('link', { name: '(123)-456-7890' });
-    const secondaryPhoneLink = screen.getByRole('link', { name: '(098)-765-4321' });
+    const primaryPhoneLink = screen.getByRole('link', {
+      name: '(123)-456-7890',
+    });
+    const secondaryPhoneLink = screen.getByRole('link', {
+      name: '(098)-765-4321',
+    });
 
     expect(primaryPhoneLink).toBeVisible();
     expect(primaryPhoneLink).toHaveAttribute('href', 'tel:1234567890');
@@ -220,7 +240,9 @@ describe('CustomerCard', () => {
   it('handles customer without deleteCustomer function', () => {
     testRender(<CustomerCard customer={mockCustomer} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar cliente/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar cliente/i,
+    });
     fireEvent.click(deleteButton);
 
     // Confirm deletion
@@ -264,7 +286,7 @@ describe('CustomerCard', () => {
 
     // Check that phone number section is not rendered
     expect(screen.queryByText(/\(\d+\)-\d+-\d+/)).not.toBeInTheDocument();
-    
+
     // Check that other information is still displayed
     expect(screen.getByText('John Doe')).toBeVisible();
     expect(screen.getByText('john@example.com')).toBeVisible();
@@ -281,7 +303,7 @@ describe('CustomerCard', () => {
 
     // Check that phone number section is not rendered
     expect(screen.queryByText(/\(\d+\)-\d+-\d+/)).not.toBeInTheDocument();
-    
+
     // Check that other information is still displayed
     expect(screen.getByText('John Doe')).toBeVisible();
     expect(screen.getByText('john@example.com')).toBeVisible();

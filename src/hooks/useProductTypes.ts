@@ -29,4 +29,3 @@ export const useProductTypes = () => {
 };
 
 export default useProductTypes;
-

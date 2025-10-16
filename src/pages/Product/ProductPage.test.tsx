@@ -19,9 +19,15 @@ describe('ProductPage', () => {
       initialEntries: [`/products/${productId}`],
       mountPath: '/products/:id',
       routes: [
-        { path: '/products', element: <div data-testid="products-page">Products Page</div> },
-        { path: '/products/new', element: <div data-testid="add-product-page">Add Product Page</div> }
-      ]
+        {
+          path: '/products',
+          element: <div data-testid="products-page">Products Page</div>,
+        },
+        {
+          path: '/products/new',
+          element: <div data-testid="add-product-page">Add Product Page</div>,
+        },
+      ],
     });
   };
 
@@ -33,8 +39,12 @@ describe('ProductPage', () => {
       renderProductPage('1');
 
       expect(screen.getByTestId('page-container')).toBeVisible();
-      expect(screen.getByRole('link', { name: textConstants.misc.BACK })).toBeVisible();
-      expect(screen.getByRole('link', { name: textConstants.addProduct.ADD_PRODUCT })).toBeVisible();
+      expect(
+        screen.getByRole('link', { name: textConstants.misc.BACK })
+      ).toBeVisible();
+      expect(
+        screen.getByRole('link', { name: textConstants.addProduct.ADD_PRODUCT })
+      ).toBeVisible();
     });
 
     it('displays product card when product data is loaded', async () => {
@@ -46,14 +56,18 @@ describe('ProductPage', () => {
 
       // Wait for product data to load
       const productCard = await screen.findByRole('article');
-      
+
       // Assert product card is rendered and contains expected data
       expect(productCard).toBeVisible();
       expect(productCard.textContent).toContain(mockProduct.name);
       expect(productCard.textContent).toContain(mockProduct.presentation);
       expect(productCard.textContent).toContain(`${mockProduct.weight} g`);
-      expect(productCard.textContent).toContain(`$${mockProduct.basePrice.toFixed(2).replace('.', ',')}`);
-      expect(productCard.textContent).toContain(`$${mockProduct.sellingPrice.toFixed(2).replace('.', ',')}`);
+      expect(productCard.textContent).toContain(
+        `$${mockProduct.basePrice.toFixed(2).replace('.', ',')}`
+      );
+      expect(productCard.textContent).toContain(
+        `$${mockProduct.sellingPrice.toFixed(2).replace('.', ',')}`
+      );
       expect(productCard.textContent).toContain(`${mockProduct.stock}`);
     });
 
@@ -66,14 +80,18 @@ describe('ProductPage', () => {
 
       // Wait for product data to load
       const productCard = await screen.findByRole('article');
-      
+
       // Assert product card is rendered and contains expected data
       expect(productCard).toBeVisible();
       expect(productCard.textContent).toContain(mockProduct.name);
       expect(productCard.textContent).toContain(mockProduct.presentation);
       expect(productCard.textContent).toContain(`${mockProduct.weight} g`);
-      expect(productCard.textContent).toContain(`$${mockProduct.basePrice.toFixed(2).replace('.', ',')}`);
-      expect(productCard.textContent).toContain(`$${mockProduct.sellingPrice.toFixed(2).replace('.', ',')}`);
+      expect(productCard.textContent).toContain(
+        `$${mockProduct.basePrice.toFixed(2).replace('.', ',')}`
+      );
+      expect(productCard.textContent).toContain(
+        `$${mockProduct.sellingPrice.toFixed(2).replace('.', ',')}`
+      );
       expect(productCard.textContent).toContain(`${mockProduct.stock}`);
     });
   });
@@ -93,30 +111,38 @@ describe('ProductPage', () => {
   describe('Product not found state', () => {
     it('displays not found message when product is not found and not loading', async () => {
       // Mock API call that returns 404 or empty response
-      axiosMock.onGet('/products/999').reply(404, { message: 'Product not found' });
+      axiosMock
+        .onGet('/products/999')
+        .reply(404, { message: 'Product not found' });
 
       renderProductPage('999');
 
       // Wait for the API call to complete and show not found message
       await screen.findByText(textConstants.misc.PRODUCT_NOT_FOUND);
-      expect(screen.getByText(textConstants.misc.PRODUCT_NOT_FOUND_DESCRIPTION)).toBeVisible();
+      expect(
+        screen.getByText(textConstants.misc.PRODUCT_NOT_FOUND_DESCRIPTION)
+      ).toBeVisible();
     });
   });
 
   describe('Loading state and data fetching behavior', () => {
     it('shows loading state while fetching product data', async () => {
       // Mock a delayed API response
-      axiosMock.onGet('/products/999').reply(() => new Promise(resolve => 
-        setTimeout(() => resolve([200, mockProducts[0]]), 100)
-      ));
+      axiosMock
+        .onGet('/products/999')
+        .reply(
+          () =>
+            new Promise(resolve =>
+              setTimeout(() => resolve([200, mockProducts[0]]), 100)
+            )
+        );
 
       renderProductPage('999');
 
       // Should show loading spinner
       const loadingSpinner = screen.getByRole('status');
       expect(loadingSpinner).toBeVisible();
-    
-      
+
       // Wait for loading to complete
       await waitForElementToBeRemoved(loadingSpinner);
 
@@ -134,7 +160,9 @@ describe('ProductPage', () => {
 
       renderProductPage('1');
 
-      const backButton = screen.getByRole('link', { name: textConstants.misc.BACK });
+      const backButton = screen.getByRole('link', {
+        name: textConstants.misc.BACK,
+      });
       await user.click(backButton);
 
       expect(screen.getByTestId('products-page')).toBeVisible();
@@ -146,7 +174,9 @@ describe('ProductPage', () => {
 
       renderProductPage('1');
 
-      const addProductButton = screen.getByRole('link', { name: textConstants.addProduct.ADD_PRODUCT });
+      const addProductButton = screen.getByRole('link', {
+        name: textConstants.addProduct.ADD_PRODUCT,
+      });
       await user.click(addProductButton);
 
       expect(screen.getByTestId('add-product-page')).toBeVisible();

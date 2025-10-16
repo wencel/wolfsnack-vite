@@ -44,7 +44,8 @@ const AddEditCustomerPage: React.FC = () => {
   });
 
   // Track original customer data for comparison in edit mode
-  const [originalCustomerData, setOriginalCustomerData] = useState<CustomerFormData | null>(null);
+  const [originalCustomerData, setOriginalCustomerData] =
+    useState<CustomerFormData | null>(null);
 
   const isEditMode = !!id;
 
@@ -130,48 +131,60 @@ const AddEditCustomerPage: React.FC = () => {
           <Input
             label={textConstants.customer.STORE_NAME}
             value={formData.storeName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('storeName', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('storeName', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.customer.ID_NUMBER}
-            type='text'
+            type="text"
             value={formData.idNumber}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('idNumber', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('idNumber', e.target.value)
+            }
           />
 
           <Input
             label={textConstants.customer.NAME}
             value={formData.name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('name', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('name', e.target.value)
+            }
           />
 
           <Input
             label={textConstants.customer.ADDRESS}
             value={formData.address}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('address', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('address', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.customer.EMAIL}
-            type='email'
+            type="email"
             value={formData.email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('email', e.target.value)
+            }
           />
 
           <Input
             label={textConstants.customer.PHONE_NUMBER}
-            type='phoneNumber'
+            type="phoneNumber"
             value={formData.phoneNumber}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('phoneNumber', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('phoneNumber', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.customer.SECONDARY_PHONE_NUMBER}
-            type='phoneNumber'
+            type="phoneNumber"
             value={formData.secondaryPhoneNumber}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('secondaryPhoneNumber', e.target.value)
@@ -180,16 +193,20 @@ const AddEditCustomerPage: React.FC = () => {
 
           <Input
             label={textConstants.customer.LOCALITY}
-            type='select'
+            type="select"
             options={localities}
             value={formData.locality}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('locality', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleInputChange('locality', e.target.value)
+            }
           />
 
           <Input
             label={textConstants.customer.TOWN}
             value={formData.town}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('town', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('town', e.target.value)
+            }
           />
         </Form>
       </Card>

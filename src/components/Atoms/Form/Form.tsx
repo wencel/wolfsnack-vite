@@ -47,7 +47,7 @@ const Form: React.FC<FormProps> = ({
   });
 
   return (
-    <form className={FormClasses} role='form' {...restProps}>
+    <form className={FormClasses} role="form" {...restProps}>
       {children}
 
       {/* Display submit error if present */}
@@ -55,12 +55,12 @@ const Form: React.FC<FormProps> = ({
 
       <div className={styles.buttonsContainer}>
         {secondButtonProps && (
-          <Button type='button' {...omitButtonText(secondButtonProps)}>
+          <Button type="button" {...omitButtonText(secondButtonProps)}>
             {secondButtonProps.buttonText}
           </Button>
         )}
         <Button
-          type='submit'
+          type="submit"
           {...(buttonProps && omitButtonText(buttonProps))}
           loading={isSubmitting}
           loadingText={submittingText || textConstants.misc.SUBMITTING}

@@ -1,5 +1,10 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { fireEvent, screen, waitForElementToBeRemoved, within } from '@testing-library/react';
+import {
+  fireEvent,
+  screen,
+  waitForElementToBeRemoved,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { testRender } from '@/test/test-utils';
 import ProductsPage from './';
@@ -19,22 +24,32 @@ describe('ProductsPage', () => {
       initialEntries: ['/products'],
       mountPath: '/products',
       routes: [
-        { path: '/products/:id', element: <div data-testid="dummy-product-page">Product Detail Page</div> },
-        { path: '/products/new', element: <div data-testid="add-product-page">Add Product Page</div> }
-      ]
+        {
+          path: '/products/:id',
+          element: (
+            <div data-testid="dummy-product-page">Product Detail Page</div>
+          ),
+        },
+        {
+          path: '/products/new',
+          element: <div data-testid="add-product-page">Add Product Page</div>,
+        },
+      ],
     });
   };
 
   it('fetches and displays products from API', async () => {
     // Mock the products.getAll API call
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
     // Wait for products to load and display
     const cards = await screen.findAllByRole('article');
     expect(cards).toHaveLength(10);
-    
+
     // Verify products are rendered with basic information
     expect(within(cards[0]).getByText(/Wolf Snack Mix/)).toBeVisible();
     expect(within(cards[0]).getByText(/Bolsa/)).toBeVisible();
@@ -42,7 +57,7 @@ describe('ProductsPage', () => {
     expect(within(cards[0]).getByText(/45 Unidades/)).toBeVisible();
     expect(within(cards[0]).getByText(/Precio base/)).toBeVisible();
     expect(within(cards[0]).getByText(/Precio de venta/)).toBeVisible();
-    
+
     expect(within(cards[1]).getByText(/Trail Mix Deluxe/)).toBeVisible();
     expect(within(cards[1]).getByText(/750 g/)).toBeVisible();
     expect(within(cards[1]).getByText(/32 Unidades/)).toBeVisible();
@@ -57,16 +72,24 @@ describe('ProductsPage', () => {
     axiosMock.onGet('/products').reply(200, mockPaginatedResponse([], 0));
 
     renderProductsPage();
-    const emptyTitle = await screen.findByText(textConstants.productPage.EMPTY_TITLE);
-    const emptyDescription = screen.getByText(textConstants.productPage.EMPTY_DESCRIPTION);
+    const emptyTitle = await screen.findByText(
+      textConstants.productPage.EMPTY_TITLE
+    );
+    const emptyDescription = screen.getByText(
+      textConstants.productPage.EMPTY_DESCRIPTION
+    );
     expect(emptyTitle).toBeVisible();
     expect(emptyDescription).toBeVisible();
   });
 
   it('displays loading spinner while fetching products', async () => {
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts, 20, 0));
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts, 20, 10));
-    
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts, 20, 0));
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts, 20, 10));
+
     renderProductsPage();
 
     let cards = await screen.findAllByRole('article');
@@ -81,22 +104,34 @@ describe('ProductsPage', () => {
   });
 
   it('displays page title and description correctly', async () => {
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
     expect(screen.getByText(textConstants.productPage.TITLE)).toBeVisible();
-    expect(screen.getByText(textConstants.productPage.DESCRIPTION)).toBeVisible();
+    expect(
+      screen.getByText(textConstants.productPage.DESCRIPTION)
+    ).toBeVisible();
   });
 
   it('renders top action buttons correctly', async () => {
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
-    const addProductButton = screen.getByRole('link', { name: textConstants.addProduct.ADD_PRODUCT });
-    const filtersButton = screen.getByRole('button', { name: /Filtros de busqueda/ });
-    const resetFiltersButton = screen.getByRole('button', { name: /Limpiar filtros/ });
+    const addProductButton = screen.getByRole('link', {
+      name: textConstants.addProduct.ADD_PRODUCT,
+    });
+    const filtersButton = screen.getByRole('button', {
+      name: /Filtros de busqueda/,
+    });
+    const resetFiltersButton = screen.getByRole('button', {
+      name: /Limpiar filtros/,
+    });
 
     expect(addProductButton).toBeVisible();
     expect(filtersButton).toBeVisible();
@@ -104,22 +139,30 @@ describe('ProductsPage', () => {
   });
 
   it('navigates to add product page when add product button is clicked', async () => {
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
-    const addProductButton = screen.getByRole('link', { name: textConstants.addProduct.ADD_PRODUCT });
+    const addProductButton = screen.getByRole('link', {
+      name: textConstants.addProduct.ADD_PRODUCT,
+    });
     await user.click(addProductButton);
 
     expect(screen.getByTestId('add-product-page')).toBeVisible();
   });
 
   it('opens filter modal when filters button is clicked', async () => {
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
-    const filtersButton = screen.getByRole('button', { name: textConstants.misc.FILTERS });
+    const filtersButton = screen.getByRole('button', {
+      name: textConstants.misc.FILTERS,
+    });
     await user.click(filtersButton);
 
     // Check if filter modal is visible
@@ -129,14 +172,22 @@ describe('ProductsPage', () => {
   });
 
   it('applies filters from modal correctly and resets filters when reset filters button is clicked', async () => {
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts, 10));
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts.slice(0, 5), 5));
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts.slice(0, 5), 5));
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
     // Open filter modal
-    const filtersButton = screen.getByRole('button', { name: textConstants.misc.FILTERS });
+    const filtersButton = screen.getByRole('button', {
+      name: textConstants.misc.FILTERS,
+    });
     await user.click(filtersButton);
 
     // Apply filters through modal
@@ -149,20 +200,26 @@ describe('ProductsPage', () => {
     await user.selectOptions(sortSelect, 'name');
     await user.selectOptions(directionSelect, 'desc');
 
-    const applyButton = screen.getByRole('button', { name: textConstants.misc.APPLY });
+    const applyButton = screen.getByRole('button', {
+      name: textConstants.misc.APPLY,
+    });
     await user.click(applyButton);
 
     expect(screen.getAllByRole('article')).toHaveLength(5);
 
     // Reset filters
-    const resetFiltersButton = screen.getByRole('button', { name: textConstants.misc.RESET_FILTERS });
+    const resetFiltersButton = screen.getByRole('button', {
+      name: textConstants.misc.RESET_FILTERS,
+    });
     await user.click(resetFiltersButton);
     expect(screen.getAllByRole('article')).toHaveLength(10);
   });
 
   it('handles product deletion correctly', async () => {
     const mockDeleteResponse = { success: true };
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
     axiosMock.onDelete('/products/1').reply(200, mockDeleteResponse);
 
     renderProductsPage();
@@ -173,11 +230,15 @@ describe('ProductsPage', () => {
 
     // Find and click delete button for first product
     const firstCard = screen.getAllByRole('article')[0];
-    const deleteButton = within(firstCard).getByRole('button', { name: 'Eliminar producto' });
+    const deleteButton = within(firstCard).getByRole('button', {
+      name: 'Eliminar producto',
+    });
     await user.click(deleteButton);
 
     // Confirm deletion in modal
-    const confirmButton = screen.getByRole('button', { name: textConstants.misc.YES });
+    const confirmButton = screen.getByRole('button', {
+      name: textConstants.misc.YES,
+    });
     await user.click(confirmButton);
 
     // Wait for products to load
@@ -186,7 +247,9 @@ describe('ProductsPage', () => {
   });
 
   it('navigates to product detail page when product card is clicked', async () => {
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
@@ -195,7 +258,9 @@ describe('ProductsPage', () => {
 
     // Click on first product card header (which should be a link)
     const firstCard = screen.getAllByRole('article')[0];
-    const productLink = within(firstCard).getByRole('link', { name: /Wolf Snack Mix/ });
+    const productLink = within(firstCard).getByRole('link', {
+      name: /Wolf Snack Mix/,
+    });
     await user.click(productLink);
 
     // Verify navigation to product detail page
@@ -204,9 +269,13 @@ describe('ProductsPage', () => {
 
   it('handles infinite scroll pagination correctly', async () => {
     // Mock first page
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts.slice(0, 10), 20, 0));
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts.slice(0, 10), 20, 0));
     // Mock second page
-    axiosMock.onGet('/products').replyOnce(200, mockPaginatedResponse(mockProducts, 20, 10));
+    axiosMock
+      .onGet('/products')
+      .replyOnce(200, mockPaginatedResponse(mockProducts, 20, 10));
 
     renderProductsPage();
 
@@ -225,7 +294,9 @@ describe('ProductsPage', () => {
   });
 
   it('prevents duplicate API calls during pagination', async () => {
-    axiosMock.onGet('/products').reply(200, mockPaginatedResponse(mockProducts, 10));
+    axiosMock
+      .onGet('/products')
+      .reply(200, mockPaginatedResponse(mockProducts, 10));
 
     renderProductsPage();
 
@@ -242,12 +313,16 @@ describe('ProductsPage', () => {
   });
 
   it('handles API errors gracefully', async () => {
-    axiosMock.onGet('/products').reply(500, { message: 'Internal Server Error' });
+    axiosMock
+      .onGet('/products')
+      .reply(500, { message: 'Internal Server Error' });
 
     renderProductsPage();
 
     // Should not crash and should show empty state
-    const emptyTitle = await screen.findByText(textConstants.productPage.EMPTY_TITLE);
+    const emptyTitle = await screen.findByText(
+      textConstants.productPage.EMPTY_TITLE
+    );
     expect(emptyTitle).toBeVisible();
   });
 });

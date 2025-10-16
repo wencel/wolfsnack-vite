@@ -1,5 +1,4 @@
 import React from 'react';
-import type { LooseValue } from 'node_modules/react-date-picker/dist/esm/shared/types';
 import { textConstants } from '@/lib/appConstants';
 import Card from '@/components/Atoms/Card';
 import Calendar from '@/components/Atoms/Calendar';
@@ -8,11 +7,15 @@ import Label from '@/components/Atoms/Label';
 import Modal from '@/components/Organisms/Modal';
 import styles from './OrderFilterModal.module.sass';
 
+// Type definitions for react-datepicker
+type DateValue = Date | null;
+type DateRangeValue = [Date | null, Date | null];
+
 export interface OrderFilterModalProps {
   closeModal: () => void;
-  applyFilter: (filter: { dateRange: LooseValue }) => void;
+  applyFilter: (filter: { dateRange: DateRangeValue | null }) => void;
   showModal: boolean;
-  parentDateRange: LooseValue;
+  parentDateRange: DateRangeValue | null;
 }
 
 const OrderFilterModal: React.FC<OrderFilterModalProps> = ({

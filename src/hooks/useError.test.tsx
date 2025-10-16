@@ -78,8 +78,9 @@ describe('useError Hook', () => {
   });
 
   it('handles long error messages correctly', () => {
-    const longErrorMessage = 'This is a very long error message that contains many characters and should be handled properly by the hook without any issues or truncation';
-    
+    const longErrorMessage =
+      'This is a very long error message that contains many characters and should be handled properly by the hook without any issues or truncation';
+
     const mockErrorState = {
       submitError: longErrorMessage,
       generalError: 'Another long error message',
@@ -94,8 +95,9 @@ describe('useError Hook', () => {
   });
 
   it('handles special characters in error messages correctly', () => {
-    const specialCharError = 'Error with special chars: !@#$%^&*()_+-=[]{}|;:,.<>?';
-    
+    const specialCharError =
+      'Error with special chars: !@#$%^&*()_+-=[]{}|;:,.<>?';
+
     const mockErrorState = {
       submitError: specialCharError,
       generalError: 'Error with quotes: "test" and \'single quotes\'',
@@ -106,6 +108,8 @@ describe('useError Hook', () => {
     const { result } = renderHook(() => useError(), { wrapper });
 
     expect(result.current.submitError).toBe(specialCharError);
-    expect(result.current.generalError).toBe('Error with quotes: "test" and \'single quotes\'');
+    expect(result.current.generalError).toBe(
+      'Error with quotes: "test" and \'single quotes\''
+    );
   });
 });

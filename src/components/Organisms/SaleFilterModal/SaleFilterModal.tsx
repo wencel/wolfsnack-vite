@@ -9,19 +9,22 @@ import Radio from '@/components/Atoms/Radio';
 import Modal from '@/components/Organisms/Modal';
 import SearchField from '@/components/Molecules/SearchField/SearchField';
 import styles from './SaleFilterModal.module.sass';
-import type { LooseValue } from 'node_modules/react-date-picker/dist/esm/shared/types';
 import type { Customer } from '@/lib/data';
+
+// Type definitions for react-datepicker
+type DateValue = Date | null;
+type DateRangeValue = [Date | null, Date | null];
 
 interface SaleFilterModalProps {
   showModal: boolean;
   closeModal: () => void;
   applyFilter: (filter: {
-    dateRange?: LooseValue;
+    dateRange?: DateRangeValue | null;
     owes?: boolean | null;
     isThirteenDozen?: boolean | null;
     customer?: Customer;
   }) => void;
-  parentDateRange?: LooseValue;
+  parentDateRange?: DateRangeValue | null;
   parentOwes?: boolean | null;
   parentIsThirteenDozen?: boolean | null;
   parentCustomer?: Customer;
@@ -43,11 +46,11 @@ const SaleFilterModal: React.FC<SaleFilterModalProps> = ({
   fetchCustomers,
   customers,
 }) => {
-  const [dateRange, setDateRange] = useState<LooseValue | undefined>(
-    parentDateRange
+  const [dateRange, setDateRange] = useState<DateRangeValue | null>(
+    parentDateRange || null
   );
   const [owes, setOwes] = useState<boolean | null>(
-    parentOwes as unknown as boolean | null
+    parentOwes as boolean | null
   );
   const [customer, setCustomer] = useState<Customer | undefined>(
     parentCustomer
@@ -85,6 +88,7 @@ const SaleFilterModal: React.FC<SaleFilterModalProps> = ({
         setIsThirteenDozen(null);
     }
   };
+
   return (
     <Modal show={showModal} backgroundOnClick={closeModal}>
       <Card
@@ -106,10 +110,12 @@ const SaleFilterModal: React.FC<SaleFilterModalProps> = ({
         >
           <Label className={styles.label}>{textConstants.misc.DATES}</Label>
           <Calendar
-            onChange={setDateRange}
+            onChange={value => setDateRange(value as DateRangeValue | null)}
             value={dateRange}
             maxDate={new Date()}
             isRange={true}
+            label="Seleccionar rango de fechas"
+            isClearable={true}
           />
           <SearchField
             onSearch={fetchCustomers}
@@ -134,27 +140,27 @@ const SaleFilterModal: React.FC<SaleFilterModalProps> = ({
           <div className={styles.radioContainer}>
             <Radio
               className={styles.radio}
-              theme='Default'
-              name='owes'
-              value='yes'
+              theme="path"
+              name="owes"
+              value="yes"
               checked={owes === true}
               label={textConstants.misc.YES}
               onChange={updateOwes}
             />
             <Radio
               className={styles.radio}
-              theme='Default'
-              name='owes'
-              value='no'
+              theme="path"
+              name="owes"
+              value="no"
               checked={owes === false}
               label={textConstants.misc.NO}
               onChange={updateOwes}
             />
             <Radio
               className={styles.radio}
-              theme='Default'
-              name='owes'
-              value='all'
+              theme="path"
+              name="owes"
+              value="all"
               checked={owes === null}
               label={textConstants.misc.ALL}
               onChange={updateOwes}
@@ -166,27 +172,27 @@ const SaleFilterModal: React.FC<SaleFilterModalProps> = ({
           <div className={styles.radioContainer}>
             <Radio
               className={styles.radio}
-              theme='Default'
-              name='isThirteenDozen'
-              value='yes'
+              theme="path"
+              name="isThirteenDozen"
+              value="yes"
               checked={isThirteenDozen === true}
               label={textConstants.misc.YES}
               onChange={updateIsThirteenDozen}
             />
             <Radio
               className={styles.radio}
-              theme='Default'
-              name='isThirteenDozen'
-              value='no'
+              theme="path"
+              name="isThirteenDozen"
+              value="no"
               checked={isThirteenDozen === false}
               label={textConstants.misc.NO}
               onChange={updateIsThirteenDozen}
             />
             <Radio
               className={styles.radio}
-              theme='Default'
-              name='isThirteenDozen'
-              value='all'
+              theme="path"
+              name="isThirteenDozen"
+              value="all"
               checked={isThirteenDozen === null}
               label={textConstants.misc.ALL}
               onChange={updateIsThirteenDozen}

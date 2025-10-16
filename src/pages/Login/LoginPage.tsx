@@ -75,7 +75,7 @@ const LoginPage = () => {
           />
           <Input
             label={textConstants.login.PASSWORD_LABEL}
-            type='password'
+            type="password"
             value={password}
             onChange={editPassword}
           />

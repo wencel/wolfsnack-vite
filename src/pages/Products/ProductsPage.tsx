@@ -14,14 +14,8 @@ import useProducts from '@/hooks/useProducts';
 const ProductsPage: React.FC = () => {
   const { loading: globalLoading, fetching } = useLoading();
 
-  const {
-    products,
-    total,
-    skip,
-    fetchProducts,
-    deleteProduct,
-    resetProducts,
-  } = useProducts();
+  const { products, total, skip, fetchProducts, deleteProduct, resetProducts } =
+    useProducts();
 
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
@@ -76,7 +70,7 @@ const ProductsPage: React.FC = () => {
     setDirection(q.direction);
     setShowFiltersModal(false);
   };
-  
+
   return (
     <>
       <ProductFilterModal
@@ -109,7 +103,7 @@ const ProductsPage: React.FC = () => {
         )}
         {fetching && (
           <div className="loadingContainer">
-            <LoadingSpinner size='large' color='primary' />
+            <LoadingSpinner size="large" color="primary" />
           </div>
         )}
 

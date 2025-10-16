@@ -9,7 +9,7 @@ import { textConstants } from '@/lib/appConstants';
 interface BaseButtonProps {
   children?: React.ReactNode;
   className?: string;
-  theme?: string;
+  theme?: 'Primary' | 'RoundWithLabel' | 'Outline' | 'BottomNavigation';
   tooltip?: string;
   isActive?: boolean;
   loading?: boolean;
@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = ({
     <>
       {loading ? (
         <>
-          <LoadingSpinner size='small' color='white' />
+          <LoadingSpinner size="small" color="white" />
           <span className={styles.loadingText}>
             {loadingText || textConstants.misc.SUBMITTING}
           </span>
@@ -84,7 +84,7 @@ const Button: React.FC<ButtonProps> = ({
         e.stopPropagation();
         return;
       }
-      
+
       // Call the original onClick if provided and not loading
       if (linkProps.onClick) {
         linkProps.onClick(e);
@@ -99,9 +99,9 @@ const Button: React.FC<ButtonProps> = ({
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
             <div className={wrapperClasses}>
-              <Link 
-                to={href} 
-                className={buttonClasses} 
+              <Link
+                to={href}
+                className={buttonClasses}
                 onClick={handleLinkClick}
                 {...linkPropsWithoutOnClick}
               >
@@ -114,7 +114,7 @@ const Button: React.FC<ButtonProps> = ({
               <Tooltip.Content
                 className={styles.tooltip}
                 sideOffset={5}
-                side='top'
+                side="top"
               >
                 {tooltip}
                 <Tooltip.Arrow className={styles.tooltipArrow} />
@@ -146,13 +146,22 @@ const Button: React.FC<ButtonProps> = ({
     if (children) {
       // Extract only text content from children, ignoring React elements
       const extractText = (node: React.ReactNode): string => {
-        if (typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean') {
+        if (
+          typeof node === 'string' ||
+          typeof node === 'number' ||
+          typeof node === 'boolean'
+        ) {
           return String(node);
         }
         if (Array.isArray(node)) {
           return node.map(extractText).join('');
         }
-        if (React.isValidElement(node) && node.props && typeof node.props === 'object' && 'children' in node.props) {
+        if (
+          React.isValidElement(node) &&
+          node.props &&
+          typeof node.props === 'object' &&
+          'children' in node.props
+        ) {
           return extractText(node.props.children as React.ReactNode);
         }
         return '';
@@ -187,7 +196,7 @@ const Button: React.FC<ButtonProps> = ({
             <Tooltip.Content
               className={styles.tooltip}
               sideOffset={5}
-              side='top'
+              side="top"
             >
               {tooltip}
               <Tooltip.Arrow className={styles.tooltipArrow} />

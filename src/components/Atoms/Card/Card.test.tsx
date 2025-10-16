@@ -6,7 +6,7 @@ import styles from './Card.module.sass';
 describe('Card Component', () => {
   it('renders card with title and description', () => {
     testRender(
-      <Card title='Test Title' description='Test Description'>
+      <Card title="Test Title" description="Test Description">
         Card Content
       </Card>
     );
@@ -17,14 +17,14 @@ describe('Card Component', () => {
   });
 
   it('renders card with only title', () => {
-    testRender(<Card title='Test Title' />);
+    testRender(<Card title="Test Title" />);
 
     expect(screen.getByText('Test Title')).toBeVisible();
     expect(screen.queryByText('Test Description')).not.toBeInTheDocument();
   });
 
   it('renders card with only description', () => {
-    testRender(<Card description='Test Description' />);
+    testRender(<Card description="Test Description" />);
 
     expect(screen.getByText('Test Description')).toBeVisible();
     expect(screen.queryByText('Test Title')).not.toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('Card Component', () => {
   });
 
   it('does not render divider when no children', () => {
-    testRender(<Card title='Test Title' description='Test Description' />);
+    testRender(<Card title="Test Title" description="Test Description" />);
 
     // When no children, divider should not be rendered
     expect(screen.getByText('Test Title')).toBeVisible();
@@ -80,7 +80,7 @@ describe('Card Component', () => {
 
   it('has correct DOM structure', () => {
     testRender(
-      <Card title='Test Title' description='Test Description'>
+      <Card title="Test Title" description="Test Description">
         Card Content
       </Card>
     );
@@ -97,7 +97,7 @@ describe('Card Component', () => {
 
   it('handles empty children gracefully', () => {
     testRender(
-      <Card title='Test Title' description='Test Description'>
+      <Card title="Test Title" description="Test Description">
         {null}
       </Card>
     );
@@ -115,7 +115,7 @@ describe('Card Component', () => {
 
   it('renders multiple children correctly', () => {
     testRender(
-      <Card title='Test Title'>
+      <Card title="Test Title">
         <div>Child 1</div>
         <div>Child 2</div>
         <div>Child 3</div>

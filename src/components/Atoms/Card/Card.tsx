@@ -25,7 +25,9 @@ const Card: React.FC<CardProps> = ({
   });
   return (
     <div className={cardClass} role={role}>
-      <div className={styles.title} role="heading" aria-level={2}>{title}</div>
+      <div className={styles.title} role="heading" aria-level={2}>
+        {title}
+      </div>
       <div className={styles.description}>{description}</div>
       {children ? <Divider /> : ''}
       {children}

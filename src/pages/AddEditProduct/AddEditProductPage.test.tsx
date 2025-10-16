@@ -4,7 +4,12 @@ import userEvent from '@testing-library/user-event';
 import { testRender } from '@/test/test-utils';
 import AddEditProductPage from './';
 import { axiosMock } from '@/test/setup';
-import { mockProducts, mockPresentations, mockProductTypes, createProductWithMissingFields } from '@/test/testData';
+import {
+  mockProducts,
+  mockPresentations,
+  mockProductTypes,
+  createProductWithMissingFields,
+} from '@/test/testData';
 import { textConstants } from '@/lib/appConstants';
 
 describe('AddEditProductPage', () => {
@@ -16,12 +21,22 @@ describe('AddEditProductPage', () => {
 
   const renderAddEditProductPage = (productId?: string) => {
     return testRender(<AddEditProductPage />, {
-      initialEntries: productId ? [`/products/${productId}/edit`] : ['/products/new'],
+      initialEntries: productId
+        ? [`/products/${productId}/edit`]
+        : ['/products/new'],
       mountPath: productId ? '/products/:id/edit' : '/products/new',
       routes: [
-        { path: '/products', element: <div data-testid="products-page">Products Page</div> },
-        { path: '/products/:id', element: <div data-testid="product-detail-page">Product Detail Page</div> }
-      ]
+        {
+          path: '/products',
+          element: <div data-testid="products-page">Products Page</div>,
+        },
+        {
+          path: '/products/:id',
+          element: (
+            <div data-testid="product-detail-page">Product Detail Page</div>
+          ),
+        },
+      ],
     });
   };
 
@@ -35,13 +50,19 @@ describe('AddEditProductPage', () => {
 
       expect(screen.getByText(textConstants.addProduct.TITLE)).toBeVisible();
       expect(screen.getByRole('form')).toBeVisible();
-      
+
       // Check all form fields are present
       expect(screen.getByLabelText(textConstants.product.NAME)).toBeVisible();
-      expect(screen.getByLabelText(textConstants.product.PRESENTATION)).toBeVisible();
+      expect(
+        screen.getByLabelText(textConstants.product.PRESENTATION)
+      ).toBeVisible();
       expect(screen.getByLabelText(textConstants.product.WEIGHT)).toBeVisible();
-      expect(screen.getByLabelText(textConstants.product.BASE_PRICE)).toBeVisible();
-      expect(screen.getByLabelText(textConstants.product.SELLING_PRICE)).toBeVisible();
+      expect(
+        screen.getByLabelText(textConstants.product.BASE_PRICE)
+      ).toBeVisible();
+      expect(
+        screen.getByLabelText(textConstants.product.SELLING_PRICE)
+      ).toBeVisible();
       expect(screen.getByLabelText(textConstants.product.STOCK)).toBeVisible();
     });
 
@@ -51,8 +72,12 @@ describe('AddEditProductPage', () => {
 
       renderAddEditProductPage();
 
-      const backButton = screen.getByRole('button', { name: textConstants.misc.BACK });
-      const saveButton = screen.getByRole('button', { name: textConstants.misc.SAVE });
+      const backButton = screen.getByRole('button', {
+        name: textConstants.misc.BACK,
+      });
+      const saveButton = screen.getByRole('button', {
+        name: textConstants.misc.SAVE,
+      });
 
       expect(backButton).toBeVisible();
       expect(saveButton).toBeVisible();
@@ -65,12 +90,16 @@ describe('AddEditProductPage', () => {
 
       renderAddEditProductPage();
 
-      const presentationSelect = await screen.findByLabelText(textConstants.product.PRESENTATION);
+      const presentationSelect = await screen.findByLabelText(
+        textConstants.product.PRESENTATION
+      );
       expect(presentationSelect).toBeVisible();
-      
+
       // Check that options are loaded
       for (const presentation of mockPresentations) {
-        expect(await screen.findByRole('option', { name: presentation })).toBeVisible();
+        expect(
+          await screen.findByRole('option', { name: presentation })
+        ).toBeVisible();
       }
     });
 
@@ -80,12 +109,16 @@ describe('AddEditProductPage', () => {
 
       renderAddEditProductPage();
 
-      const productTypeSelect = await screen.findByLabelText(textConstants.product.NAME);
+      const productTypeSelect = await screen.findByLabelText(
+        textConstants.product.NAME
+      );
       expect(productTypeSelect).toBeVisible();
-      
+
       // Check that options are loaded
       for (const productType of mockProductTypes) {
-        expect(await screen.findByRole('option', { name: productType })).toBeVisible();
+        expect(
+          await screen.findByRole('option', { name: productType })
+        ).toBeVisible();
       }
     });
 
@@ -96,8 +129,12 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       const weightInput = screen.getByLabelText(textConstants.product.WEIGHT);
-      const basePriceInput = screen.getByLabelText(textConstants.product.BASE_PRICE);
-      const sellingPriceInput = screen.getByLabelText(textConstants.product.SELLING_PRICE);
+      const basePriceInput = screen.getByLabelText(
+        textConstants.product.BASE_PRICE
+      );
+      const sellingPriceInput = screen.getByLabelText(
+        textConstants.product.SELLING_PRICE
+      );
       const stockInput = screen.getByLabelText(textConstants.product.STOCK);
 
       await user.type(weightInput, '500');
@@ -118,9 +155,11 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       // Wait for presentations to load
-      const presentationSelect = await screen.findByLabelText(textConstants.product.PRESENTATION);
+      const presentationSelect = await screen.findByLabelText(
+        textConstants.product.PRESENTATION
+      );
       expect(presentationSelect).toBeVisible();
-      
+
       await user.selectOptions(presentationSelect, 'Bolsa');
 
       expect(presentationSelect).toHaveValue('Bolsa');
@@ -133,9 +172,11 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       // Wait for product types to load
-      const productTypeSelect = await screen.findByLabelText(textConstants.product.NAME);
+      const productTypeSelect = await screen.findByLabelText(
+        textConstants.product.NAME
+      );
       expect(productTypeSelect).toBeVisible();
-      
+
       await user.selectOptions(productTypeSelect, 'Wolf Snack Mix');
 
       expect(productTypeSelect).toHaveValue('Wolf Snack Mix');
@@ -149,12 +190,23 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       // Fill required fields
-      await user.type(screen.getByLabelText(textConstants.product.WEIGHT), '500');
-      await user.type(screen.getByLabelText(textConstants.product.BASE_PRICE), '12.99');
-      await user.type(screen.getByLabelText(textConstants.product.SELLING_PRICE), '15.99');
+      await user.type(
+        screen.getByLabelText(textConstants.product.WEIGHT),
+        '500'
+      );
+      await user.type(
+        screen.getByLabelText(textConstants.product.BASE_PRICE),
+        '12.99'
+      );
+      await user.type(
+        screen.getByLabelText(textConstants.product.SELLING_PRICE),
+        '15.99'
+      );
       await user.type(screen.getByLabelText(textConstants.product.STOCK), '45');
 
-      const saveButton = screen.getByRole('button', { name: textConstants.misc.SAVE });
+      const saveButton = screen.getByRole('button', {
+        name: textConstants.misc.SAVE,
+      });
       await user.click(saveButton);
 
       // Verify form submission behavior - form should be submitted
@@ -173,10 +225,16 @@ describe('AddEditProductPage', () => {
 
       // Check that required fields show validation
       const nameInput = screen.getByLabelText(textConstants.product.NAME);
-      const presentationInput = screen.getByLabelText(textConstants.product.PRESENTATION);
+      const presentationInput = screen.getByLabelText(
+        textConstants.product.PRESENTATION
+      );
       const weightInput = screen.getByLabelText(textConstants.product.WEIGHT);
-      const basePriceInput = screen.getByLabelText(textConstants.product.BASE_PRICE);
-      const sellingPriceInput = screen.getByLabelText(textConstants.product.SELLING_PRICE);
+      const basePriceInput = screen.getByLabelText(
+        textConstants.product.BASE_PRICE
+      );
+      const sellingPriceInput = screen.getByLabelText(
+        textConstants.product.SELLING_PRICE
+      );
       const stockInput = screen.getByLabelText(textConstants.product.STOCK);
 
       expect(nameInput).toBeRequired();
@@ -207,7 +265,9 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage('1');
 
       expect(screen.getByText(textConstants.misc.WARNING)).toBeVisible();
-      expect(screen.getByText(textConstants.addProduct.WARNING_EDIT)).toBeVisible();
+      expect(
+        screen.getByText(textConstants.addProduct.WARNING_EDIT)
+      ).toBeVisible();
     });
 
     it('populates form fields with existing product data', async () => {
@@ -219,10 +279,18 @@ describe('AddEditProductPage', () => {
 
       // Wait for form to be populated with product data
       // Note: Select fields may not show values immediately due to async loading
-      expect(await screen.findByLabelText(textConstants.product.WEIGHT)).toHaveValue(mockProducts[0].weight);
-      expect(await screen.findByLabelText(textConstants.product.BASE_PRICE)).toHaveValue(mockProducts[0].basePrice);
-      expect(await screen.findByLabelText(textConstants.product.SELLING_PRICE)).toHaveValue(mockProducts[0].sellingPrice);
-      expect(await screen.findByLabelText(textConstants.product.STOCK)).toHaveValue(mockProducts[0].stock);
+      expect(
+        await screen.findByLabelText(textConstants.product.WEIGHT)
+      ).toHaveValue(mockProducts[0].weight);
+      expect(
+        await screen.findByLabelText(textConstants.product.BASE_PRICE)
+      ).toHaveValue(mockProducts[0].basePrice);
+      expect(
+        await screen.findByLabelText(textConstants.product.SELLING_PRICE)
+      ).toHaveValue(mockProducts[0].sellingPrice);
+      expect(
+        await screen.findByLabelText(textConstants.product.STOCK)
+      ).toHaveValue(mockProducts[0].stock);
     });
 
     it('disables name, presentation, and weight fields in edit mode', async () => {
@@ -233,9 +301,15 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage('1');
 
       // Wait for form to be populated
-      expect(await screen.findByLabelText(textConstants.product.NAME)).toBeDisabled();
-      expect(await screen.findByLabelText(textConstants.product.PRESENTATION)).toBeDisabled();
-      expect(await screen.findByLabelText(textConstants.product.WEIGHT)).toBeDisabled();
+      expect(
+        await screen.findByLabelText(textConstants.product.NAME)
+      ).toBeDisabled();
+      expect(
+        await screen.findByLabelText(textConstants.product.PRESENTATION)
+      ).toBeDisabled();
+      expect(
+        await screen.findByLabelText(textConstants.product.WEIGHT)
+      ).toBeDisabled();
     });
 
     it('submits form with updateProduct when in edit mode', async () => {
@@ -247,15 +321,21 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage('1');
 
       // Wait for form to be populated
-      expect(await screen.findByLabelText(textConstants.product.BASE_PRICE)).toHaveValue(mockProducts[0].basePrice);
+      expect(
+        await screen.findByLabelText(textConstants.product.BASE_PRICE)
+      ).toHaveValue(mockProducts[0].basePrice);
 
       // Modify a field
-      const basePriceInput = screen.getByLabelText(textConstants.product.BASE_PRICE);
+      const basePriceInput = screen.getByLabelText(
+        textConstants.product.BASE_PRICE
+      );
       await user.clear(basePriceInput);
       await user.type(basePriceInput, '14.99');
 
       // Submit the form
-      const saveButton = screen.getByRole('button', { name: textConstants.misc.SAVE });
+      const saveButton = screen.getByRole('button', {
+        name: textConstants.misc.SAVE,
+      });
       await user.click(saveButton);
 
       // Verify the field was updated and form submission behavior
@@ -273,9 +353,15 @@ describe('AddEditProductPage', () => {
 
       // Wait for form to be populated with empty values for missing fields
       // Note: Select fields may not show values immediately due to async loading
-      const basePriceInput = await screen.findByLabelText(textConstants.product.BASE_PRICE);
-      const sellingPriceInput = await screen.findByLabelText(textConstants.product.SELLING_PRICE);
-      const stockInput = await screen.findByLabelText(textConstants.product.STOCK);
+      const basePriceInput = await screen.findByLabelText(
+        textConstants.product.BASE_PRICE
+      );
+      const sellingPriceInput = await screen.findByLabelText(
+        textConstants.product.SELLING_PRICE
+      );
+      const stockInput = await screen.findByLabelText(
+        textConstants.product.STOCK
+      );
 
       // Check that the inputs exist and have empty values
       expect(basePriceInput).toBeVisible();
@@ -294,8 +380,12 @@ describe('AddEditProductPage', () => {
 
       renderAddEditProductPage();
 
-      const basePriceInput = screen.getByLabelText(textConstants.product.BASE_PRICE);
-      const sellingPriceInput = screen.getByLabelText(textConstants.product.SELLING_PRICE);
+      const basePriceInput = screen.getByLabelText(
+        textConstants.product.BASE_PRICE
+      );
+      const sellingPriceInput = screen.getByLabelText(
+        textConstants.product.SELLING_PRICE
+      );
 
       await user.type(basePriceInput, '10.99');
       await user.type(sellingPriceInput, '13.99');
@@ -311,9 +401,13 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       const weightInput = screen.getByLabelText(textConstants.product.WEIGHT);
-      const basePriceInput = screen.getByLabelText(textConstants.product.BASE_PRICE);
+      const basePriceInput = screen.getByLabelText(
+        textConstants.product.BASE_PRICE
+      );
       const nameSelect = screen.getByLabelText(textConstants.product.NAME);
-      const presentationSelect = screen.getByLabelText(textConstants.product.PRESENTATION);
+      const presentationSelect = screen.getByLabelText(
+        textConstants.product.PRESENTATION
+      );
 
       expect(weightInput).toHaveAttribute('type', 'number');
       expect(basePriceInput).toHaveAttribute('type', 'number');
@@ -328,7 +422,9 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       const weightInput = screen.getByLabelText(textConstants.product.WEIGHT);
-      const basePriceInput = screen.getByLabelText(textConstants.product.BASE_PRICE);
+      const basePriceInput = screen.getByLabelText(
+        textConstants.product.BASE_PRICE
+      );
 
       // Check that inputs are number type
       expect(weightInput).toHaveAttribute('type', 'number');
@@ -343,7 +439,9 @@ describe('AddEditProductPage', () => {
 
       renderAddEditProductPage();
 
-      const backButton = screen.getByRole('button', { name: textConstants.misc.BACK });
+      const backButton = screen.getByRole('button', {
+        name: textConstants.misc.BACK,
+      });
       await user.click(backButton);
 
       // Should navigate back (this would be handled by the router)
@@ -372,8 +470,14 @@ describe('AddEditProductPage', () => {
       renderAddEditProductPage();
 
       // Fill only some fields
-      await user.type(screen.getByLabelText(textConstants.product.WEIGHT), '500');
-      await user.type(screen.getByLabelText(textConstants.product.BASE_PRICE), '12.99');
+      await user.type(
+        screen.getByLabelText(textConstants.product.WEIGHT),
+        '500'
+      );
+      await user.type(
+        screen.getByLabelText(textConstants.product.BASE_PRICE),
+        '12.99'
+      );
       // Don't fill other required fields
 
       const form = screen.getByRole('form');
@@ -384,8 +488,12 @@ describe('AddEditProductPage', () => {
     });
 
     it('handles API errors gracefully', async () => {
-      axiosMock.onGet('/utils/presentations').reply(500, { message: 'Server Error' });
-      axiosMock.onGet('/utils/productTypes').reply(500, { message: 'Server Error' });
+      axiosMock
+        .onGet('/utils/presentations')
+        .reply(500, { message: 'Server Error' });
+      axiosMock
+        .onGet('/utils/productTypes')
+        .reply(500, { message: 'Server Error' });
       axiosMock.onPost('/products').reply(500, { message: 'Server Error' });
 
       renderAddEditProductPage();
@@ -433,8 +541,12 @@ describe('AddEditProductPage', () => {
 
       renderAddEditProductPage();
 
-      const backButton = screen.getByRole('button', { name: textConstants.misc.BACK });
-      const saveButton = screen.getByRole('button', { name: textConstants.misc.SAVE });
+      const backButton = screen.getByRole('button', {
+        name: textConstants.misc.BACK,
+      });
+      const saveButton = screen.getByRole('button', {
+        name: textConstants.misc.SAVE,
+      });
 
       expect(backButton).toHaveAccessibleName();
       expect(saveButton).toHaveAccessibleName();
@@ -469,7 +581,7 @@ describe('AddEditProductPage', () => {
         textConstants.product.WEIGHT,
         textConstants.product.BASE_PRICE,
         textConstants.product.SELLING_PRICE,
-        textConstants.product.STOCK
+        textConstants.product.STOCK,
       ];
 
       requiredFields.forEach(fieldLabel => {

@@ -12,8 +12,8 @@ const NotFound: React.FC = () => {
       <div className={styles.notFound}>
         <Card
           className={styles.notFoundCard}
-          title='404'
-          description='Página no encontrada'
+          title="404"
+          description="Página no encontrada"
         >
           <div className={styles.content}>
             <div className={styles.icon}>
@@ -29,14 +29,14 @@ const NotFound: React.FC = () => {
             </div>
 
             <div className={styles.actions}>
-              <Link to='/'>
-                <Button theme='primary'>
+              <Link to="/">
+                <Button theme="primary">
                   <MdHome />
                   Ir al Inicio
                 </Button>
               </Link>
 
-              <Button theme='secondary' onClick={() => window.history.back()}>
+              <Button theme="secondary" onClick={() => window.history.back()}>
                 <MdArrowBack />
                 Volver Atrás
               </Button>

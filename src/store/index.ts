@@ -4,6 +4,7 @@ import loadingReducer from './slices/loadingSlice';
 import errorReducer from './slices/errorSlice';
 import customersReducer from './slices/customersSlice';
 import productsReducer from './slices/productsSlice';
+import salesReducer from './slices/salesSlice';
 import localitiesReducer from './slices/localitiesSlice';
 import presentationsReducer from './slices/presentationsSlice';
 import productTypesReducer from './slices/productTypesSlice';
@@ -15,6 +16,7 @@ export const store = configureStore({
     error: errorReducer,
     customers: customersReducer,
     products: productsReducer,
+    sales: salesReducer,
     localities: localitiesReducer,
     presentations: presentationsReducer,
     productTypes: productTypesReducer,

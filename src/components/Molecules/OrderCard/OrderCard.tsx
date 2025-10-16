@@ -81,9 +81,9 @@ const OrderCard: React.FC<OrderCardProps> = ({
                 <NumericFormat
                   value={order.orderId}
                   displayType={'text'}
-                  thousandSeparator='.'
-                  decimalSeparator=','
-                  prefix='#'
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  prefix="#"
                   readOnly
                 />
               </i>
@@ -113,9 +113,9 @@ const OrderCard: React.FC<OrderCardProps> = ({
                   <NumericFormat
                     value={order.orderId}
                     displayType={'text'}
-                    thousandSeparator='.'
-                    decimalSeparator=','
-                    prefix='#'
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="#"
                     readOnly
                   />
                 </>
@@ -128,8 +128,8 @@ const OrderCard: React.FC<OrderCardProps> = ({
               <NumericFormat
                 value={order.orderId}
                 displayType={'text'}
-                thousandSeparator='.'
-                decimalSeparator=','
+                thousandSeparator="."
+                decimalSeparator=","
                 readOnly
               />
             </>
@@ -151,9 +151,9 @@ const OrderCard: React.FC<OrderCardProps> = ({
                 <NumericFormat
                   value={product?.weight}
                   displayType={'text'}
-                  suffix='g'
-                  thousandSeparator='.'
-                  decimalSeparator=','
+                  suffix="g"
+                  thousandSeparator="."
+                  decimalSeparator=","
                   readOnly
                 />
                 &nbsp;
@@ -171,9 +171,9 @@ const OrderCard: React.FC<OrderCardProps> = ({
                     <NumericFormat
                       value={p.quantity * (product?.basePrice || 0)}
                       displayType={'text'}
-                      prefix='$'
-                      thousandSeparator='.'
-                      decimalSeparator=','
+                      prefix="$"
+                      thousandSeparator="."
+                      decimalSeparator=","
                       readOnly
                     />
                   </div>
@@ -191,23 +191,23 @@ const OrderCard: React.FC<OrderCardProps> = ({
           <NumericFormat
             value={order.totalPrice}
             displayType={'text'}
-            prefix='$'
-            thousandSeparator='.'
-            decimalSeparator=','
+            prefix="$"
+            thousandSeparator="."
+            decimalSeparator=","
             readOnly
           />
         </div>
         <div className={styles.buttonContainer}>
           <Link to={`/orders/${order._id}`}>
             <Button
-              theme='RoundWithLabel'
+              theme="RoundWithLabel"
               tooltip={textConstants.order.EDIT_ORDER}
             >
               <RiEditLine />
             </Button>
           </Link>
           <Button
-            theme='RoundWithLabel'
+            theme="RoundWithLabel"
             onClick={showDeleteOrderModal}
             tooltip={textConstants.order.DELETE_ORDER}
           >

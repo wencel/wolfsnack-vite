@@ -51,7 +51,8 @@ const AddEditProductPage: React.FC = () => {
   });
 
   // Track original product data for comparison in edit mode
-  const [originalProductData, setOriginalProductData] = useState<ProductFormData | null>(null);
+  const [originalProductData, setOriginalProductData] =
+    useState<ProductFormData | null>(null);
 
   const isEditMode = !!id;
 
@@ -74,17 +75,20 @@ const AddEditProductPage: React.FC = () => {
       const productFormData = {
         name: currentProduct.name || '',
         presentation: currentProduct.presentation || '',
-        weight: currentProduct.weight || '' as number | '',
-        basePrice: currentProduct.basePrice || '' as number | '',
-        sellingPrice: currentProduct.sellingPrice || '' as number | '',
-        stock: currentProduct.stock || '' as number | '',
+        weight: currentProduct.weight || ('' as number | ''),
+        basePrice: currentProduct.basePrice || ('' as number | ''),
+        sellingPrice: currentProduct.sellingPrice || ('' as number | ''),
+        stock: currentProduct.stock || ('' as number | ''),
       };
       setFormData(productFormData);
       setOriginalProductData(productFormData);
     }
   }, [currentProduct, isEditMode]);
 
-  const handleInputChange = (field: keyof ProductFormData, value: string | number) => {
+  const handleInputChange = (
+    field: keyof ProductFormData,
+    value: string | number
+  ) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
@@ -106,15 +110,17 @@ const AddEditProductPage: React.FC = () => {
 
     if (isEditMode && id) {
       // Only send changed fields in edit mode
-      const originalData = originalProductData ? {
-        name: originalProductData.name,
-        presentation: originalProductData.presentation || undefined,
-        weight: originalProductData.weight || undefined,
-        basePrice: originalProductData.basePrice || undefined,
-        sellingPrice: originalProductData.sellingPrice || undefined,
-        stock: originalProductData.stock || undefined,
-      } : {};
-      
+      const originalData = originalProductData
+        ? {
+            name: originalProductData.name,
+            presentation: originalProductData.presentation || undefined,
+            weight: originalProductData.weight || undefined,
+            basePrice: originalProductData.basePrice || undefined,
+            sellingPrice: originalProductData.sellingPrice || undefined,
+            stock: originalProductData.stock || undefined,
+          }
+        : {};
+
       const changedFields = getChangedFields(originalData, productData);
       updateProduct({ id, productData: changedFields, navigate });
       // Navigation and error handling are done by the thunk
@@ -158,57 +164,69 @@ const AddEditProductPage: React.FC = () => {
 
           <Input
             label={textConstants.product.NAME}
-            type='select'
+            type="select"
             options={productTypeOptions}
             value={formData.name}
             disabled={!!id}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('name', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleInputChange('name', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.product.PRESENTATION}
-            type='select'
+            type="select"
             options={presentationOptions}
             value={formData.presentation}
             disabled={!!id}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('presentation', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleInputChange('presentation', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.product.WEIGHT}
-            type='number'
+            type="number"
             value={formData.weight}
-            suffix=' g'
+            suffix=" g"
             disabled={!!id}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('weight', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('weight', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.product.BASE_PRICE}
-            type='number'
+            type="number"
             value={formData.basePrice}
-            prefix='$'
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('basePrice', e.target.value)}
+            prefix="$"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('basePrice', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.product.SELLING_PRICE}
-            type='number'
+            type="number"
             value={formData.sellingPrice}
-            prefix='$'
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('sellingPrice', e.target.value)}
+            prefix="$"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('sellingPrice', e.target.value)
+            }
             required
           />
 
           <Input
             label={textConstants.product.STOCK}
-            type='number'
+            type="number"
             value={formData.stock}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('stock', e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange('stock', e.target.value)
+            }
             required
           />
         </Form>

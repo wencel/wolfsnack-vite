@@ -49,7 +49,9 @@ describe('SubCard Component', () => {
     );
 
     // Test that all content is visible
-    expect(screen.getByRole('heading', { level: 3, name: 'Card Title' })).toBeVisible();
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Card Title' })
+    ).toBeVisible();
     expect(screen.getByText('Card description')).toBeVisible();
     expect(screen.getByRole('button', { name: 'Action Button' })).toBeVisible();
   });

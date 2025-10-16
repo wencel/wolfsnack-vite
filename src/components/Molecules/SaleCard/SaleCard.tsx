@@ -15,43 +15,14 @@ import Card from '@/components/Atoms/Card';
 import Divider from '@/components/Atoms/Divider';
 import NavigationCardHeader from '@/components/Atoms/NavigationCardHeader';
 import WarningModal from '@/components/Organisms/WarningModal';
+import type { Sale, SaleProduct } from '@/lib/data';
 import styles from './SaleCard.module.sass';
-
-export interface Product {
-  _id: string;
-  name: string;
-  presentation?: string;
-  weight?: number;
-  sellingPrice?: number;
-}
-
-export interface SaleProduct {
-  product: string;
-  quantity: number;
-}
-
-export interface Customer {
-  storeName?: string;
-  name?: string;
-}
-
-export interface Sale {
-  _id: string;
-  saleId: number;
-  saleDate: string;
-  products: SaleProduct[];
-  isThirteenDozen?: boolean;
-  partialPayment: number;
-  totalPrice: number;
-  customer: Customer;
-}
 
 interface SaleCardProps {
   className?: string;
   sale: Sale;
   navigate?: boolean;
   deleteSale?: (id: string) => void;
-  products: Product[];
 }
 
 const SaleCard: React.FC<SaleCardProps> = ({
@@ -59,7 +30,6 @@ const SaleCard: React.FC<SaleCardProps> = ({
   className,
   navigate,
   deleteSale,
-  products,
 }) => {
   const cardClasses = classnames({
     [styles.SaleCard]: true,
@@ -91,9 +61,9 @@ const SaleCard: React.FC<SaleCardProps> = ({
                 <NumericFormat
                   value={sale.saleId}
                   displayType={'text'}
-                  thousandSeparator='.'
-                  decimalSeparator=','
-                  prefix='#'
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  prefix="#"
                   readOnly
                 />
               </i>
@@ -122,9 +92,9 @@ const SaleCard: React.FC<SaleCardProps> = ({
                   <NumericFormat
                     value={sale.saleId}
                     displayType={'text'}
-                    thousandSeparator='.'
-                    decimalSeparator=','
-                    prefix='#'
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="#"
                     readOnly
                   />
                 </>
@@ -137,8 +107,8 @@ const SaleCard: React.FC<SaleCardProps> = ({
               <NumericFormat
                 value={sale.saleId}
                 displayType={'text'}
-                thousandSeparator='.'
-                decimalSeparator=','
+                thousandSeparator="."
+                decimalSeparator=","
                 readOnly
               />
             </>
@@ -157,19 +127,18 @@ const SaleCard: React.FC<SaleCardProps> = ({
         </div>
         <Divider />
         {sale?.products?.map(p => {
-          const product = products.find(prod => prod._id === p.product);
           return (
-            <div key={p.product}>
+            <div key={p.product._id}>
               <div className={styles.products}>
                 <FaDog className={styles.icon} />
-                {`${product?.name} ${product?.presentation}`}
+                {`${p.product.name} ${p.product.presentation}`}
                 &nbsp;
                 <NumericFormat
-                  value={product?.weight}
+                  value={p.product.weight}
                   displayType={'text'}
-                  suffix='g'
-                  thousandSeparator='.'
-                  decimalSeparator=','
+                  suffix="g"
+                  thousandSeparator="."
+                  decimalSeparator=","
                   readOnly
                 />
                 &nbsp;
@@ -186,14 +155,14 @@ const SaleCard: React.FC<SaleCardProps> = ({
                     </span>
                     <NumericFormat
                       value={calculateTotalPriceProduct(
-                        product?.sellingPrice || 0,
+                        p.product.sellingPrice || 0,
                         p.quantity,
                         sale.isThirteenDozen
                       )}
                       displayType={'text'}
-                      prefix='$'
-                      thousandSeparator='.'
-                      decimalSeparator=','
+                      prefix="$"
+                      thousandSeparator="."
+                      decimalSeparator=","
                       readOnly
                     />
                   </div>
@@ -217,9 +186,9 @@ const SaleCard: React.FC<SaleCardProps> = ({
           <NumericFormat
             value={sale.partialPayment}
             displayType={'text'}
-            prefix='$'
-            thousandSeparator='.'
-            decimalSeparator=','
+            prefix="$"
+            thousandSeparator="."
+            decimalSeparator=","
             readOnly
           />
         </div>
@@ -231,9 +200,9 @@ const SaleCard: React.FC<SaleCardProps> = ({
           <NumericFormat
             value={sale.totalPrice - sale.partialPayment}
             displayType={'text'}
-            prefix='$'
-            thousandSeparator='.'
-            decimalSeparator=','
+            prefix="$"
+            thousandSeparator="."
+            decimalSeparator=","
             readOnly
           />
         </div>
@@ -246,23 +215,23 @@ const SaleCard: React.FC<SaleCardProps> = ({
           <NumericFormat
             value={sale.totalPrice}
             displayType={'text'}
-            prefix='$'
-            thousandSeparator='.'
-            decimalSeparator=','
+            prefix="$"
+            thousandSeparator="."
+            decimalSeparator=","
             readOnly
           />
         </div>
         <div className={styles.buttonContainer}>
           <Link to={`/sales/${sale._id}`}>
             <Button
-              theme='RoundWithLabel'
+              theme="RoundWithLabel"
               tooltip={textConstants.sale.EDIT_SALE}
             >
               <RiEditLine />
             </Button>
           </Link>
           <Button
-            theme='RoundWithLabel'
+            theme="RoundWithLabel"
             onClick={showDeleteSaleModal}
             tooltip={textConstants.sale.DELETE_SALE}
           >

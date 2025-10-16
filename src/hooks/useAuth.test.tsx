@@ -18,8 +18,8 @@ const mockLogoutRequest = vi.hoisted(() => vi.fn());
 const mockForceLogout = vi.hoisted(() => vi.fn());
 const mockSyncTokenFromStorage = vi.hoisted(() => vi.fn());
 
-vi.mock('@/store/slices/authSlice', async (importOriginal) => {
-  const actual = await importOriginal() as any;
+vi.mock('@/store/slices/authSlice', async importOriginal => {
+  const actual = (await importOriginal()) as any;
   return {
     ...actual,
     logoutRequest: mockLogoutRequest,
@@ -64,7 +64,9 @@ describe('useAuth Hook', () => {
 
       expect(result.current.user).toEqual(mockAuthState.user);
       expect(result.current.token).toBe(mockAuthState.token);
-      expect(result.current.isAuthenticated).toBe(mockAuthState.isAuthenticated);
+      expect(result.current.isAuthenticated).toBe(
+        mockAuthState.isAuthenticated
+      );
       expect(result.current.error).toBe(mockAuthState.error);
       expect(result.current.initialized).toBe(mockAuthState.initialized);
       expect(result.current.loading).toBe(mockLoadingState.loading);
@@ -421,14 +423,14 @@ describe('useAuth Hook', () => {
           avatar: 'avatar.jpg',
           preferences: {
             theme: 'dark',
-            language: 'en'
-          }
+            language: 'en',
+          },
         },
         roles: ['admin', 'user'],
         metadata: {
           lastLogin: '2024-01-01T00:00:00Z',
-          loginCount: 42
-        }
+          loginCount: 42,
+        },
       };
 
       const mockAuthState = {

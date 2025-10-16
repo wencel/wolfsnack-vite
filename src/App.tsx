@@ -18,25 +18,25 @@ import AddEditCustomer from '@/pages/AddEditCustomer';
 import Products from '@/pages/Products';
 import Product from '@/pages/Product';
 import AddEditProduct from '@/pages/AddEditProduct';
+import Sales from '@/pages/Sales';
 import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
 import '@/styles/styles.global.sass';
 
 // Dummy components for missing routes
-const SalesPage = () => <div>Sales Page - Coming Soon</div>;
 const OrdersPage = () => <div>Orders Page - Coming Soon</div>;
 
 function AppContent() {
   usePageTitle();
 
   return (
-    <div className='App'>
+    <div className="App">
       <Layout>
         <Routes>
           {/* Public routes - only accessible when NOT authenticated */}
           <Route
-            path='/login'
+            path="/login"
             element={
               <PublicRoute>
                 <Login />
@@ -46,7 +46,7 @@ function AppContent() {
 
           {/* Protected routes - only accessible when authenticated */}
           <Route
-            path='/customers'
+            path="/customers"
             element={
               <ProtectedRoute>
                 <Customers />
@@ -54,7 +54,7 @@ function AppContent() {
             }
           />
           <Route
-            path='/customers/new'
+            path="/customers/new"
             element={
               <ProtectedRoute>
                 <AddEditCustomer />
@@ -62,7 +62,7 @@ function AppContent() {
             }
           />
           <Route
-            path='/customers/:id/edit'
+            path="/customers/:id/edit"
             element={
               <ProtectedRoute>
                 <AddEditCustomer />
@@ -70,7 +70,7 @@ function AppContent() {
             }
           />
           <Route
-            path='/customers/:id'
+            path="/customers/:id"
             element={
               <ProtectedRoute>
                 <Customer />
@@ -80,7 +80,7 @@ function AppContent() {
 
           {/* Products routes */}
           <Route
-            path='/products'
+            path="/products"
             element={
               <ProtectedRoute>
                 <Products />
@@ -88,7 +88,7 @@ function AppContent() {
             }
           />
           <Route
-            path='/products/:id'
+            path="/products/:id"
             element={
               <ProtectedRoute>
                 <Product />
@@ -96,7 +96,7 @@ function AppContent() {
             }
           />
           <Route
-            path='/products/new'
+            path="/products/new"
             element={
               <ProtectedRoute>
                 <AddEditProduct />
@@ -104,7 +104,7 @@ function AppContent() {
             }
           />
           <Route
-            path='/products/:id/edit'
+            path="/products/:id/edit"
             element={
               <ProtectedRoute>
                 <AddEditProduct />
@@ -114,17 +114,17 @@ function AppContent() {
 
           {/* Sales route */}
           <Route
-            path='/sales'
+            path="/sales"
             element={
               <ProtectedRoute>
-                <SalesPage />
+                <Sales />
               </ProtectedRoute>
             }
           />
 
           {/* Orders route */}
           <Route
-            path='/orders'
+            path="/orders"
             element={
               <ProtectedRoute>
                 <OrdersPage />
@@ -133,10 +133,10 @@ function AppContent() {
           />
 
           {/* Root route - redirect based on auth status */}
-          <Route path='/' element={<Navigate to='/customers' replace />} />
+          <Route path="/" element={<Navigate to="/customers" replace />} />
 
           {/* 404 page for unmatched routes */}
-          <Route path='*' element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </div>

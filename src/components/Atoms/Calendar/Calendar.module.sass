@@ -1,37 +1,150 @@
 .Calendar
-  .dateRangePicker
-    width: 100%
-    &> div
-      height: 2em
-      border: none
-      border-bottom: 2px solid var(--primary-color)
-      background-color: var(--card-background)
-      color: var(--primary-color)
-      width: calc(100% - 0.4em)
-      transition: 0.2s
-      font-size: 1em
-      
-      padding: 0 0.2em
-    input
-      color: var(--primary-color)
-    svg
-      stroke: var(--primary-color)
-  .dateRangePickerCalendar
-    background-color: var(--page-background)
-    button
-      color: var(--primary-color)
-    button:disabled 
+  position: relative
+  margin: 0.5em 0
+  
+  .datePicker
+    height: 2em
+    border: none
+    border-bottom: 2px solid var(--text-secondary)
+    background-color: transparent
+    color: var(--text-color)
+    width: calc(100% - 0.4em)
+    transition: 0.2s
+    font-size: 1em
+    margin-top: 1em
+    padding: 0 0.2em
+
+    &:focus
+      animation-name: inputFocus
+      animation-duration: 0.2s
+      outline: none
+      border-color: var(--primary-color-active)
+      color: var(--primary-color-hover)
+
+    &:disabled
+      background-color: var(--background-disabled)
+      color: var(--text-disabled)
+      cursor: not-allowed
+
+    &::placeholder
       color: var(--text-secondary)
-      background-color: var(--card-background)
-      border-color: var(--text-secondary)
-    .react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus
-      background: var(--primary-color)
-      color: var(--button-text-color)
-    .react-calendar__month-view__days__day--weekend
-      background: var(--primary-color)
-    .react-calendar__tile--active
-      background: var(--primary-color-hover)
-      color: var(--text-color)
-    .react-calendar__tile--now
-      background: var(--button-text-color)
-      color: var(--primary-color) 
+
+  label
+    position: absolute
+    left: 0em
+    top: 1.5em
+    cursor: initial
+    color: var(--text-secondary)
+    transition: 0.2s
+    &.active
+      color: var(--primary-color)
+      font-size: 0.85em
+      top: 0
+      left: 0.2em
+
+// Override react-datepicker styles
+:global(.react-datepicker-wrapper)
+  width: 100%
+
+:global(.react-datepicker__input-container)
+  width: 100%
+
+:global(.react-datepicker__input-container input)
+  height: 2em
+  border: none
+  border-bottom: 2px solid var(--text-secondary)
+  background-color: var(--card-background)
+  color: var(--text-color)
+  width: calc(100% - 0.4em)
+  transition: 0.2s
+  font-size: 1em
+  margin-top: 1em
+  padding: 0 0.2em
+
+  &:focus
+    animation-name: inputFocus
+    animation-duration: 0.2s
+    outline: none
+    border-color: var(--primary-color-active)
+    color: var(--primary-color-hover)
+
+  &:disabled
+    background-color: var(--background-disabled)
+    color: var(--text-disabled)
+    cursor: not-allowed
+
+  &::placeholder
+    color: var(--text-secondary)
+
+:global(.react-datepicker)
+  background-color: var(--page-background, #fff)
+  border: 1px solid var(--border-color, #ccc)
+  border-radius: 8px
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+  font-family: inherit
+  
+  .react-datepicker__header
+    background-color: var(--primary-color, #007bff)
+    border-bottom: 1px solid var(--border-color, #ccc)
+    border-radius: 8px 8px 0 0
+    
+    .react-datepicker__current-month,
+    .react-datepicker__day-name
+      color: var(--button-text-color, #fff)
+    
+    .react-datepicker__navigation
+      color: var(--button-text-color, #fff)
+      
+      &:hover
+        background-color: rgba(255, 255, 255, 0.1)
+        border-radius: 4px
+  
+  .react-datepicker__month
+    .react-datepicker__day
+      color: var(--text-color, #333)
+      
+      &:hover
+        background-color: var(--primary-color-light, rgba(0, 123, 255, 0.1))
+        color: var(--primary-color, #007bff)
+      
+      &--selected
+        background-color: var(--primary-color, #007bff)
+        color: var(--button-text-color, #fff)
+        
+        &:hover
+          background-color: var(--primary-color-hover, #0056b3)
+      
+      &--in-selecting-range
+        background-color: var(--primary-color-light, rgba(0, 123, 255, 0.1))
+        color: var(--primary-color, #007bff)
+      
+      &--in-range
+        background-color: var(--primary-color-light, rgba(0, 123, 255, 0.1))
+        color: var(--primary-color, #007bff)
+      
+      &--range-start,
+      &--range-end
+        background-color: var(--primary-color, #007bff)
+        color: var(--button-text-color, #fff)
+      
+      &--today
+        background-color: var(--accent-color, #28a745)
+        color: var(--button-text-color, #fff)
+        
+        &:hover
+          background-color: var(--accent-color-hover, #218838)
+      
+      &--disabled
+        color: var(--text-secondary, #666)
+        background-color: var(--disabled-background, #f8f9fa)
+        cursor: not-allowed
+        
+        &:hover
+          background-color: var(--disabled-background, #f8f9fa)
+          color: var(--text-secondary, #666)
+
+@keyframes inputFocus
+  0%
+    box-shadow: 0px 0px 0px 0px #0095b350
+  100%
+    box-shadow: 0px 0px 50px 50px #ffffff00 

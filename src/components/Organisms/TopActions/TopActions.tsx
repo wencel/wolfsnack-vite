@@ -31,7 +31,7 @@ const TopActions: React.FC<TopActionsProps> = ({
         onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           if (button.onClick) button.onClick(e);
         }}
-        theme='BottomNavigation'
+        theme="BottomNavigation"
       >
         {button.icon}
         {button.text}

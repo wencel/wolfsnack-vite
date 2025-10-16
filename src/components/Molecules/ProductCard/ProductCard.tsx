@@ -82,9 +82,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   <NumericFormat
                     value={product?.weight}
                     displayType={'text'}
-                    suffix=' g'
-                    thousandSeparator='.'
-                    decimalSeparator=','
+                    suffix=" g"
+                    thousandSeparator="."
+                    decimalSeparator=","
                   />
                 </>
               }
@@ -96,9 +96,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <NumericFormat
                 value={product?.weight}
                 displayType={'text'}
-                suffix=' g'
-                thousandSeparator='.'
-                decimalSeparator=','
+                suffix=" g"
+                thousandSeparator="."
+                decimalSeparator=","
               />
             </>
           )
@@ -117,9 +117,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <NumericFormat
             value={product?.basePrice}
             displayType={'text'}
-            prefix='$'
-            thousandSeparator='.'
-            decimalSeparator=','
+            prefix="$"
+            thousandSeparator="."
+            decimalSeparator=","
           />
         </div>
         <div className={styles.sellingPrice}>
@@ -128,22 +128,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <NumericFormat
             value={product?.sellingPrice}
             displayType={'text'}
-            prefix='$'
-            thousandSeparator='.'
-            decimalSeparator=','
+            prefix="$"
+            thousandSeparator="."
+            decimalSeparator=","
           />
         </div>
         <div className={styles.buttonContainer}>
           <Link to={`/products/${product._id}/edit`}>
             <Button
-              theme='RoundWithLabel'
+              theme="RoundWithLabel"
               tooltip={textConstants.product.EDIT_PRODUCT}
             >
               <RiEditLine />
             </Button>
           </Link>
           <Button
-            theme='RoundWithLabel'
+            theme="RoundWithLabel"
             onClick={showDeleteProductModal}
             tooltip={textConstants.product.DELETE_PRODUCT}
           >

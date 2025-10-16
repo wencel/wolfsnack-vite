@@ -5,14 +5,14 @@ import Modal from './Modal';
 
 describe('Modal', () => {
   const mockBackgroundOnClick = vi.fn();
-  
+
   beforeEach(() => {
     mockBackgroundOnClick.mockClear();
   });
 
   it('renders with default props', () => {
     testRender(<Modal />);
-    
+
     // When aria-hidden="true", we need to use hidden: true option
     const modal = screen.getByRole('dialog', { hidden: true });
     expect(modal).not.toBeVisible();
@@ -34,7 +34,7 @@ describe('Modal', () => {
         <div>Content</div>
       </Modal>
     );
-    
+
     const modal = screen.getByRole('dialog', { hidden: true });
     expect(modal).toHaveAttribute('aria-label', 'Custom modal label');
   });
@@ -45,7 +45,7 @@ describe('Modal', () => {
         <div>Content</div>
       </Modal>
     );
-    
+
     const modal = screen.getByRole('dialog', { hidden: true });
     expect(modal).not.toHaveAttribute('aria-label');
   });
@@ -56,10 +56,10 @@ describe('Modal', () => {
         <div>Modal content</div>
       </Modal>
     );
-    
+
     const background = screen.getByTestId('modal-background');
     fireEvent.click(background);
-    
+
     expect(mockBackgroundOnClick).toHaveBeenCalledTimes(1);
   });
 
@@ -69,10 +69,10 @@ describe('Modal', () => {
         <div>Modal content</div>
       </Modal>
     );
-    
+
     const content = screen.getByText('Modal content');
     fireEvent.click(content);
-    
+
     expect(mockBackgroundOnClick).not.toHaveBeenCalled();
   });
 
@@ -82,9 +82,9 @@ describe('Modal', () => {
         <div>Modal content</div>
       </Modal>
     );
-    
+
     const background = screen.getByTestId('modal-background');
-    
+
     // Should not throw error when clicking background without handler
     expect(() => {
       fireEvent.click(background);
@@ -97,7 +97,7 @@ describe('Modal', () => {
         <div>Are you sure?</div>
       </Modal>
     );
-    
+
     const modal = screen.getByRole('dialog');
     expect(modal).toHaveAttribute('role', 'dialog');
     expect(modal).toHaveAttribute('aria-modal', 'true');
@@ -115,7 +115,7 @@ describe('Modal', () => {
         </div>
       </Modal>
     );
-    
+
     expect(screen.getByText('Modal Title')).toBeVisible();
     expect(screen.getByText('Modal description')).toBeVisible();
     expect(screen.getByRole('button', { name: 'Action' })).toBeVisible();
@@ -130,13 +130,13 @@ describe('Modal', () => {
         </div>
       </Modal>
     );
-    
+
     const primaryButton = screen.getByRole('button', { name: 'Primary' });
     const secondaryButton = screen.getByRole('button', { name: 'Secondary' });
-    
+
     fireEvent.click(primaryButton);
     fireEvent.click(secondaryButton);
-    
+
     // Clicking buttons should not trigger background click
     expect(mockBackgroundOnClick).not.toHaveBeenCalled();
   });
@@ -147,12 +147,24 @@ describe('Modal', () => {
         <div>Content</div>
       </Modal>
     );
-    
+
     // Rapidly toggle visibility
-    testRerender(<Modal show={true}><div>Content</div></Modal>);
-    testRerender(<Modal show={false}><div>Content</div></Modal>);
-    testRerender(<Modal show={true}><div>Content</div></Modal>);
-    
+    testRerender(
+      <Modal show={true}>
+        <div>Content</div>
+      </Modal>
+    );
+    testRerender(
+      <Modal show={false}>
+        <div>Content</div>
+      </Modal>
+    );
+    testRerender(
+      <Modal show={true}>
+        <div>Content</div>
+      </Modal>
+    );
+
     const modal = screen.getByRole('dialog');
     expect(modal).toBeVisible();
   });
@@ -163,14 +175,14 @@ describe('Modal', () => {
         <div>Content</div>
       </Modal>
     );
-    
+
     const background = screen.getByTestId('modal-background');
-    
+
     // Click background multiple times
     fireEvent.click(background);
     fireEvent.click(background);
     fireEvent.click(background);
-    
+
     expect(mockBackgroundOnClick).toHaveBeenCalledTimes(3);
   });
 
@@ -183,13 +195,13 @@ describe('Modal', () => {
     const modal = screen.getByRole('dialog', { hidden: true });
     expect(modal).toHaveTextContent('Persistent content');
     expect(modal).not.toBeVisible();
-    
+
     testRerender(
       <Modal show={true}>
         <div>Persistent content</div>
       </Modal>
     );
-    
+
     expect(modal).toHaveTextContent('Persistent content');
     expect(modal).toBeVisible();
   });

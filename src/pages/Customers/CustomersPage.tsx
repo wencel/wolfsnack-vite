@@ -76,7 +76,7 @@ const CustomersPage: React.FC = () => {
     setDirection(q.direction);
     setShowFiltersModal(false);
   };
-  
+
   return (
     <>
       <CustomerFilterModal
@@ -109,7 +109,7 @@ const CustomersPage: React.FC = () => {
         )}
         {fetching && (
           <div className="loadingContainer">
-            <LoadingSpinner size='large' color='primary' />
+            <LoadingSpinner size="large" color="primary" />
           </div>
         )}
 

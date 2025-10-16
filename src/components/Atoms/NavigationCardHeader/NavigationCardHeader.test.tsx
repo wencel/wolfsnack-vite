@@ -5,7 +5,7 @@ import styles from './NavigationCardHeader.module.sass';
 
 describe('NavigationCardHeader Component', () => {
   it('renders with header text', () => {
-    testRender(<NavigationCardHeader header='Test Header' href='/test' />);
+    testRender(<NavigationCardHeader header="Test Header" href="/test" />);
 
     const link = screen.getByRole('link');
     expect(link).toBeVisible();
@@ -14,7 +14,7 @@ describe('NavigationCardHeader Component', () => {
   });
 
   it('applies default NavigationCardHeader class', () => {
-    testRender(<NavigationCardHeader header='Test' href='/test' />);
+    testRender(<NavigationCardHeader header="Test" href="/test" />);
 
     const link = screen.getByRole('link');
     expect(link).toHaveClass(styles.NavigationCardHeader);
@@ -24,8 +24,8 @@ describe('NavigationCardHeader Component', () => {
     const customClass = 'custom-header-class';
     testRender(
       <NavigationCardHeader
-        header='Test'
-        href='/test'
+        header="Test"
+        href="/test"
         className={customClass}
       />
     );
@@ -36,7 +36,7 @@ describe('NavigationCardHeader Component', () => {
   });
 
   it('renders without header prop', () => {
-    testRender(<NavigationCardHeader href='/test' />);
+    testRender(<NavigationCardHeader href="/test" />);
 
     const link = screen.getByRole('link');
     expect(link).toBeVisible();
@@ -45,7 +45,7 @@ describe('NavigationCardHeader Component', () => {
 
   it('renders with ReactNode header', () => {
     testRender(
-      <NavigationCardHeader header={<span>Custom Header</span>} href='/test' />
+      <NavigationCardHeader header={<span>Custom Header</span>} href="/test" />
     );
 
     const link = screen.getByRole('link');

@@ -59,9 +59,9 @@ const ProductFilterModal: React.FC<ProductFilterModalProps> = ({
           }}
         >
           <Input
-            type='text'
+            type="text"
             className={styles.input}
-            id='product-filter-text'
+            id="product-filter-text"
             label={
               <div className={styles.label}>
                 <FiSearch />
@@ -78,9 +78,9 @@ const ProductFilterModal: React.FC<ProductFilterModalProps> = ({
             ref={undefined}
           />
           <Input
-            type='select'
+            type="select"
             className={styles.input}
-            id='product-filter-sortby'
+            id="product-filter-sortby"
             label={textConstants.misc.ORDER_BY}
             value={sortBy}
             onChange={(
@@ -105,9 +105,9 @@ const ProductFilterModal: React.FC<ProductFilterModalProps> = ({
             ref={undefined}
           />
           <Input
-            type='select'
+            type="select"
             className={styles.input}
-            id='product-filter-direction'
+            id="product-filter-direction"
             label={textConstants.misc.DIRECTION}
             value={direction}
             onChange={(

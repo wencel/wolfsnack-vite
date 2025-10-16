@@ -1,8 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import {
-  testRender,
-  screen,
-} from '@/test/test-utils';
+import { testRender, screen } from '@/test/test-utils';
 import { axiosMock } from '@/test/setup';
 import userEvent from '@testing-library/user-event';
 import LoginPage from './';
@@ -114,19 +111,16 @@ describe('Login Page with Full Redux Integration', () => {
       token: 'fake-jwt-token',
     });
 
-    testRender(
-      <LoginPage />,
-      {
-        initialEntries: ['/login'],
-        mountPath: '/login',
-        routes: [
-          {
-            path: '/customers',
-            element: <div>Customers Page Content</div>
-          }
-        ]
-      }
-    );
+    testRender(<LoginPage />, {
+      initialEntries: ['/login'],
+      mountPath: '/login',
+      routes: [
+        {
+          path: '/customers',
+          element: <div>Customers Page Content</div>,
+        },
+      ],
+    });
 
     // Verify we start on the login page
     expect(screen.getByText(textConstants.login.TITLE)).toBeVisible();

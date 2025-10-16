@@ -77,7 +77,7 @@ describe('Logo Component', () => {
   });
 
   it('handles empty string className gracefully', () => {
-    testRender(<Logo className='' />);
+    testRender(<Logo className="" />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })
@@ -111,14 +111,14 @@ describe('Logo Component', () => {
     expect(logoContainer).toHaveClass(styles.rounded);
 
     // With custom className
-    rerender(<Logo className='custom' />);
+    rerender(<Logo className="custom" />);
     logoContainer = screen.getByRole('img', { name: 'Logo' }).closest('div');
     expect(logoContainer).toHaveClass('custom');
     expect(logoContainer).toHaveClass(styles.Logo);
     expect(logoContainer).not.toHaveClass(styles.rounded);
 
     // With both
-    rerender(<Logo className='custom' isRound />);
+    rerender(<Logo className="custom" isRound />);
     logoContainer = screen.getByRole('img', { name: 'Logo' }).closest('div');
     expect(logoContainer).toHaveClass('custom');
     expect(logoContainer).toHaveClass(styles.Logo);
@@ -126,7 +126,7 @@ describe('Logo Component', () => {
   });
 
   it('filters out falsy className values', () => {
-    testRender(<Logo className='' />);
+    testRender(<Logo className="" />);
 
     const logoContainer = screen
       .getByRole('img', { name: 'Logo' })

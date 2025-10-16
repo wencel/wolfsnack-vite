@@ -38,12 +38,12 @@ export const getChangedFields = <T extends Record<string, any>>(
   updated: T
 ): Partial<T> => {
   const changedFields: Partial<T> = {};
-  
+
   for (const key in updated) {
     if (updated.hasOwnProperty(key)) {
       const originalValue = original[key];
       const updatedValue = updated[key];
-      
+
       // Handle different data types and null/undefined cases
       if (originalValue !== updatedValue) {
         // Special handling for empty strings vs undefined
@@ -53,11 +53,11 @@ export const getChangedFields = <T extends Record<string, any>>(
         if (originalValue === '' && updatedValue === undefined) {
           continue; // Don't include undefined as changes if original was empty string
         }
-        
+
         changedFields[key] = updatedValue;
       }
     }
   }
-  
+
   return changedFields;
 };

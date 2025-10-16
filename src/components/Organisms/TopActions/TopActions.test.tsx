@@ -7,7 +7,7 @@ import type { TopActionsProps, TopActionButton } from './TopActions';
 
 describe('TopActions', () => {
   const mockOnClick = vi.fn();
-  
+
   const defaultButtons: TopActionButton[] = [
     {
       text: 'Add Customer',
@@ -36,14 +36,14 @@ describe('TopActions', () => {
     it('renders with custom className', () => {
       const customClass = 'custom-top-actions';
       testRender(<TopActions {...defaultProps} className={customClass} />);
-      
+
       const navigation = screen.getByRole('navigation');
       expect(navigation).toHaveClass(customClass);
     });
 
     it('renders with custom position', () => {
       testRender(<TopActions {...defaultProps} position="bottom" />);
-      
+
       const navigation = screen.getByRole('navigation');
       // Check that the component has the TopActions class (CSS module will hash it)
       expect(navigation.className).toContain('TopActions');
@@ -51,7 +51,7 @@ describe('TopActions', () => {
 
     it('renders without buttons when buttons prop is not provided', () => {
       testRender(<TopActions />);
-      
+
       const navigation = screen.getByRole('navigation');
       expect(navigation).toBeVisible();
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('TopActions', () => {
 
     it('renders without buttons when buttons array is empty', () => {
       testRender(<TopActions buttons={[]} />);
-      
+
       const navigation = screen.getByRole('navigation');
       expect(navigation).toBeVisible();
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('TopActions', () => {
   describe('button rendering', () => {
     it('renders all provided buttons', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       // Use getByText since the button names are affected by tooltip wrapper
       expect(screen.getByText('Add Customer')).toBeVisible();
       expect(screen.getByText('Settings')).toBeVisible();
@@ -85,7 +85,7 @@ describe('TopActions', () => {
       ];
 
       testRender(<TopActions buttons={buttonsWithIcons} />);
-      
+
       expect(screen.getByText('Save')).toBeVisible();
       expect(screen.getByTestId('save-icon')).toBeVisible();
     });
@@ -100,7 +100,7 @@ describe('TopActions', () => {
       ];
 
       testRender(<TopActions buttons={buttonsWithIcons} />);
-      
+
       const buttonText = screen.getByText('Delete');
       expect(buttonText).toBeVisible();
       expect(screen.getByTestId('delete-icon')).toBeVisible();
@@ -112,16 +112,16 @@ describe('TopActions', () => {
     it('calls onClick when button is clicked', async () => {
       const user = userEvent.setup();
       testRender(<TopActions {...defaultProps} />);
-      
+
       const addCustomerButton = screen.getByText('Add Customer');
       await user.click(addCustomerButton);
-      
+
       expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
 
     it('renders link buttons when href is provided', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       const settingsLink = screen.getByText('Settings');
       expect(settingsLink).toBeVisible();
       // Check that it's wrapped in a link element
@@ -131,7 +131,7 @@ describe('TopActions', () => {
 
     it('renders button elements when no href is provided', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       const addCustomerText = screen.getByText('Add Customer');
       const buttonElement = addCustomerText.closest('button');
       expect(buttonElement).toBeVisible();
@@ -142,7 +142,7 @@ describe('TopActions', () => {
   describe('button styling and themes', () => {
     it('applies correct theme to buttons', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       const buttons = screen.getAllByRole('button');
       buttons.forEach(button => {
         // Check that the button has the BottomNavigation theme class (CSS module will hash it)
@@ -152,7 +152,7 @@ describe('TopActions', () => {
 
     it('applies TopActions class to navigation wrapper', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       const navigation = screen.getByRole('navigation');
       expect(navigation.className).toContain('TopActions');
     });
@@ -170,7 +170,7 @@ describe('TopActions', () => {
       ];
 
       testRender(<TopActions buttons={buttonsWithExtraProps} />);
-      
+
       const buttonText = screen.getByText('Custom Button');
       const buttonElement = buttonText.closest('button');
       expect(buttonElement).toBeVisible();
@@ -187,7 +187,7 @@ describe('TopActions', () => {
       ];
 
       testRender(<TopActions buttons={buttonsWithEmptyText} />);
-      
+
       const buttonElement = screen.getByRole('button');
       expect(buttonElement).toBeVisible();
       expect(buttonElement).toHaveTextContent('');
@@ -203,7 +203,7 @@ describe('TopActions', () => {
       ];
 
       testRender(<TopActions buttons={buttonsWithOnlyIcons} />);
-      
+
       const buttonElement = screen.getByRole('button');
       expect(buttonElement).toBeVisible();
       expect(screen.getByTestId('icon-only')).toBeVisible();
@@ -213,21 +213,21 @@ describe('TopActions', () => {
   describe('accessibility', () => {
     it('has proper navigation role', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       const navigation = screen.getByRole('navigation');
       expect(navigation).toBeVisible();
     });
 
     it('renders buttons with accessible content', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       expect(screen.getByText('Add Customer')).toBeVisible();
       expect(screen.getByText('Settings')).toBeVisible();
     });
 
     it('maintains button accessibility when onClick is provided', () => {
       testRender(<TopActions {...defaultProps} />);
-      
+
       const buttonText = screen.getByText('Add Customer');
       const buttonElement = buttonText.closest('button');
       expect(buttonElement).toBeVisible();

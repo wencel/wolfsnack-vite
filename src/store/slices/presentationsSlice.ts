@@ -58,4 +58,3 @@ const presentationsSlice = createSlice({
 
 export const { clearError, resetPresentations } = presentationsSlice.actions;
 export default presentationsSlice.reducer;
-

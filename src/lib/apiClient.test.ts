@@ -67,7 +67,7 @@ describe('apiClient', () => {
   describe('API Structure', () => {
     it('should have auth endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.auth).toBeDefined();
       expect(typeof api.auth.login).toBe('function');
       expect(typeof api.auth.checkAuth).toBe('function');
@@ -76,7 +76,7 @@ describe('apiClient', () => {
 
     it('should have user endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.users).toBeDefined();
       expect(typeof api.users.getProfile).toBe('function');
       expect(typeof api.users.updateProfile).toBe('function');
@@ -84,7 +84,7 @@ describe('apiClient', () => {
 
     it('should have customer endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.customers).toBeDefined();
       expect(typeof api.customers.getAll).toBe('function');
       expect(typeof api.customers.getById).toBe('function');
@@ -95,7 +95,7 @@ describe('apiClient', () => {
 
     it('should have product endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.products).toBeDefined();
       expect(typeof api.products.getAll).toBe('function');
       expect(typeof api.products.getById).toBe('function');
@@ -106,7 +106,7 @@ describe('apiClient', () => {
 
     it('should have order endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.orders).toBeDefined();
       expect(typeof api.orders.getAll).toBe('function');
       expect(typeof api.orders.getById).toBe('function');
@@ -117,7 +117,7 @@ describe('apiClient', () => {
 
     it('should have sale endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.sales).toBeDefined();
       expect(typeof api.sales.getAll).toBe('function');
       expect(typeof api.sales.getById).toBe('function');
@@ -128,7 +128,7 @@ describe('apiClient', () => {
 
     it('should have utility endpoints defined', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(api.utils).toBeDefined();
       expect(typeof api.utils.getLocalities).toBe('function');
       expect(typeof api.utils.getPresentations).toBe('function');
@@ -139,7 +139,7 @@ describe('apiClient', () => {
   describe('API Method Signatures', () => {
     it('should have correct auth method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(() => {
         api.auth.login({ email: 'test@example.com', password: 'password' });
         api.auth.checkAuth();
@@ -149,7 +149,7 @@ describe('apiClient', () => {
 
     it('should have correct user method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(() => {
         api.users.getProfile();
         api.users.updateProfile({ name: 'John Doe' });
@@ -158,18 +158,18 @@ describe('apiClient', () => {
 
     it('should have correct customer method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       const customerData = {
         name: 'John Doe',
         email: 'john@example.com',
         address: '123 Main St',
-        storeName: 'John\'s Store',
+        storeName: "John's Store",
         phoneNumber: '+1234567890',
         user: 'user123',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
-      
+
       expect(() => {
         api.customers.getAll({ page: 1, limit: 10 });
         api.customers.getById('customer123');
@@ -181,7 +181,7 @@ describe('apiClient', () => {
 
     it('should have correct product method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       const productData = {
         name: 'Test Product',
         presentation: 'Bolsa',
@@ -193,7 +193,7 @@ describe('apiClient', () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
-      
+
       expect(() => {
         api.products.getAll({ page: 1, limit: 10 });
         api.products.getById('product123');
@@ -205,17 +205,24 @@ describe('apiClient', () => {
 
     it('should have correct order method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       const orderData = {
         orderId: 123,
         orderDate: new Date().toISOString(),
         totalPrice: 199.98,
-        products: [{ product: 'product123', quantity: 2, price: 99.99, totalPrice: 199.98 }],
+        products: [
+          {
+            product: 'product123',
+            quantity: 2,
+            price: 99.99,
+            totalPrice: 199.98,
+          },
+        ],
         user: 'user123',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
-      
+
       expect(() => {
         api.orders.getAll({ page: 1, limit: 10 });
         api.orders.getById('order123');
@@ -227,7 +234,7 @@ describe('apiClient', () => {
 
     it('should have correct sale method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       const saleData = {
         saleId: 123,
         saleDate: new Date().toISOString(),
@@ -236,12 +243,19 @@ describe('apiClient', () => {
         owes: false,
         partialPayment: 0,
         totalPrice: 99.99,
-        products: [{ product: 'product123', quantity: 1, price: 99.99, totalPrice: 99.99 }],
+        products: [
+          {
+            product: 'product123',
+            quantity: 1,
+            price: 99.99,
+            totalPrice: 99.99,
+          },
+        ],
         user: 'user123',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
-      
+
       expect(() => {
         api.sales.getAll({ page: 1, limit: 10 });
         api.sales.getById('sale123');
@@ -253,7 +267,7 @@ describe('apiClient', () => {
 
     it('should have correct utility method signatures', async () => {
       const { api } = await import('./apiClient');
-      
+
       expect(() => {
         api.utils.getLocalities();
         api.utils.getPresentations();

@@ -46,7 +46,7 @@ describe('NavigationBar', () => {
 
     const navElement = screen.getByRole('navigation');
     expect(navElement).toBeVisible();
-    
+
     expect(screen.getByText('First Item')).toBeVisible();
     expect(screen.getByText('Second Item')).toBeVisible();
     expect(screen.getByText('Third Item')).toBeVisible();
@@ -68,8 +68,10 @@ describe('NavigationBar', () => {
 
     const navElement = screen.getByRole('navigation');
     expect(navElement).toBeVisible();
-    
-    expect(screen.getByRole('heading', { level: 1, name: 'Main Title' })).toBeVisible();
+
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Main Title' })
+    ).toBeVisible();
     expect(screen.getByRole('list')).toBeVisible();
     expect(screen.getAllByRole('listitem')).toHaveLength(2);
     expect(screen.getByRole('button', { name: 'Action Button' })).toBeVisible();
@@ -102,13 +104,22 @@ describe('NavigationBar', () => {
 
     const navElement = screen.getByRole('navigation');
     expect(navElement).toBeVisible();
-    
+
     const links = screen.getAllByRole('link');
     expect(links).toHaveLength(3);
-    
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/home');
-    expect(screen.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
-    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
+
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute(
+      'href',
+      '/home'
+    );
+    expect(screen.getByRole('link', { name: 'About' })).toHaveAttribute(
+      'href',
+      '/about'
+    );
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute(
+      'href',
+      '/contact'
+    );
   });
 
   it('works with different types of content', () => {
@@ -125,7 +136,7 @@ describe('NavigationBar', () => {
 
     const navElement = screen.getByRole('navigation');
     expect(navElement).toBeVisible();
-    
+
     expect(screen.getByText('Text Content')).toBeVisible();
     expect(screen.getByRole('textbox', { name: '' })).toBeVisible();
     expect(screen.getByRole('combobox')).toBeVisible();

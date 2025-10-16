@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={styles.Navbar}>
-      <Link to='/'>
+      <Link to="/">
         <Logo isRound />
       </Link>
       {user && (
@@ -34,8 +34,8 @@ const Navbar: React.FC = () => {
           {user?.name}
           <Button
             onClick={handleLogout}
-            theme='RoundWithLabel'
-            type='button'
+            theme="RoundWithLabel"
+            type="button"
             tooltip={textConstants.navbar.LOGOUT}
           >
             <FiLogOut />

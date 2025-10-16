@@ -3,8 +3,6 @@ import { describe, it, expect } from 'vitest';
 import { testRender } from '@/test/test-utils';
 import PublicRoute from './';
 
-
-
 // Test component to render inside PublicRoute
 const TestComponent = () => <div>Public Content</div>;
 
@@ -49,7 +47,14 @@ describe('PublicRoute', () => {
       {
         preloadedState: {
           auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2024-01-01',
+              updatedAt: '2024-01-01',
+            },
             token: 'fake-token',
             isAuthenticated: true,
             error: null,
@@ -82,7 +87,14 @@ describe('PublicRoute', () => {
       {
         preloadedState: {
           auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2024-01-01',
+              updatedAt: '2024-01-01',
+            },
             token: 'fake-token',
             isAuthenticated: true,
             error: null,
@@ -115,7 +127,14 @@ describe('PublicRoute', () => {
       {
         preloadedState: {
           auth: {
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2024-01-01',
+              updatedAt: '2024-01-01',
+            },
             token: 'fake-token',
             isAuthenticated: true,
             error: null,
@@ -179,31 +198,26 @@ describe('PublicRoute', () => {
   });
 
   it('handles empty children gracefully when not authenticated', () => {
-    testRender(
-      <PublicRoute>
-        {null}
-      </PublicRoute>,
-      {
-        preloadedState: {
-          auth: {
-            user: null,
-            token: null,
-            isAuthenticated: false,
-            error: null,
-            initialized: true,
-          },
+    testRender(<PublicRoute>{null}</PublicRoute>, {
+      preloadedState: {
+        auth: {
+          user: null,
+          token: null,
+          isAuthenticated: false,
+          error: null,
+          initialized: true,
         },
-        initialEntries: ['/public'],
-        mountPath: '/public',
-        routes: [
-          { path: '/customers', element: <div>Customers Page</div> },
-          { path: '/dashboard', element: <div>Dashboard Page</div> },
-          { path: '/orders', element: <div>Orders Page</div> },
-          { path: '/products', element: <div>Products Page</div> },
-          { path: '/sales', element: <div>Sales Page</div> },
-        ],
-      }
-    );
+      },
+      initialEntries: ['/public'],
+      mountPath: '/public',
+      routes: [
+        { path: '/customers', element: <div>Customers Page</div> },
+        { path: '/dashboard', element: <div>Dashboard Page</div> },
+        { path: '/orders', element: <div>Orders Page</div> },
+        { path: '/products', element: <div>Products Page</div> },
+        { path: '/sales', element: <div>Sales Page</div> },
+      ],
+    });
 
     // Should render without crashing
     expect(screen.queryByText('Public Content')).not.toBeInTheDocument();
@@ -211,7 +225,7 @@ describe('PublicRoute', () => {
 
   it('works with different redirect paths', () => {
     const customRedirects = ['/orders', '/products', '/sales'];
-    
+
     customRedirects.forEach(redirectPath => {
       const { unmount } = testRender(
         <PublicRoute redirectTo={redirectPath}>
@@ -220,7 +234,14 @@ describe('PublicRoute', () => {
         {
           preloadedState: {
             auth: {
-              user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+              user: {
+                _id: '1',
+                name: 'Test User',
+                email: 'test@example.com',
+                active: true,
+                createdAt: '2024-01-01',
+                updatedAt: '2024-01-01',
+              },
               token: 'fake-token',
               isAuthenticated: true,
               error: null,
@@ -240,7 +261,11 @@ describe('PublicRoute', () => {
       );
 
       // Should redirect to the custom path
-      expect(screen.getByText(`${redirectPath.slice(1).charAt(0).toUpperCase() + redirectPath.slice(2)} Page`)).toBeVisible();
+      expect(
+        screen.getByText(
+          `${redirectPath.slice(1).charAt(0).toUpperCase() + redirectPath.slice(2)} Page`
+        )
+      ).toBeVisible();
       unmount();
     });
   });

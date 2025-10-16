@@ -21,7 +21,7 @@ const mockProductWithoutOptionalFields: Product = {
   presentation: 'Caja',
   weight: 250,
   stock: 10,
-  basePrice: 8.50,
+  basePrice: 8.5,
   sellingPrice: 10.99,
 };
 
@@ -35,7 +35,7 @@ describe('ProductCard', () => {
     expect(title).toHaveTextContent('Wolf Snack Mix');
     expect(title).toHaveTextContent('Bolsa');
     expect(title).toHaveTextContent('500 g');
-    
+
     // Check content in the card
     const card = screen.getByRole('article');
     expect(within(card).getByText(/25/)).toBeVisible();
@@ -56,7 +56,7 @@ describe('ProductCard', () => {
     expect(title).toHaveTextContent('Premium Treats');
     expect(title).toHaveTextContent('Caja');
     expect(title).toHaveTextContent('250 g');
-    
+
     // Check content in the card
     const card = screen.getByRole('article');
     expect(within(card).getByText(/10 Unidades/)).toBeVisible();
@@ -71,7 +71,9 @@ describe('ProductCard', () => {
     testRender(<ProductCard product={mockProduct} navigate={true} />);
 
     // The link accessible name includes the product name, presentation, and weight
-    const productLink = screen.getByRole('link', { name: /Wolf Snack Mix Bolsa 500 g/i });
+    const productLink = screen.getByRole('link', {
+      name: /Wolf Snack Mix Bolsa 500 g/i,
+    });
     expect(productLink).toBeVisible();
     expect(productLink).toHaveAttribute('href', '/products/1');
   });
@@ -85,7 +87,9 @@ describe('ProductCard', () => {
     expect(title).toHaveTextContent('Wolf Snack Mix');
     expect(title).toHaveTextContent('Bolsa');
     expect(title).toHaveTextContent('500 g');
-    expect(screen.queryByRole('link', { name: /wolf snack mix bolsa 500 g/i })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /wolf snack mix bolsa 500 g/i })
+    ).not.toBeInTheDocument();
   });
 
   it('renders edit button with correct link', () => {
@@ -93,7 +97,7 @@ describe('ProductCard', () => {
 
     const editButton = screen.getByRole('button', { name: /editar producto/i });
     expect(editButton).toBeVisible();
-    
+
     // Check that the button is inside a link with correct href
     const editLink = editButton.closest('a');
     expect(editLink).toHaveAttribute('href', '/products/1/edit');
@@ -102,22 +106,28 @@ describe('ProductCard', () => {
   it('renders delete button', () => {
     testRender(<ProductCard product={mockProduct} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar producto/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar producto/i,
+    });
     expect(deleteButton).toBeVisible();
   });
 
   it('shows delete confirmation modal when delete button is clicked', () => {
     testRender(<ProductCard product={mockProduct} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar producto/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar producto/i,
+    });
     fireEvent.click(deleteButton);
 
     // Check that the modal is displayed
-    expect(screen.getByText(/Confirmas que deseas eliminar el producto/i)).toBeVisible();
-    
+    expect(
+      screen.getByText(/Confirmas que deseas eliminar el producto/i)
+    ).toBeVisible();
+
     // Check that modal title is visible
     expect(screen.getByText('Eliminar producto')).toBeVisible();
-    
+
     // Check that the modal contains the product information
     const modal = screen.getByRole('dialog');
     expect(modal).toHaveTextContent('Wolf Snack Mix');
@@ -128,13 +138,12 @@ describe('ProductCard', () => {
   it('calls deleteProduct function when confirmed', () => {
     const mockDeleteProduct = vi.fn();
     testRender(
-      <ProductCard 
-        product={mockProduct}
-        deleteProduct={mockDeleteProduct} 
-      />
+      <ProductCard product={mockProduct} deleteProduct={mockDeleteProduct} />
     );
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar producto/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar producto/i,
+    });
     fireEvent.click(deleteButton);
 
     // Confirm deletion
@@ -147,7 +156,9 @@ describe('ProductCard', () => {
   it('closes modal when cancel button is clicked', () => {
     testRender(<ProductCard product={mockProduct} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar producto/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar producto/i,
+    });
     fireEvent.click(deleteButton);
 
     // Check that modal is visible
@@ -164,7 +175,9 @@ describe('ProductCard', () => {
   it('closes modal when background is clicked', () => {
     testRender(<ProductCard product={mockProduct} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar producto/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar producto/i,
+    });
     fireEvent.click(deleteButton);
 
     // Check that modal is visible
@@ -185,7 +198,7 @@ describe('ProductCard', () => {
     // Find the card element using its accessible role
     const cardElement = screen.getByRole('article');
     expect(cardElement).toBeVisible();
-    
+
     // Verify it contains the product information
     expect(cardElement).toHaveTextContent(/Wolf Snack Mix/);
   });
@@ -193,7 +206,9 @@ describe('ProductCard', () => {
   it('handles product without deleteProduct function', () => {
     testRender(<ProductCard product={mockProduct} />);
 
-    const deleteButton = screen.getByRole('button', { name: /eliminar producto/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /eliminar producto/i,
+    });
     fireEvent.click(deleteButton);
 
     // Confirm deletion
@@ -221,7 +236,7 @@ describe('ProductCard', () => {
     const productWithHighPrices: Product = {
       ...mockProduct,
       basePrice: 1234567.89,
-      sellingPrice: 2345678.90,
+      sellingPrice: 2345678.9,
     };
 
     testRender(<ProductCard product={productWithHighPrices} />);
@@ -257,7 +272,7 @@ describe('ProductCard', () => {
     const title = screen.getByRole('heading', { level: 2 });
     expect(title).toBeVisible();
     expect(title).toHaveTextContent('Test Product');
-    
+
     // Check that undefined values are handled gracefully (empty spans are rendered)
     const card = screen.getByRole('article');
     expect(within(card).getByText(/Unidades/)).toBeVisible();
@@ -277,7 +292,7 @@ describe('ProductCard', () => {
     expect(title).toBeVisible();
     expect(title).toHaveTextContent('Wolf Snack Mix');
     expect(title).toHaveTextContent('500 g');
-    
+
     // Should not crash when presentation is undefined
     expect(title).not.toHaveTextContent('undefined');
   });
@@ -294,7 +309,7 @@ describe('ProductCard', () => {
     expect(title).toBeVisible();
     expect(title).toHaveTextContent('Wolf Snack Mix');
     expect(title).toHaveTextContent('Bolsa');
-    
+
     // Should not crash when weight is undefined
     expect(title).not.toHaveTextContent('undefined');
   });
@@ -311,7 +326,7 @@ describe('ProductCard', () => {
     const card = screen.getByRole('article');
     expect(within(card).getByText(/Precio base/)).toBeVisible();
     expect(within(card).getByText(/Precio de venta/)).toBeVisible();
-    
+
     // Should handle undefined prices gracefully (empty spans are rendered)
     // The component renders empty spans for undefined prices, not "undefined" text
   });

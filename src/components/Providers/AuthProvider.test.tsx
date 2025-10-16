@@ -36,7 +36,14 @@ describe('AuthProvider', () => {
           auth: {
             initialized: true,
             isAuthenticated: true,
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2023-01-01', updatedAt: '2023-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2023-01-01',
+              updatedAt: '2023-01-01',
+            },
             token: 'test-token',
             error: null,
           },
@@ -82,7 +89,14 @@ describe('AuthProvider', () => {
           auth: {
             initialized: true,
             isAuthenticated: true,
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2023-01-01', updatedAt: '2023-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2023-01-01',
+              updatedAt: '2023-01-01',
+            },
             token: 'test-token',
             error: null,
           },
@@ -96,39 +110,47 @@ describe('AuthProvider', () => {
   });
 
   it('should handle empty children gracefully', () => {
-    testRender(
-      <AuthProvider>{null}</AuthProvider>,
-      {
-        preloadedState: {
-          auth: {
-            initialized: true,
-            isAuthenticated: true,
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2023-01-01', updatedAt: '2023-01-01' },
-            token: 'test-token',
-            error: null,
+    testRender(<AuthProvider>{null}</AuthProvider>, {
+      preloadedState: {
+        auth: {
+          initialized: true,
+          isAuthenticated: true,
+          user: {
+            _id: '1',
+            name: 'Test User',
+            email: 'test@example.com',
+            active: true,
+            createdAt: '2023-01-01',
+            updatedAt: '2023-01-01',
           },
+          token: 'test-token',
+          error: null,
         },
-      }
-    );
+      },
+    });
 
     expect(screen.queryByTestId('loading-skeleton')).not.toBeInTheDocument();
   });
 
   it('should handle undefined children gracefully', () => {
-    testRender(
-      <AuthProvider>{undefined}</AuthProvider>,
-      {
-        preloadedState: {
-          auth: {
-            initialized: true,
-            isAuthenticated: true,
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2023-01-01', updatedAt: '2023-01-01' },
-            token: 'test-token',
-            error: null,
+    testRender(<AuthProvider>{undefined}</AuthProvider>, {
+      preloadedState: {
+        auth: {
+          initialized: true,
+          isAuthenticated: true,
+          user: {
+            _id: '1',
+            name: 'Test User',
+            email: 'test@example.com',
+            active: true,
+            createdAt: '2023-01-01',
+            updatedAt: '2023-01-01',
           },
+          token: 'test-token',
+          error: null,
         },
-      }
-    );
+      },
+    });
 
     expect(screen.queryByTestId('loading-skeleton')).not.toBeInTheDocument();
   });
@@ -147,7 +169,14 @@ describe('AuthProvider', () => {
           auth: {
             initialized: true,
             isAuthenticated: true,
-            user: { _id: '1', name: 'Test User', email: 'test@example.com', active: true, createdAt: '2023-01-01', updatedAt: '2023-01-01' },
+            user: {
+              _id: '1',
+              name: 'Test User',
+              email: 'test@example.com',
+              active: true,
+              createdAt: '2023-01-01',
+              updatedAt: '2023-01-01',
+            },
             token: 'test-token',
             error: null,
           },

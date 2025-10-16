@@ -58,4 +58,3 @@ const productTypesSlice = createSlice({
 
 export const { clearError, resetProductTypes } = productTypesSlice.actions;
 export default productTypesSlice.reducer;
-

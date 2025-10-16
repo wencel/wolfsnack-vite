@@ -9,20 +9,29 @@ export interface ModalProps {
   'aria-label'?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, show, backgroundOnClick, 'aria-label': ariaLabel }) => {
+const Modal: React.FC<ModalProps> = ({
+  children,
+  show,
+  backgroundOnClick,
+  'aria-label': ariaLabel,
+}) => {
   const classes = classnames({
     [styles.Modal]: true,
     [styles.visible]: show,
   });
   return (
-    <div 
+    <div
       className={classes}
       role="dialog"
       aria-modal="true"
       aria-hidden={!show}
       aria-label={ariaLabel}
     >
-      <div onClick={backgroundOnClick} className={styles.background} data-testid="modal-background" />
+      <div
+        onClick={backgroundOnClick}
+        className={styles.background}
+        data-testid="modal-background"
+      />
       {children}
     </div>
   );

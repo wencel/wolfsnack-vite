@@ -5,9 +5,9 @@ const Divider: React.FC = () => {
   return (
     <div
       className={styles.Divider}
-      role='separator'
-      aria-hidden='true'
-      data-testid='divider'
+      role="separator"
+      aria-hidden="true"
+      data-testid="divider"
     />
   );
 };
