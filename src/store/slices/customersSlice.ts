@@ -8,7 +8,12 @@ import {
   setSubmitting,
   setFetching,
 } from '@/store/slices/loadingSlice';
-import { setSubmitError, clearSubmitError } from '@/store/slices/errorSlice';
+import {
+  setSubmitError,
+  clearSubmitError,
+  clearGeneralError,
+  setGeneralError,
+} from '@/store/slices/errorSlice';
 import { textConstants } from '@/lib/appConstants';
 import { extractErrorMessage } from '@/lib/errorUtils';
 
@@ -25,6 +30,7 @@ interface FetchCustomersParams {
   textQuery?: string;
   sortBy?: string;
   skip?: number;
+  isFetching?: boolean;
   [key: string]: unknown; // To match ApiParams
 }
 
@@ -64,7 +70,9 @@ export const fetchCustomers = createAsyncThunk(
   async (params: FetchCustomersParams, { dispatch, rejectWithValue }) => {
     try {
       // Use 'loading' for initial load (skip=0), 'fetching' for pagination (skip>0)
-      const isInitialLoad = !params.skip || params.skip === 0;
+      const { isFetching, skip } = params;
+      const isInitialLoad = (!skip || skip === 0) && !isFetching;
+      dispatch(clearGeneralError());
       if (isInitialLoad) {
         dispatch(setLoading(true));
       } else {
@@ -74,7 +82,11 @@ export const fetchCustomers = createAsyncThunk(
       return response.data; // PaginatedResponse<Customer>
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for display
+      dispatch(setGeneralError(errorMessage));
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setLoading(false));
       dispatch(setFetching(false));
@@ -86,12 +98,17 @@ export const fetchCustomer = createAsyncThunk(
   'customers/fetchCustomer',
   async (customerId: string, { dispatch, rejectWithValue }) => {
     try {
+      dispatch(clearGeneralError());
       dispatch(setLoading(true));
       const response = await api.customers.getById(customerId);
       return response.data; // Customer
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for display
+      dispatch(setGeneralError(errorMessage));
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setLoading(false));
     }
@@ -180,7 +197,9 @@ export const deleteCustomer = createAsyncThunk(
       return customerId;
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+      apiToast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setSubmitting(false));
     }

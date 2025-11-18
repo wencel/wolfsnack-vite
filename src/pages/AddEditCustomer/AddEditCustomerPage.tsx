@@ -11,6 +11,8 @@ import { textConstants } from '@/lib/appConstants';
 import { getChangedFields } from '@/lib/utils';
 import useCustomers from '@/hooks/useCustomers';
 import useLocalities from '@/hooks/useLocalities';
+import { clearAllErrors } from '@/store/slices/errorSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 interface CustomerFormData {
   storeName: string;
@@ -25,6 +27,7 @@ interface CustomerFormData {
 }
 
 const AddEditCustomerPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { currentCustomer, fetchCustomer, createCustomer, updateCustomer } =
@@ -60,6 +63,10 @@ const AddEditCustomerPage: React.FC = () => {
       fetchCustomer(id);
     }
   }, [id, fetchCustomer]);
+
+  useEffect(() => {
+    dispatch(clearAllErrors());
+  }, [dispatch]);
 
   // Update form data when customer data is loaded
   useEffect(() => {

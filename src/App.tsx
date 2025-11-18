@@ -19,6 +19,8 @@ import Products from '@/pages/Products';
 import Product from '@/pages/Product';
 import AddEditProduct from '@/pages/AddEditProduct';
 import Sales from '@/pages/Sales';
+import Sale from '@/pages/Sale';
+import AddEditSale from '@/pages/AddEditSale';
 import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
@@ -112,12 +114,36 @@ function AppContent() {
             }
           />
 
-          {/* Sales route */}
+          {/* Sales routes */}
           <Route
             path="/sales"
             element={
               <ProtectedRoute>
                 <Sales />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sales/new"
+            element={
+              <ProtectedRoute>
+                <AddEditSale />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sales/:id/edit"
+            element={
+              <ProtectedRoute>
+                <AddEditSale />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sales/:id"
+            element={
+              <ProtectedRoute>
+                <Sale />
               </ProtectedRoute>
             }
           />

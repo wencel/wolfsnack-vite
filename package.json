@@ -11,9 +11,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test": "DEBUG_PRINT_LIMIT=100000 vitest",
+    "test:ui": "DEBUG_PRINT_LIMIT=100000 vitest --ui",
+    "test:coverage": "DEBUG_PRINT_LIMIT=100000 vitest --coverage"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.2.7",

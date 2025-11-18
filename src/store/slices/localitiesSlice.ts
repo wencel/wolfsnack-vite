@@ -3,6 +3,7 @@ import { api } from '@/lib/apiClient';
 import type { AxiosError } from 'axios';
 import { setLoading } from '@/store/slices/loadingSlice';
 import { extractErrorMessage } from '@/lib/errorUtils';
+import apiToast from '@/lib/toastService';
 
 interface LocalitiesState {
   localities: string[];
@@ -25,7 +26,9 @@ export const fetchLocalities = createAsyncThunk(
       return response.data; // string[]
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+      apiToast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setLoading(false));
     }

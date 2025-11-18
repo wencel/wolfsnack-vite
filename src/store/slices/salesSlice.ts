@@ -8,7 +8,12 @@ import {
   setSubmitting,
   setFetching,
 } from '@/store/slices/loadingSlice';
-import { setSubmitError, clearSubmitError } from '@/store/slices/errorSlice';
+import {
+  setSubmitError,
+  clearSubmitError,
+  setGeneralError,
+  clearGeneralError,
+} from '@/store/slices/errorSlice';
 import { textConstants } from '@/lib/appConstants';
 import { extractErrorMessage } from '@/lib/errorUtils';
 
@@ -67,6 +72,7 @@ export const fetchSales = createAsyncThunk(
   'sales/fetchSales',
   async (params: FetchSalesParams, { dispatch, rejectWithValue }) => {
     try {
+      dispatch(clearGeneralError());
       // Use 'loading' for initial load (skip=0), 'fetching' for pagination (skip>0)
       const isInitialLoad = !params.skip || params.skip === 0;
       if (isInitialLoad) {
@@ -78,7 +84,11 @@ export const fetchSales = createAsyncThunk(
       return response.data; // PaginatedResponse<Sale>
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for display
+      dispatch(setGeneralError(errorMessage));
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setLoading(false));
       dispatch(setFetching(false));
@@ -90,12 +100,17 @@ export const fetchSale = createAsyncThunk(
   'sales/fetchSale',
   async (saleId: string, { dispatch, rejectWithValue }) => {
     try {
+      dispatch(clearGeneralError());
       dispatch(setLoading(true));
       const response = await api.sales.getById(saleId);
       return response.data; // Sale
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for display
+      dispatch(setGeneralError(errorMessage));
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setLoading(false));
     }
@@ -187,7 +202,9 @@ export const deleteSale = createAsyncThunk(
       return saleId;
     } catch (error) {
       const axiosError = error as AxiosError;
-      return rejectWithValue(extractErrorMessage(axiosError));
+      const errorMessage = extractErrorMessage(axiosError);
+      apiToast.error(errorMessage);
+      return rejectWithValue(errorMessage);
     } finally {
       dispatch(setSubmitting(false));
     }

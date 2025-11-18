@@ -10,6 +10,12 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     css: true,
+    env: {
+      DEBUG_PRINT_LIMIT: '100000',
+    },
+    diff: {
+      truncateThreshold: 0, // Disable diff truncation
+    },
   },
   resolve: {
     alias: {

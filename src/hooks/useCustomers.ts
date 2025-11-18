@@ -22,6 +22,7 @@ export const useCustomers = () => {
       textQuery?: string;
       sortBy?: string;
       skip?: number;
+      isFetching?: boolean;
     }) => dispatch(fetchCustomers(params)),
     [dispatch]
   );

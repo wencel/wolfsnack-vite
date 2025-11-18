@@ -12,6 +12,8 @@ import { getChangedFields } from '@/lib/utils';
 import useProducts from '@/hooks/useProducts';
 import usePresentations from '@/hooks/usePresentations';
 import useProductTypes from '@/hooks/useProductTypes';
+import { clearAllErrors } from '@/store/slices/errorSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 interface ProductFormData {
   name: string;
@@ -23,6 +25,7 @@ interface ProductFormData {
 }
 
 const AddEditProductPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { currentProduct, fetchProduct, createProduct, updateProduct } =
@@ -55,35 +58,6 @@ const AddEditProductPage: React.FC = () => {
     useState<ProductFormData | null>(null);
 
   const isEditMode = !!id;
-
-  // Load presentations and product types on mount
-  useEffect(() => {
-    fetchPresentations();
-    fetchProductTypes();
-  }, [fetchPresentations, fetchProductTypes]);
-
-  // Load product data if in edit mode
-  useEffect(() => {
-    if (id) {
-      fetchProduct(id);
-    }
-  }, [id, fetchProduct]);
-
-  // Update form data when product data is loaded
-  useEffect(() => {
-    if (currentProduct && isEditMode) {
-      const productFormData = {
-        name: currentProduct.name || '',
-        presentation: currentProduct.presentation || '',
-        weight: currentProduct.weight || ('' as number | ''),
-        basePrice: currentProduct.basePrice || ('' as number | ''),
-        sellingPrice: currentProduct.sellingPrice || ('' as number | ''),
-        stock: currentProduct.stock || ('' as number | ''),
-      };
-      setFormData(productFormData);
-      setOriginalProductData(productFormData);
-    }
-  }, [currentProduct, isEditMode]);
 
   const handleInputChange = (
     field: keyof ProductFormData,
@@ -129,6 +103,39 @@ const AddEditProductPage: React.FC = () => {
       // Navigation and error handling are done by the thunk
     }
   };
+
+  // Load presentations and product types on mount
+  useEffect(() => {
+    fetchPresentations();
+    fetchProductTypes();
+  }, [fetchPresentations, fetchProductTypes]);
+
+  // Load product data if in edit mode
+  useEffect(() => {
+    if (id) {
+      fetchProduct(id);
+    }
+  }, [id, fetchProduct]);
+
+  // Update form data when product data is loaded
+  useEffect(() => {
+    if (currentProduct && isEditMode) {
+      const productFormData = {
+        name: currentProduct.name || '',
+        presentation: currentProduct.presentation || '',
+        weight: currentProduct.weight || ('' as number | ''),
+        basePrice: currentProduct.basePrice || ('' as number | ''),
+        sellingPrice: currentProduct.sellingPrice || ('' as number | ''),
+        stock: currentProduct.stock || ('' as number | ''),
+      };
+      setFormData(productFormData);
+      setOriginalProductData(productFormData);
+    }
+  }, [currentProduct, isEditMode]);
+
+  useEffect(() => {
+    dispatch(clearAllErrors());
+  }, [dispatch]);
 
   return (
     <PageContainer>

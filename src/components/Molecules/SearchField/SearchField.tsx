@@ -82,7 +82,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
               <RiCloseLine />
             </button>
             <div className={listClasses}>
-              {isLoading && <InlineLoading />}
+              {isLoading && <InlineLoading theme="colored" />}
               {inputValue && itemsList.length === 0 && !isLoading && (
                 <div>No hay resultado de la busqueda</div>
               )}

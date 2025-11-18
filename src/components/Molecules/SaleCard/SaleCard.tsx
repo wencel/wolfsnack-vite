@@ -155,7 +155,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
                     </span>
                     <NumericFormat
                       value={calculateTotalPriceProduct(
-                        p.product.sellingPrice || 0,
+                        p.price || 0,
                         p.quantity,
                         sale.isThirteenDozen
                       )}
@@ -164,6 +164,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
                       thousandSeparator="."
                       decimalSeparator=","
                       readOnly
+                      decimalScale={2}
                     />
                   </div>
                   <Divider />
@@ -190,6 +191,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
             thousandSeparator="."
             decimalSeparator=","
             readOnly
+            decimalScale={2}
           />
         </div>
         <div className={styles.totalPrice}>
@@ -203,6 +205,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
             prefix="$"
             thousandSeparator="."
             decimalSeparator=","
+            decimalScale={2}
             readOnly
           />
         </div>
@@ -218,6 +221,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
             prefix="$"
             thousandSeparator="."
             decimalSeparator=","
+            decimalScale={2}
             readOnly
           />
         </div>
