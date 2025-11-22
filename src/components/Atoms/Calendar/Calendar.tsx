@@ -11,6 +11,7 @@ type DateValue = Date | null;
 type DateRangeValue = [Date | null, Date | null];
 
 interface CalendarProps {
+  id?: string;
   onChange: (value: DateValue | DateRangeValue | null) => void;
   value: DateValue | DateRangeValue | null;
   isRange?: boolean;
@@ -39,6 +40,7 @@ const Calendar: React.FC<CalendarProps> = ({
   label,
   className,
   isClearable = false,
+  id,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -118,6 +120,7 @@ const Calendar: React.FC<CalendarProps> = ({
         className={styles.datePicker}
         showPopperArrow={false}
         isClearable={isClearable}
+        id={id}
       />
     </div>
   );

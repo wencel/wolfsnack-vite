@@ -149,9 +149,9 @@ describe('Form Component', () => {
 
     testRender(<Form />);
 
-    const errorElement = screen.getByText(errorMessage);
+    const errorElement = screen.getByRole('alert');
     expect(errorElement).toBeVisible();
-    expect(errorElement).toHaveClass(styles.errorMessage);
+    expect(errorElement).toHaveTextContent(errorMessage);
   });
 
   it('does not display error message when no submit error', () => {

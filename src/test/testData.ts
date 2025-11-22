@@ -295,7 +295,7 @@ export const mockSales: Sale[] = [
     customer: mockCustomers[0],
     isThirteenDozen: false,
     owes: false,
-    partialPayment: 0,
+    partialPayment: 31.98,
     totalPrice: 31.98,
     products: [
       {

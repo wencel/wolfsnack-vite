@@ -226,7 +226,7 @@ const SaleCard: React.FC<SaleCardProps> = ({
           />
         </div>
         <div className={styles.buttonContainer}>
-          <Link to={`/sales/${sale._id}`}>
+          <Link to={`/sales/${sale._id}/edit`}>
             <Button
               theme="RoundWithLabel"
               tooltip={textConstants.sale.EDIT_SALE}

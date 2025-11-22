@@ -33,7 +33,7 @@ interface FetchSalesParams {
   [key: string]: unknown; // To match ApiParams
 }
 
-interface CreateSaleData {
+export interface CreateSaleData {
   saleId: number;
   saleDate: string;
   customer: string;

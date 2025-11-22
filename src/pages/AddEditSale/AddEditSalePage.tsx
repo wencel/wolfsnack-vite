@@ -21,10 +21,11 @@ import { useSales } from '@/hooks/useSales';
 import useCustomers from '@/hooks/useCustomers';
 import useProducts from '@/hooks/useProducts';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import type { Customer, Product } from '@/lib/data';
+import type { Customer } from '@/lib/data';
 import styles from './AddEditSalePage.module.sass';
 import { clearAllErrors } from '@/store/slices/errorSlice';
 import Loading from '@/components/Atoms/Loading/Loading';
+import type { CreateSaleData } from '@/store/slices/salesSlice';
 
 interface SaleProduct {
   product: string;
@@ -73,10 +74,6 @@ const AddEditSalePage: React.FC = () => {
   };
 
   const addProduct = () => {
-    // Check if all products have a product selected
-    const areAllProductsSet = formData.products.every(p => p.product);
-    if (!areAllProductsSet && formData.products.length > 0) return;
-
     setFormData(prev => ({
       ...prev,
       products: [
@@ -121,9 +118,7 @@ const AddEditSalePage: React.FC = () => {
         ? formData.partialPayment
         : parseFloat(String(formData.partialPayment)) || 0;
 
-    const saleData = {
-      saleId: isEditMode && currentSale ? currentSale.saleId : 0, // Backend will generate for new sales
-      saleDate: formData.saleDate.toISOString(),
+    const saleData: Partial<CreateSaleData> = {
       customer: formData.customer,
       isThirteenDozen: formData.isThirteenDozen,
       owes: formData.owes,
@@ -140,7 +135,9 @@ const AddEditSalePage: React.FC = () => {
     if (isEditMode && id) {
       updateSale({ id, saleData, navigate });
     } else {
-      createSale({ saleData, navigate });
+      saleData.saleId = 0;
+      saleData.saleDate = new Date().toISOString();
+      createSale({ saleData: saleData as CreateSaleData, navigate });
     }
   };
 
@@ -166,29 +163,15 @@ const AddEditSalePage: React.FC = () => {
   useEffect(() => {
     resetProducts();
     resetCustomers();
+    resetCurrentSale();
     fetchProducts({ limit: 100 });
+  }, [resetProducts, resetCustomers, resetCurrentSale, fetchProducts]);
+
+  useEffect(() => {
     if (id) {
       fetchSale(id);
-    } else {
-      // Add initial product row for new sales
-      setTimeout(() => {
-        addProduct();
-      }, 0);
     }
-
-    return () => {
-      resetCurrentSale();
-      resetCustomers();
-      resetProducts();
-    };
-  }, [
-    id,
-    fetchSale,
-    fetchProducts,
-    resetCurrentSale,
-    resetCustomers,
-    resetProducts,
-  ]);
+  }, [id, fetchSale]);
 
   // Update form data when sale is loaded
   useEffect(() => {
@@ -208,7 +191,7 @@ const AddEditSalePage: React.FC = () => {
         customer:
           typeof currentSale.customer === 'string'
             ? currentSale.customer
-            : currentSale.customer._id,
+            : currentSale.customer?._id || '',
         saleDate: new Date(currentSale.saleDate),
       });
     }
@@ -331,10 +314,11 @@ const AddEditSalePage: React.FC = () => {
             }}
           />
 
-          <Label className={styles.label}>
+          <Label className={styles.label} htmlFor="sale-date">
             {textConstants.salePage.SALE_DATE}
           </Label>
           <Calendar
+            id="sale-date"
             isRange={false}
             onChange={value => {
               const dateValue = Array.isArray(value) ? value[0] : value;
@@ -377,6 +361,7 @@ const AddEditSalePage: React.FC = () => {
                   onClick={() => removeProduct(index)}
                   type="button"
                   className={styles.trashButton}
+                  aria-label={textConstants.product.DELETE_PRODUCT}
                 >
                   <FaTrashAlt />
                 </Button>
@@ -384,7 +369,10 @@ const AddEditSalePage: React.FC = () => {
               <Input
                 label={textConstants.sale.PRODUCT}
                 type="select"
-                options={productOptions}
+                options={[
+                  { value: '', label: 'Seleccione un producto' },
+                  ...productOptions,
+                ]}
                 value={product.product}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   const selectedProduct = products.find(
@@ -407,7 +395,7 @@ const AddEditSalePage: React.FC = () => {
               <Input
                 label={textConstants.sale.QUANTITY}
                 type="number"
-                value={product.quantity || ''}
+                value={product.quantity}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const quantity = parseFloat(e.target.value) || 0;
                   updateProduct(index, {

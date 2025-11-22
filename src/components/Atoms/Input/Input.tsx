@@ -98,7 +98,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     });
 
     const labelClasses = classnames({
-      [styles.active]: isFocused || (value !== '' && value !== 0),
+      [styles.active]: isFocused || value !== '' || type === 'select',
     });
 
     const handleFocus = (

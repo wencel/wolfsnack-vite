@@ -12,7 +12,11 @@ const SubCard: React.FC<SubCardProps> = ({ children, className }) => {
     [className as string]: !!className,
     [styles.SubCard]: true,
   });
-  return <div className={cardClass}>{children}</div>;
+  return (
+    <fieldset className={cardClass} role="group">
+      {children}
+    </fieldset>
+  );
 };
 
 export default SubCard;

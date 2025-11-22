@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import styles from './Form.module.sass';
 import Button from '@/components/Atoms/Button';
+import Alert from '@/components/Atoms/Alert/Alert';
 import useLoading from '@/hooks/useLoading';
 import { useError } from '@/hooks/useError';
 import { textConstants } from '@/lib/appConstants';
@@ -51,7 +52,7 @@ const Form: React.FC<FormProps> = ({
       {children}
 
       {/* Display submit error if present */}
-      {submitError && <div className={styles.errorMessage}>{submitError}</div>}
+      {submitError && <Alert variant="error">{submitError}</Alert>}
 
       <div className={styles.buttonsContainer}>
         {secondButtonProps && (
