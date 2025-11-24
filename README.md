@@ -135,6 +135,37 @@ The production build will be in the `dist/` directory.
 npm run preview
 ```
 
+## 🚀 Deployment
+
+### Vercel Deployment
+
+This project is configured for deployment on Vercel. The `vercel.json` file handles SPA routing configuration.
+
+#### Steps to Deploy:
+
+1. **Connect your repository to Vercel:**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your Git repository
+   - Vercel will automatically detect the Vite configuration
+
+2. **Configure Environment Variables:**
+   - In your Vercel project settings, go to "Environment Variables"
+   - Add the following variable:
+     - `VITE_API_URL`: Your production API URL (e.g., `https://your-api-domain.com/api`)
+   - Make sure to set it for all environments (Production, Preview, Development)
+
+3. **Deploy:**
+   - Vercel will automatically build and deploy on every push to your main branch
+   - Preview deployments are created for pull requests
+
+#### Configuration Details:
+
+- **Build Command**: `npm run build` (automatically detected)
+- **Output Directory**: `dist` (configured in `vercel.json`)
+- **Node Version**: Vercel automatically uses the latest LTS version
+
+The `vercel.json` file ensures that all routes are properly handled for client-side routing by redirecting all requests to `index.html`.
+
 ## 🧪 Testing
 
 Run tests:
