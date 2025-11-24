@@ -11,6 +11,7 @@ import errorReducer from '@/store/slices/errorSlice';
 import customersReducer from '@/store/slices/customersSlice';
 import productsReducer from '@/store/slices/productsSlice';
 import salesReducer from '@/store/slices/salesSlice';
+import ordersReducer from '@/store/slices/ordersSlice';
 import localitiesReducer from '@/store/slices/localitiesSlice';
 import presentationsReducer from '@/store/slices/presentationsSlice';
 import productTypesReducer from '@/store/slices/productTypesSlice';
@@ -27,6 +28,7 @@ const createTestStore = (preloadedState = {}) => {
       customers: customersReducer,
       products: productsReducer,
       sales: salesReducer,
+      orders: ordersReducer,
       localities: localitiesReducer,
       presentations: presentationsReducer,
       productTypes: productTypesReducer,

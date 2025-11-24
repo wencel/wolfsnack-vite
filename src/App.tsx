@@ -21,13 +21,13 @@ import AddEditProduct from '@/pages/AddEditProduct';
 import Sales from '@/pages/Sales';
 import Sale from '@/pages/Sale';
 import AddEditSale from '@/pages/AddEditSale';
+import Orders from '@/pages/Orders';
+import Order from '@/pages/Order';
+import AddEditOrder from '@/pages/AddEditOrder';
 import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
 import '@/styles/styles.global.sass';
-
-// Dummy components for missing routes
-const OrdersPage = () => <div>Orders Page - Coming Soon</div>;
 
 function AppContent() {
   usePageTitle();
@@ -148,12 +148,36 @@ function AppContent() {
             }
           />
 
-          {/* Orders route */}
+          {/* Orders routes */}
           <Route
             path="/orders"
             element={
               <ProtectedRoute>
-                <OrdersPage />
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/new"
+            element={
+              <ProtectedRoute>
+                <AddEditOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/:id/edit"
+            element={
+              <ProtectedRoute>
+                <AddEditOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/:id"
+            element={
+              <ProtectedRoute>
+                <Order />
               </ProtectedRoute>
             }
           />

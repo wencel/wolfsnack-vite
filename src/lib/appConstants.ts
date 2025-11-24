@@ -206,6 +206,9 @@ export const textConstants = {
     SALE_NOT_FOUND: 'Venta no encontrada',
     SALE_NOT_FOUND_DESCRIPTION:
       'La venta que buscas no existe, puedes agregar una nueva con el botón en la parte de arriba',
+    ORDER_NOT_FOUND: 'Pedido no encontrado',
+    ORDER_NOT_FOUND_DESCRIPTION:
+      'El pedido que buscas no existe, puedes agregar uno nuevo con el botón en la parte de arriba',
     NO_PRODUCT_ID: 'No se proporcionó ID de producto',
     SAVE: 'Guardar',
     EDIT: 'Editar',

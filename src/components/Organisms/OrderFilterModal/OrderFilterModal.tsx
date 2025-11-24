@@ -31,6 +31,18 @@ const OrderFilterModal: React.FC<OrderFilterModalProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showModal]);
+
+  const handleDateRangeChange = (value: DateValue | DateRangeValue | null) => {
+    if (value === null) {
+      setDateRange(null);
+    } else if (Array.isArray(value)) {
+      setDateRange(value);
+    } else {
+      // Single date value - convert to range format
+      setDateRange([value, null]);
+    }
+  };
+
   return (
     <Modal show={showModal} backgroundOnClick={closeModal}>
       <Card
@@ -52,7 +64,7 @@ const OrderFilterModal: React.FC<OrderFilterModalProps> = ({
         >
           <Label className={styles.label}>{textConstants.misc.DATES}</Label>
           <Calendar
-            onChange={setDateRange as (value: LooseValue | undefined) => void}
+            onChange={handleDateRangeChange}
             value={dateRange}
             isRange={true}
             maxDate={new Date()}

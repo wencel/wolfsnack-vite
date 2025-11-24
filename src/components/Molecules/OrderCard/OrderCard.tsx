@@ -163,7 +163,10 @@ const OrderCard: React.FC<OrderCardProps> = ({
               </div>
               {!navigate && (
                 <>
-                  <div className={styles.totalPrice}>
+                  <div
+                    className={styles.totalPrice}
+                    data-testid="product-total-price"
+                  >
                     <AiOutlineDollarCircle className={styles.icon} />
                     <span className={styles.spanl}>
                       {textConstants.order.PRODUCT_TOTAL_PRICE}&nbsp;
@@ -183,7 +186,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
             </div>
           );
         })}
-        <div className={styles.totalPrice}>
+        <div className={styles.totalPrice} data-testid="order-total-price">
           <AiOutlineDollarCircle className={styles.icon} />
           <span className={styles.spanl}>
             {textConstants.order.TOTAL_PRICE}&nbsp;
@@ -198,7 +201,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
           />
         </div>
         <div className={styles.buttonContainer}>
-          <Link to={`/orders/${order._id}`}>
+          <Link to={`/orders/${order._id}/edit`}>
             <Button
               theme="RoundWithLabel"
               tooltip={textConstants.order.EDIT_ORDER}

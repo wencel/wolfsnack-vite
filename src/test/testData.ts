@@ -1,4 +1,4 @@
-import type { Customer, Product, Sale } from '@/lib/data';
+import type { Customer, Product, Sale, Order } from '@/lib/data';
 import { omit } from 'ramda';
 
 export const mockCustomers: Customer[] = [
@@ -497,6 +497,197 @@ export const mockSales: Sale[] = [
     user: 'user1',
     createdAt: '2024-01-24T00:00:00.000Z',
     updatedAt: '2024-01-24T00:00:00.000Z',
+  },
+];
+
+export const mockOrders: Order[] = [
+  {
+    _id: '1',
+    orderId: 1,
+    orderDate: '2024-01-15T00:00:00.000Z',
+    totalPrice: 25.98,
+    products: [
+      {
+        product: '1',
+        price: 12.99,
+        quantity: 2,
+        totalPrice: 25.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-15T00:00:00.000Z',
+    updatedAt: '2024-01-15T00:00:00.000Z',
+  },
+  {
+    _id: '2',
+    orderId: 2,
+    orderDate: '2024-01-14T00:00:00.000Z',
+    totalPrice: 15.99,
+    products: [
+      {
+        product: '2',
+        price: 15.99,
+        quantity: 1,
+        totalPrice: 15.99,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-14T00:00:00.000Z',
+    updatedAt: '2024-01-14T00:00:00.000Z',
+  },
+  {
+    _id: '3',
+    orderId: 3,
+    orderDate: '2024-01-13T00:00:00.000Z',
+    totalPrice: 35.98,
+    products: [
+      {
+        product: '1',
+        price: 12.99,
+        quantity: 2,
+        totalPrice: 25.98,
+      },
+      {
+        product: '3',
+        price: 8.99,
+        quantity: 1,
+        totalPrice: 8.99,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-13T00:00:00.000Z',
+    updatedAt: '2024-01-13T00:00:00.000Z',
+  },
+  {
+    _id: '4',
+    orderId: 4,
+    orderDate: '2024-01-12T00:00:00.000Z',
+    totalPrice: 19.98,
+    products: [
+      {
+        product: '3',
+        price: 8.99,
+        quantity: 2,
+        totalPrice: 17.98,
+      },
+      {
+        product: '4',
+        price: 9.99,
+        quantity: 1,
+        totalPrice: 9.99,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-12T00:00:00.000Z',
+    updatedAt: '2024-01-12T00:00:00.000Z',
+  },
+  {
+    _id: '5',
+    orderId: 5,
+    orderDate: '2024-01-11T00:00:00.000Z',
+    totalPrice: 37.98,
+    products: [
+      {
+        product: '2',
+        price: 15.99,
+        quantity: 2,
+        totalPrice: 31.98,
+      },
+      {
+        product: '5',
+        price: 18.99,
+        quantity: 1,
+        totalPrice: 18.99,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-11T00:00:00.000Z',
+    updatedAt: '2024-01-11T00:00:00.000Z',
+  },
+  {
+    _id: '6',
+    orderId: 6,
+    orderDate: '2024-01-10T00:00:00.000Z',
+    totalPrice: 13.98,
+    products: [
+      {
+        product: '6',
+        price: 6.99,
+        quantity: 2,
+        totalPrice: 13.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-10T00:00:00.000Z',
+    updatedAt: '2024-01-10T00:00:00.000Z',
+  },
+  {
+    _id: '7',
+    orderId: 7,
+    orderDate: '2024-01-09T00:00:00.000Z',
+    totalPrice: 23.98,
+    products: [
+      {
+        product: '7',
+        price: 11.99,
+        quantity: 2,
+        totalPrice: 23.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-09T00:00:00.000Z',
+    updatedAt: '2024-01-09T00:00:00.000Z',
+  },
+  {
+    _id: '8',
+    orderId: 8,
+    orderDate: '2024-01-08T00:00:00.000Z',
+    totalPrice: 27.98,
+    products: [
+      {
+        product: '8',
+        price: 13.99,
+        quantity: 2,
+        totalPrice: 27.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-08T00:00:00.000Z',
+    updatedAt: '2024-01-08T00:00:00.000Z',
+  },
+  {
+    _id: '9',
+    orderId: 9,
+    orderDate: '2024-01-07T00:00:00.000Z',
+    totalPrice: 15.98,
+    products: [
+      {
+        product: '9',
+        price: 7.99,
+        quantity: 2,
+        totalPrice: 15.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-07T00:00:00.000Z',
+    updatedAt: '2024-01-07T00:00:00.000Z',
+  },
+  {
+    _id: '10',
+    orderId: 10,
+    orderDate: '2024-01-06T00:00:00.000Z',
+    totalPrice: 21.98,
+    products: [
+      {
+        product: '10',
+        price: 10.99,
+        quantity: 2,
+        totalPrice: 21.98,
+      },
+    ],
+    user: 'user1',
+    createdAt: '2024-01-06T00:00:00.000Z',
+    updatedAt: '2024-01-06T00:00:00.000Z',
   },
 ];
 

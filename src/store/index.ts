@@ -5,6 +5,7 @@ import errorReducer from './slices/errorSlice';
 import customersReducer from './slices/customersSlice';
 import productsReducer from './slices/productsSlice';
 import salesReducer from './slices/salesSlice';
+import ordersReducer from './slices/ordersSlice';
 import localitiesReducer from './slices/localitiesSlice';
 import presentationsReducer from './slices/presentationsSlice';
 import productTypesReducer from './slices/productTypesSlice';
@@ -17,6 +18,7 @@ export const store = configureStore({
     customers: customersReducer,
     products: productsReducer,
     sales: salesReducer,
+    orders: ordersReducer,
     localities: localitiesReducer,
     presentations: presentationsReducer,
     productTypes: productTypesReducer,
