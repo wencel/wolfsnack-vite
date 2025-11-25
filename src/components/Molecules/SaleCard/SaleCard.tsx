@@ -15,7 +15,7 @@ import Card from '@/components/Atoms/Card';
 import Divider from '@/components/Atoms/Divider';
 import NavigationCardHeader from '@/components/Atoms/NavigationCardHeader';
 import WarningModal from '@/components/Organisms/WarningModal';
-import type { Sale, SaleProduct } from '@/lib/data';
+import type { Sale } from '@/lib/data';
 import styles from './SaleCard.module.sass';
 
 interface SaleCardProps {

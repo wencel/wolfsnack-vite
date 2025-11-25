@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { screen, waitFor, within } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { testRender } from '@/test/test-utils';
 import AddEditSalePage from './';

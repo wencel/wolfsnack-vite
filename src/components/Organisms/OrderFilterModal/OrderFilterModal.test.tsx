@@ -6,6 +6,7 @@ import { textConstants } from '@/lib/appConstants';
 
 // Type definitions for react-datepicker
 type DateRangeValue = [Date | null, Date | null];
+type LooseValue = DateRangeValue | null;
 
 // Mock the Calendar component to avoid complex date picker testing
 vi.mock('@/components/Atoms/Calendar', () => ({

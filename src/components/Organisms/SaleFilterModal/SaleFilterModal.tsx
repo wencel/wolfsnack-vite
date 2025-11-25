@@ -12,7 +12,6 @@ import styles from './SaleFilterModal.module.sass';
 import type { Customer } from '@/lib/data';
 
 // Type definitions for react-datepicker
-type DateValue = Date | null;
 type DateRangeValue = [Date | null, Date | null];
 
 interface SaleFilterModalProps {

@@ -30,13 +30,13 @@ const NotFound: React.FC = () => {
 
             <div className={styles.actions}>
               <Link to="/">
-                <Button theme="primary">
+                <Button theme="Primary">
                   <MdHome />
                   Ir al Inicio
                 </Button>
               </Link>
 
-              <Button theme="secondary" onClick={() => window.history.back()}>
+              <Button theme="Outline" onClick={() => window.history.back()}>
                 <MdArrowBack />
                 Volver Atrás
               </Button>

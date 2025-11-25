@@ -234,18 +234,19 @@ describe('apiClient', () => {
 
     it('should have correct sale method signatures', async () => {
       const { api } = await import('./apiClient');
+      const { mockProducts, mockCustomers } = await import('@/test/testData');
 
       const saleData = {
         saleId: 123,
         saleDate: new Date().toISOString(),
-        customer: 'customer123',
+        customer: mockCustomers[0],
         isThirteenDozen: false,
         owes: false,
         partialPayment: 0,
         totalPrice: 99.99,
         products: [
           {
-            product: 'product123',
+            product: mockProducts[0],
             quantity: 1,
             price: 99.99,
             totalPrice: 99.99,
