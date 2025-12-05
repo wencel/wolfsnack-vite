@@ -71,18 +71,21 @@ const LoginPage = () => {
           <Input
             label={textConstants.login.EMAIL_LABEL}
             value={email}
+            id="email"
             onChange={editEmail}
           />
           <Input
             label={textConstants.login.PASSWORD_LABEL}
             type="password"
             value={password}
+            id="password"
             onChange={editPassword}
           />
           <div className={styles.checkboxContainer}>
             <Checkbox
               label={textConstants.misc.REMEMBER_ME}
               checked={rememberUser}
+              id="remember-me"
               onChange={toggleRememberMe}
             />
           </div>

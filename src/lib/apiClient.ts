@@ -3,16 +3,14 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from 'axios';
 import type { Customer, Product, Order, Sale, User } from './data';
-
-// Extend the config type to include metadata
-interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
-  metadata?: {
-    operationName: string;
-  };
-}
-
 // API interfaces
 interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface SignupCredentials {
+  name: string;
   email: string;
   password: string;
 }
@@ -50,13 +48,6 @@ const apiClient = axios.create({
   },
 });
 
-// Helper function to get operation name from config
-const getOperationName = (config: InternalAxiosRequestConfig): string => {
-  const method = config.method?.toUpperCase() || 'GET';
-  const url = config.url || '';
-  return `${method} ${url}`;
-};
-
 // Helper function to get token (only from storage to avoid circular dependency)
 const getAuthToken = (): string | null => {
   // Only read from storage (source of truth) to avoid circular dependency
@@ -65,16 +56,12 @@ const getAuthToken = (): string | null => {
 
 // Request interceptor - add auth token
 apiClient.interceptors.request.use(
-  (config: ExtendedAxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     const token = getAuthToken();
 
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
-    // Store operation name for response interceptor
-    config.metadata = { operationName: getOperationName(config) };
-
     return config;
   },
   error => {
@@ -119,6 +106,12 @@ export const api = {
   auth: {
     login: (credentials: LoginCredentials) =>
       apiClient.post<LoginResponse>('/users/login', credentials),
+
+    signup: (credentials: SignupCredentials) =>
+      apiClient.post<User>('/users', credentials),
+
+    activate: (token: string) =>
+      apiClient.post<LoginResponse>(`/users/activate/${token}`),
 
     checkAuth: () => apiClient.get<User>('/users/me'),
 

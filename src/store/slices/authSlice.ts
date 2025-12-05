@@ -20,12 +20,28 @@ interface LoginThunkArg {
   navigate?: (path: string) => void;
 }
 
+interface SignupCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface SignupThunkArg {
+  credentials: SignupCredentials;
+  navigate?: (path: string) => void;
+}
+
 interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
   error: string | null;
   initialized: boolean; // Track if initial auth check is complete
+}
+
+interface ActivationThunkArg {
+  token: string;
+  navigate?: (path: string) => void;
 }
 
 // Get token from storage (source of truth)
@@ -107,6 +123,81 @@ export const loginRequest = createAsyncThunk(
       // Navigate to customers page after successful login
       if (navigate) {
         navigate('/customers');
+      }
+
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for form to display
+      dispatch(setSubmitError(errorMessage));
+
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(setSubmitting(false));
+    }
+  }
+);
+
+// Async thunk for signup
+export const signupRequest = createAsyncThunk(
+  'auth/signupRequest',
+  async (
+    { credentials, navigate }: SignupThunkArg,
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      dispatch(setSubmitting(true));
+      dispatch(clearSubmitError()); // Clear any previous submit errors
+      const response = await api.auth.signup({
+        name: credentials.name,
+        email: credentials.email,
+        password: credentials.password,
+      });
+      const data = response.data;
+
+      // Show success toast
+      apiToast.success(textConstants.signup.SIGNUP_SUCCESS);
+
+      // Navigate to login page after successful signup
+      if (navigate) {
+        navigate('/login');
+      }
+
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const errorMessage = extractErrorMessage(axiosError);
+
+      // Set error in Redux state for form to display
+      dispatch(setSubmitError(errorMessage));
+
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(setSubmitting(false));
+    }
+  }
+);
+
+// Async thunk for activation
+export const activationRequest = createAsyncThunk(
+  'auth/activationRequest',
+  async (
+    { token, navigate }: ActivationThunkArg,
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      dispatch(setSubmitting(true));
+      dispatch(clearSubmitError()); // Clear any previous submit errors
+      const response = await api.auth.activate(token);
+      const data = response.data;
+
+      apiToast.success(textConstants.activation.ACTIVATION_SUCCESS);
+
+      // Navigate to login page after successful activation
+      if (navigate) {
+        navigate('/login');
       }
 
       return data;
@@ -219,6 +310,18 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = action.payload as string;
         clearStoredToken();
+      })
+      .addCase(signupRequest.fulfilled, state => {
+        state.error = null;
+      })
+      .addCase(signupRequest.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(activationRequest.fulfilled, state => {
+        state.error = null;
+      })
+      .addCase(activationRequest.rejected, (state, action) => {
+        state.error = action.payload as string;
       });
   },
 });

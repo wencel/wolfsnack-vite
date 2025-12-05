@@ -21,7 +21,9 @@ const getErrorMessage = (error: AxiosError): string => {
     typeof error.response.data === 'object' &&
     'error' in error.response.data
   ) {
-    return error.response.data.error as string;
+    return typeof error.response.data.error === 'string'
+      ? error.response.data.error
+      : (error.response.data.error as { message: string }).message;
   }
 
   // Check if error response data is a string

@@ -28,6 +28,8 @@ import NotFound from '@/pages/NotFound';
 import usePageTitle from '@/hooks/usePageTitle';
 import './App.css';
 import '@/styles/styles.global.sass';
+import ActivationPage from './pages/Activation';
+import SignUpPage from './pages/SignUp';
 
 function AppContent() {
   usePageTitle();
@@ -42,6 +44,22 @@ function AppContent() {
             element={
               <PublicRoute>
                 <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/activate/:token"
+            element={
+              <PublicRoute>
+                <ActivationPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <SignUpPage />
               </PublicRoute>
             }
           />

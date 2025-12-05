@@ -398,9 +398,10 @@ describe('OrderFilterModal', () => {
     });
     fireEvent.click(applyButton);
 
-    // Should call applyFilter with undefined when JSON is invalid
+    // Should call applyFilter with [undefined, null] when JSON is invalid
+    // (undefined is treated as a single date and converted to range format)
     expect(mockApplyFilter).toHaveBeenCalledWith({
-      dateRange: undefined,
+      dateRange: [undefined, null],
     });
   });
 

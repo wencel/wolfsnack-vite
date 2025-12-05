@@ -127,7 +127,7 @@ describe('OrderCard', () => {
 
     // Check that the button is inside a link with correct href
     const editLink = editButton.closest('a');
-    expect(editLink).toHaveAttribute('href', '/orders/order1');
+    expect(editLink).toHaveAttribute('href', '/orders/order1/edit');
   });
 
   it('renders delete button', () => {

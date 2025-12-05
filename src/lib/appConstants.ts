@@ -2,6 +2,12 @@ const lighterWolfGreen = '#007f99';
 const brightGreen = '#05e8b8';
 
 export const textConstants = {
+  activation: {
+    TITLE: 'Activar cuenta',
+    DESCRIPTION: 'Haz click en el botón para activar tu cuenta',
+    BUTTON_TEXT: 'Activar cuenta',
+    ACTIVATION_SUCCESS: 'Activación exitosa',
+  },
   pageTitles: {
     HOME: 'Inicio',
     LOGIN: 'Iniciar sesión',
@@ -30,6 +36,17 @@ export const textConstants = {
     LOGIN_SUCCESS: 'Inicio de sesión exitoso',
     SUBMITTING_TEXT: 'Iniciando sesión...',
     LOGOUT_SUCCESS: 'Cierre de sesión exitoso',
+  },
+  signup: {
+    NAME_LABEL: 'Nombre',
+    EMAIL_LABEL: 'Correo Electrónico',
+    PASSWORD_LABEL: 'Contraseña',
+    CONFIRM_PASSWORD_LABEL: 'Confirmar Contraseña',
+    TITLE: 'Crear cuenta',
+    DESCRIPTION: 'Crea una nueva cuenta para acceder al inventario de Wolf Snacks',
+    BUTTON_TEXT: 'Registrarse',
+    SUBMITTING_TEXT: 'Creando cuenta...',
+    SIGNUP_SUCCESS: 'Cuenta creada exitosamente. Por favor revisa tu correo para activar tu cuenta',
   },
   user: {
     IS_PERSISTED: 'persisted',
